@@ -1,15 +1,16 @@
-package br.com.estudarte.api.application.aluno;
+package br.com.estudarte.api.application.aluno.dto;
 
 import br.com.estudarte.api.domain.Modalidade;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import org.hibernate.validator.constraints.br.CPF;
+import jakarta.validation.constraints.Pattern;
 
 public record AlunoDTO(
         @NotBlank
         String nome,
+
         @NotNull
-        @CPF
+        @Pattern(regexp = "^\\d{3}\\.\\d{3}\\.\\d{3}\\-\\d{2}")
         String cpf,
         @NotNull
         String telefone,

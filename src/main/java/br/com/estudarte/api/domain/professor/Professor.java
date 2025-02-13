@@ -37,7 +37,7 @@ public class Professor {
     }
 
     public void adicionarSalario() {
-        this.salario = alunos.size() * 40.0;
+        this.salario = alunos.size() * 200.0;
     }
 
     public void desligarProfessor() {

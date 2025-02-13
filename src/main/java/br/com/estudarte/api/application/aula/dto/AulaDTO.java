@@ -1,4 +1,4 @@
-package br.com.estudarte.api.application.aula;
+package br.com.estudarte.api.application.aula.dto;
 
 
 import br.com.estudarte.api.domain.Modalidade;

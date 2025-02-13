@@ -1,6 +1,6 @@
 package br.com.estudarte.api.infra.aluno;
 
-import br.com.estudarte.api.application.aluno.AlunoDTO;
+import br.com.estudarte.api.application.aluno.dto.AlunoDTO;
 import br.com.estudarte.api.domain.Modalidade;
 import br.com.estudarte.api.infra.professor.ProfessorEntity;
 import jakarta.persistence.*;

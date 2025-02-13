@@ -1,6 +1,6 @@
 package br.com.estudarte.api.infra.professor;
 
-import br.com.estudarte.api.application.professor.ProfessorDTO;
+import br.com.estudarte.api.application.professor.dto.ProfessorDTO;
 import br.com.estudarte.api.domain.Modalidade;
 import br.com.estudarte.api.infra.aluno.AlunoEntity;
 
@@ -32,7 +32,7 @@ public class ProfessorEntity {
 
     @ManyToMany(mappedBy = "professores")
     private List<AlunoEntity> alunos = new ArrayList<>();
-    private Double salario = alunos.size() * 40.0;
+    private Double salario = alunos.size() * 200.0;
     private Boolean ativo;
 
     public void desligarProfessor() {
