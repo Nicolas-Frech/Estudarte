@@ -22,10 +22,10 @@ public class AulaController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity marcarAula(@RequestBody @Valid AulaDTO dto, UriComponentsBuilder uriBuilder) {
-        AulaEntity aulaMarcada = aulaService.marcarAula(dto);
+    public ResponseEntity agendarAula(@RequestBody @Valid AulaDTO dto, UriComponentsBuilder uriBuilder) {
+        AulaEntity aulaAgendada = aulaService.agendarAula(dto);
 
-        var uri = uriBuilder.path("/aula/{id}").buildAndExpand(aulaMarcada.getId()).toUri();
-        return ResponseEntity.created(uri).body(new AulaDetalhadamentoDTO(aulaMarcada));
+        var uri = uriBuilder.path("/aula/{id}").buildAndExpand(aulaAgendada.getId()).toUri();
+        return ResponseEntity.created(uri).body(new AulaDetalhadamentoDTO(aulaAgendada));
     }
 }

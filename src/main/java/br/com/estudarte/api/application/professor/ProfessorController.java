@@ -7,10 +7,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
@@ -27,5 +24,13 @@ public class ProfessorController {
 
         var uri = uriBuilder.path("/professor/{id}").buildAndExpand(professorRegistrado.getId()).toUri();
         return ResponseEntity.created(uri).body(new ProfessorDetalhadamentoDTO(professorRegistrado));
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity desligarProfessor(@PathVariable Long id) {
+        professorService.desligarProfessor(id);
+
+        return ResponseEntity.noContent().build();
     }
 }

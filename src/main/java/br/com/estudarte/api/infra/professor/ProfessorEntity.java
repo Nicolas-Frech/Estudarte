@@ -53,5 +53,6 @@ public class ProfessorEntity {
         this.telefone = dto.telefone();
         this.email = dto.email();
         this.modalidade = dto.modalidade();
+        this.ativo = true;
     }
 }
