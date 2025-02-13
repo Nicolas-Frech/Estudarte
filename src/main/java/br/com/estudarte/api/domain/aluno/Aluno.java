@@ -3,7 +3,6 @@ package br.com.estudarte.api.domain.aluno;
 import br.com.estudarte.api.domain.Endereco;
 import br.com.estudarte.api.domain.Modalidade;
 import br.com.estudarte.api.domain.professor.Professor;
-import jakarta.validation.ValidationException;
 
 import java.util.List;
 
