@@ -1,7 +1,9 @@
 package br.com.estudarte.api.application.aula;
 
+import br.com.estudarte.api.application.aula.dto.AulaCancelamentoDTO;
 import br.com.estudarte.api.application.aula.dto.AulaDTO;
 import br.com.estudarte.api.application.aula.validacoes.agendamento.ValidadorAgendamentoAula;
+import br.com.estudarte.api.application.aula.validacoes.cancelamento.ValidadorCancelamentoAula;
 import br.com.estudarte.api.infra.aluno.AlunoRepository;
 import br.com.estudarte.api.infra.aula.AulaEntity;
 import br.com.estudarte.api.infra.aula.AulaRepository;
@@ -27,6 +29,9 @@ public class AulaService {
     @Autowired
     List<ValidadorAgendamentoAula> validadores;
 
+    @Autowired
+    List<ValidadorCancelamentoAula> validadoresCancelamento;
+
     public AulaEntity agendarAula(AulaDTO dto) {
         if(!alunoRepository.existsByNome(dto.alunoNome())) {
             throw new ValidacaoException("Não existe aluno com esse nome!");
@@ -41,5 +46,16 @@ public class AulaService {
         AulaEntity aula = new AulaEntity(dto);
         aulaRepository.save(aula);
         return aula;
+    }
+
+    public void cancelarAula(AulaCancelamentoDTO dto) {
+        if(!aulaRepository.existsById(dto.id())) {
+            throw new ValidacaoException("Não existe aula marcada com esse ID!");
+        }
+
+            validadoresCancelamento.forEach(v -> v.validar(dto));
+        
+            AulaEntity aulaCancelada = aulaRepository.getReferenceById(dto.id());
+            aulaCancelada.cancelarAula(dto.motivoCancelamento());
     }
 }

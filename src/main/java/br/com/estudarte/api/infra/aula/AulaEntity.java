@@ -38,4 +38,8 @@ public class AulaEntity {
         this.modalidade = dto.modalidade();
         this.data = dto.data();
     }
+
+    public void cancelarAula(MotivoCancelamento motivoCancelamento) {
+        this.motivoCancelamento = motivoCancelamento;
+    }
 }
