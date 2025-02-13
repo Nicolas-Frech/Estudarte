@@ -1,5 +1,6 @@
 package br.com.estudarte.api.application.aula;
 
+import br.com.estudarte.api.application.aula.dto.AulaAtualizacaoDTO;
 import br.com.estudarte.api.application.aula.dto.AulaCancelamentoDTO;
 import br.com.estudarte.api.application.aula.dto.AulaDTO;
 import br.com.estudarte.api.application.aula.validacoes.agendamento.ValidadorAgendamentoAula;
@@ -53,9 +54,20 @@ public class AulaService {
             throw new ValidacaoException("Não existe aula marcada com esse ID!");
         }
 
-            validadoresCancelamento.forEach(v -> v.validar(dto));
+        validadoresCancelamento.forEach(v -> v.validar(dto));
         
-            AulaEntity aulaCancelada = aulaRepository.getReferenceById(dto.id());
-            aulaCancelada.cancelarAula(dto.motivoCancelamento());
+        AulaEntity aulaCancelada = aulaRepository.getReferenceById(dto.id());
+        aulaCancelada.cancelarAula(dto.motivoCancelamento());
+    }
+
+    public AulaEntity remarcarAula(AulaAtualizacaoDTO dto) {
+        if(!aulaRepository.existsById(dto.aulaId())) {
+            throw new ValidacaoException("Não existe aula marcada com esse ID!");
+        }
+
+        AulaEntity aulaRemarcada = aulaRepository.getReferenceById(dto.aulaId());
+        aulaRemarcada.remarcarAula(dto.data());
+
+        return  aulaRemarcada;
     }
 }

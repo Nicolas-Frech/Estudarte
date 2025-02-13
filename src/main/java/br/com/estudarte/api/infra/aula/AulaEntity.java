@@ -1,5 +1,6 @@
 package br.com.estudarte.api.infra.aula;
 
+import br.com.estudarte.api.application.aula.dto.AulaAtualizacaoDTO;
 import br.com.estudarte.api.application.aula.dto.AulaDTO;
 import br.com.estudarte.api.domain.Modalidade;
 import br.com.estudarte.api.domain.aula.MotivoCancelamento;
@@ -37,6 +38,10 @@ public class AulaEntity {
         this.alunoNome = dto.alunoNome();
         this.modalidade = dto.modalidade();
         this.data = dto.data();
+    }
+
+    public void remarcarAula(LocalDateTime data) {
+        this.data = data;
     }
 
     public void cancelarAula(MotivoCancelamento motivoCancelamento) {

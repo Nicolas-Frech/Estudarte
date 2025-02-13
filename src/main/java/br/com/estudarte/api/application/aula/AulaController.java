@@ -1,5 +1,6 @@
 package br.com.estudarte.api.application.aula;
 
+import br.com.estudarte.api.application.aula.dto.AulaAtualizacaoDTO;
 import br.com.estudarte.api.application.aula.dto.AulaCancelamentoDTO;
 import br.com.estudarte.api.application.aula.dto.AulaDTO;
 import br.com.estudarte.api.application.aula.dto.AulaDetalhadamentoDTO;
@@ -33,5 +34,12 @@ public class AulaController {
         aulaService.cancelarAula(dto);
 
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping
+    @Transactional ResponseEntity remarcarAula(@RequestBody AulaAtualizacaoDTO dto) {
+        AulaEntity aulaRemarcada = aulaService.remarcarAula(dto);
+
+        return ResponseEntity.ok(new AulaDetalhadamentoDTO(aulaRemarcada));
     }
 }

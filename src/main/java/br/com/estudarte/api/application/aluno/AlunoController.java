@@ -1,5 +1,6 @@
 package br.com.estudarte.api.application.aluno;
 
+import br.com.estudarte.api.application.aluno.dto.AlunoAtualizacaoDTO;
 import br.com.estudarte.api.application.aluno.dto.AlunoDTO;
 import br.com.estudarte.api.application.aluno.dto.AlunoDetalhadamentoDTO;
 import br.com.estudarte.api.infra.aluno.AlunoEntity;
@@ -33,5 +34,13 @@ public class AlunoController {
         alunoService.cancelarMatricula(id);
 
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping
+    @Transactional
+    public ResponseEntity atualizarInformacoes(@RequestBody AlunoAtualizacaoDTO dto) {
+        AlunoEntity alunoAtualizado = alunoService.atualizarInformacoes(dto);
+
+        return ResponseEntity.ok(new AlunoDetalhadamentoDTO(alunoAtualizado));
     }
 }

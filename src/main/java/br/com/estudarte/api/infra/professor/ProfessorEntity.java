@@ -1,6 +1,7 @@
 package br.com.estudarte.api.infra.professor;
 
 import br.com.estudarte.api.application.professor.dto.ProfessorDTO;
+import br.com.estudarte.api.application.professor.dto.ProfessorDTOAtualizacao;
 import br.com.estudarte.api.domain.Modalidade;
 import br.com.estudarte.api.infra.aluno.AlunoEntity;
 
@@ -43,8 +44,8 @@ public class ProfessorEntity {
         this.salario = alunos.size() * novoSalario;
     }
 
-    public void adicionarAluno(AlunoEntity aluno) {
-        this.alunos.add(aluno);
+    public void atualizarModalidade(Modalidade modalidade) {
+        this.modalidade = modalidade;
     }
 
     public ProfessorEntity(ProfessorDTO dto) {

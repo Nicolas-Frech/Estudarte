@@ -44,6 +44,10 @@ public class AlunoEntity {
         this.professores.add(professor);
     }
 
+    public void atualizarModalidade(Modalidade modalidade) {
+        this.modalidade = modalidade;
+    }
+
     public AlunoEntity(AlunoDTO dto) {
         this.nome = dto.nome();
         this.cpf = dto.cpf();

@@ -1,6 +1,7 @@
 package br.com.estudarte.api.application.professor;
 
 import br.com.estudarte.api.application.professor.dto.ProfessorDTO;
+import br.com.estudarte.api.application.professor.dto.ProfessorDTOAtualizacao;
 import br.com.estudarte.api.application.professor.dto.ProfessorDetalhadamentoDTO;
 import br.com.estudarte.api.infra.professor.ProfessorEntity;
 import jakarta.validation.Valid;
@@ -32,5 +33,13 @@ public class ProfessorController {
         professorService.desligarProfessor(id);
 
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping
+    @Transactional
+    public ResponseEntity atualizarProfessor(@RequestBody ProfessorDTOAtualizacao dto) {
+        ProfessorEntity professor = professorService.atualizarProfessor(dto);
+
+        return ResponseEntity.ok(new ProfessorDetalhadamentoDTO(professor));
     }
 }
