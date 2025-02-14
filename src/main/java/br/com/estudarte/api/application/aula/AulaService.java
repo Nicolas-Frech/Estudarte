@@ -84,4 +84,14 @@ public class AulaService {
         var page = aulaRepository.findAllByMotivoCancelamentoIsNull(paginacao).map(AulaDetalhadamentoDTO::new);
         return page;
     }
+
+    public Page<AulaDetalhadamentoDTO> listarAulasPorAluno(String alunoNome, Pageable paginacao) {
+        var page = aulaRepository.findAllByAlunoNomeAndMotivoCancelamentoIsNull(paginacao, alunoNome).map(AulaDetalhadamentoDTO::new);
+        return page;
+    }
+
+    public Page<AulaDetalhadamentoDTO> listarAulasPorProfessor(String professorNome, Pageable paginacao) {
+        var page = aulaRepository.findAllByProfessorNomeAndMotivoCancelamentoIsNull(paginacao, professorNome).map(AulaDetalhadamentoDTO::new);
+        return page;
+    }
 }

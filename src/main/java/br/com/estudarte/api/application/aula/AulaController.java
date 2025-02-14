@@ -52,4 +52,16 @@ public class AulaController {
 
         return ResponseEntity.ok(page);
     }
+
+    @GetMapping("/aluno/{alunoNome}")
+    public ResponseEntity listarAulasPorAluno(@PathVariable String alunoNome, @PageableDefault(size = 10, sort = {"data"}) Pageable paginacao) {
+        var page = aulaService.listarAulasPorAluno(alunoNome, paginacao);
+        return ResponseEntity.ok(page);
+    }
+
+    @GetMapping("/professor/{professorNome}")
+    public ResponseEntity listarAulasPorProfessor(@PathVariable String professorNome, @PageableDefault(size = 10, sort = {"data"}) Pageable paginacao) {
+        var page = aulaService.listarAulasPorProfessor(professorNome, paginacao);
+        return ResponseEntity.ok(page);
+    }
 }
