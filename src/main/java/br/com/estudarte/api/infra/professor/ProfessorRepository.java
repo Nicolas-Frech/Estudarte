@@ -1,5 +1,7 @@
 package br.com.estudarte.api.infra.professor;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -12,4 +14,6 @@ public interface ProfessorRepository extends JpaRepository<ProfessorEntity, Long
 
     @Query("SELECT p.ativo FROM ProfessorEntity p WHERE p.nome = :professorNome")
     Boolean findAtivoByNome(String professorNome);
+
+    Page<ProfessorEntity> findAllByAtivoTrue(Pageable paginacao);
 }

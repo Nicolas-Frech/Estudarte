@@ -6,6 +6,8 @@ import br.com.estudarte.api.application.professor.dto.ProfessorDetalhadamentoDTO
 import br.com.estudarte.api.infra.professor.ProfessorEntity;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -41,5 +43,12 @@ public class ProfessorController {
         ProfessorEntity professor = professorService.atualizarProfessor(dto);
 
         return ResponseEntity.ok(new ProfessorDetalhadamentoDTO(professor));
+    }
+
+    @GetMapping
+    public ResponseEntity listarProfessores(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
+        var page = professorService.listarProfessores(paginacao);
+
+        return ResponseEntity.ok(page);
     }
 }

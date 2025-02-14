@@ -6,6 +6,8 @@ import br.com.estudarte.api.application.aluno.dto.AlunoDetalhadamentoDTO;
 import br.com.estudarte.api.infra.aluno.AlunoEntity;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -42,5 +44,12 @@ public class AlunoController {
         AlunoEntity alunoAtualizado = alunoService.atualizarInformacoes(dto);
 
         return ResponseEntity.ok(new AlunoDetalhadamentoDTO(alunoAtualizado));
+    }
+
+    @GetMapping
+    public ResponseEntity listarAlunos(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
+        var page = alunoService.listarAlunos(paginacao);
+
+        return ResponseEntity.ok(page);
     }
 }

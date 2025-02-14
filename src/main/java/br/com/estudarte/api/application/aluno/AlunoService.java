@@ -2,12 +2,15 @@ package br.com.estudarte.api.application.aluno;
 
 import br.com.estudarte.api.application.aluno.dto.AlunoAtualizacaoDTO;
 import br.com.estudarte.api.application.aluno.dto.AlunoDTO;
+import br.com.estudarte.api.application.aluno.dto.AlunoDetalhadamentoDTO;
 import br.com.estudarte.api.infra.aluno.AlunoEntity;
 import br.com.estudarte.api.infra.aluno.AlunoRepository;
 import br.com.estudarte.api.infra.exception.ValidacaoException;
 import br.com.estudarte.api.infra.professor.ProfessorEntity;
 import br.com.estudarte.api.infra.professor.ProfessorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -45,6 +48,7 @@ public class AlunoService {
                 throw new ValidacaoException("Professor não ministra aula desse tipo de modalidade!");
             } else {
                 aluno.adicionarProfessor(professor);
+                professor.setSalario(alunoRepository.findAllByProfessor(professor));
             }
         }
 
@@ -53,5 +57,10 @@ public class AlunoService {
         }
 
         return aluno;
+    }
+
+    public Page<AlunoDetalhadamentoDTO> listarAlunos(Pageable paginacao) {
+        var page = alunoRepository.findAllByAtivoTrue(paginacao).map(AlunoDetalhadamentoDTO::new);
+        return page;
     }
 }

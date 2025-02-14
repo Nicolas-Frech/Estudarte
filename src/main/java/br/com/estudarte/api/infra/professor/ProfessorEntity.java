@@ -34,8 +34,7 @@ public class ProfessorEntity {
     @OneToMany(mappedBy = "professor")
     private List<AlunoEntity> alunos = new ArrayList<>();
 
-
-    private Double salario = alunos.size() * 200.0;
+    private Double salario;
     private Boolean ativo;
 
     public void desligarProfessor() {
@@ -48,6 +47,10 @@ public class ProfessorEntity {
 
     public void atualizarModalidade(Modalidade modalidade) {
         this.modalidade = modalidade;
+    }
+
+    public void setSalario(List<String> alunos) {
+        this.salario = alunos.size() * 200.0;
     }
 
     public ProfessorEntity(ProfessorDTO dto) {

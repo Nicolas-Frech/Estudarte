@@ -3,6 +3,7 @@ package br.com.estudarte.api.application.aula;
 import br.com.estudarte.api.application.aula.dto.AulaAtualizacaoDTO;
 import br.com.estudarte.api.application.aula.dto.AulaCancelamentoDTO;
 import br.com.estudarte.api.application.aula.dto.AulaDTO;
+import br.com.estudarte.api.application.aula.dto.AulaDetalhadamentoDTO;
 import br.com.estudarte.api.application.aula.validacoes.agendamento.ValidadorAgendamentoAula;
 import br.com.estudarte.api.application.aula.validacoes.cancelamento.ValidadorCancelamentoAula;
 import br.com.estudarte.api.application.aula.validacoes.reagendamento.ValidadorReagendarAula;
@@ -12,6 +13,8 @@ import br.com.estudarte.api.infra.aula.AulaRepository;
 import br.com.estudarte.api.infra.exception.ValidacaoException;
 import br.com.estudarte.api.infra.professor.ProfessorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -75,5 +78,10 @@ public class AulaService {
         aulaReagendada.remarcarAula(dto.data());
 
         return aulaReagendada;
+    }
+
+    public Page<AulaDetalhadamentoDTO> listarAulas(Pageable paginacao) {
+        var page = aulaRepository.findAllByMotivoCancelamentoIsNull(paginacao).map(AulaDetalhadamentoDTO::new);
+        return page;
     }
 }

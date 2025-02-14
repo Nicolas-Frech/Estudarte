@@ -7,6 +7,8 @@ import br.com.estudarte.api.application.aula.dto.AulaDetalhadamentoDTO;
 import br.com.estudarte.api.infra.aula.AulaEntity;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -37,9 +39,17 @@ public class AulaController {
     }
 
     @PutMapping
-    @Transactional ResponseEntity reagendarAula(@RequestBody AulaAtualizacaoDTO dto) {
+    @Transactional
+    public ResponseEntity reagendarAula(@RequestBody AulaAtualizacaoDTO dto) {
         AulaEntity aulaReagendada = aulaService.reagendarAula(dto);
 
         return ResponseEntity.ok(new AulaDetalhadamentoDTO(aulaReagendada));
+    }
+
+    @GetMapping
+    public ResponseEntity listarAulas(@PageableDefault(size = 10, sort = {"data"}) Pageable paginacao) {
+        var page = aulaService.listarAulas(paginacao);
+
+        return ResponseEntity.ok(page);
     }
 }
