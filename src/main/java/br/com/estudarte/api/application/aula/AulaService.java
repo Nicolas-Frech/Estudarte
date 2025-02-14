@@ -5,6 +5,7 @@ import br.com.estudarte.api.application.aula.dto.AulaCancelamentoDTO;
 import br.com.estudarte.api.application.aula.dto.AulaDTO;
 import br.com.estudarte.api.application.aula.validacoes.agendamento.ValidadorAgendamentoAula;
 import br.com.estudarte.api.application.aula.validacoes.cancelamento.ValidadorCancelamentoAula;
+import br.com.estudarte.api.application.aula.validacoes.reagendamento.ValidadorReagendarAula;
 import br.com.estudarte.api.infra.aluno.AlunoRepository;
 import br.com.estudarte.api.infra.aula.AulaEntity;
 import br.com.estudarte.api.infra.aula.AulaRepository;
@@ -33,6 +34,9 @@ public class AulaService {
     @Autowired
     List<ValidadorCancelamentoAula> validadoresCancelamento;
 
+    @Autowired
+    List<ValidadorReagendarAula> validadoresReagendamento;
+
     public AulaEntity agendarAula(AulaDTO dto) {
         if(!alunoRepository.existsByNome(dto.alunoNome())) {
             throw new ValidacaoException("Não existe aluno com esse nome!");
@@ -60,14 +64,16 @@ public class AulaService {
         aulaCancelada.cancelarAula(dto.motivoCancelamento());
     }
 
-    public AulaEntity remarcarAula(AulaAtualizacaoDTO dto) {
+    public AulaEntity reagendarAula(AulaAtualizacaoDTO dto) {
         if(!aulaRepository.existsById(dto.aulaId())) {
             throw new ValidacaoException("Não existe aula marcada com esse ID!");
         }
 
-        AulaEntity aulaRemarcada = aulaRepository.getReferenceById(dto.aulaId());
-        aulaRemarcada.remarcarAula(dto.data());
+        validadoresReagendamento.forEach(v -> v.validar(dto));
 
-        return  aulaRemarcada;
+        AulaEntity aulaReagendada = aulaRepository.getReferenceById(dto.aulaId());
+        aulaReagendada.remarcarAula(dto.data());
+
+        return aulaReagendada;
     }
 }

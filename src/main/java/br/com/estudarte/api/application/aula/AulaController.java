@@ -37,9 +37,9 @@ public class AulaController {
     }
 
     @PutMapping
-    @Transactional ResponseEntity remarcarAula(@RequestBody AulaAtualizacaoDTO dto) {
-        AulaEntity aulaRemarcada = aulaService.remarcarAula(dto);
+    @Transactional ResponseEntity reagendarAula(@RequestBody AulaAtualizacaoDTO dto) {
+        AulaEntity aulaReagendada = aulaService.reagendarAula(dto);
 
-        return ResponseEntity.ok(new AulaDetalhadamentoDTO(aulaRemarcada));
+        return ResponseEntity.ok(new AulaDetalhadamentoDTO(aulaReagendada));
     }
 }
