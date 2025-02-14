@@ -1,6 +1,5 @@
 package br.com.estudarte.api.infra.aula;
 
-import br.com.estudarte.api.application.aula.dto.AulaAtualizacaoDTO;
 import br.com.estudarte.api.application.aula.dto.AulaDTO;
 import br.com.estudarte.api.domain.Modalidade;
 import br.com.estudarte.api.domain.aula.MotivoCancelamento;

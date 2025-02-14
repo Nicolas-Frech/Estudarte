@@ -3,7 +3,6 @@ package br.com.estudarte.api.application.professor;
 import br.com.estudarte.api.application.professor.dto.ProfessorDTO;
 import br.com.estudarte.api.application.professor.dto.ProfessorDTOAtualizacao;
 import br.com.estudarte.api.application.professor.dto.ProfessorDetalhadamentoDTO;
-import br.com.estudarte.api.infra.aluno.AlunoEntity;
 import br.com.estudarte.api.infra.aluno.AlunoRepository;
 import br.com.estudarte.api.infra.exception.ValidacaoException;
 import br.com.estudarte.api.infra.professor.ProfessorEntity;

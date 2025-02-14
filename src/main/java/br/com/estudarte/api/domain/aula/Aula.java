@@ -2,7 +2,6 @@ package br.com.estudarte.api.domain.aula;
 
 import br.com.estudarte.api.domain.Modalidade;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Aula {

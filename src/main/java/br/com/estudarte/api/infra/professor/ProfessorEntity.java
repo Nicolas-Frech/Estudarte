@@ -1,7 +1,6 @@
 package br.com.estudarte.api.infra.professor;
 
 import br.com.estudarte.api.application.professor.dto.ProfessorDTO;
-import br.com.estudarte.api.application.professor.dto.ProfessorDTOAtualizacao;
 import br.com.estudarte.api.domain.Modalidade;
 import br.com.estudarte.api.infra.aluno.AlunoEntity;
 
