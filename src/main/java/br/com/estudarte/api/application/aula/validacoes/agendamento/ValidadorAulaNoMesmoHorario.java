@@ -25,6 +25,5 @@ public class ValidadorAulaNoMesmoHorario implements ValidadorAgendamentoAula {
         if(alunoComAulaNoMesmoHorario) {
             throw new ValidacaoException("Esse aluno já tem uma aula agendada neste horário");
         }
-
     }
 }

@@ -41,7 +41,11 @@ public class AlunoService {
 
         if(professorRepository.existsById(dto.professorId())) {
             ProfessorEntity professor = professorRepository.getReferenceById(dto.professorId());
-            aluno.adicionarProfessor(professor);
+            if(professor.getModalidade() != aluno.getModalidade()) {
+                throw new ValidacaoException("Professor não ministra aula desse tipo de modalidade!");
+            } else {
+                aluno.adicionarProfessor(professor);
+            }
         }
 
         if(dto.modalidade() != null) {

@@ -4,15 +4,13 @@ import br.com.estudarte.api.domain.Endereco;
 import br.com.estudarte.api.domain.Modalidade;
 import br.com.estudarte.api.domain.professor.Professor;
 
-import java.util.List;
-
 public class Aluno {
 
     private String nome;
     private String cpf;
     private String telefone;
     private String email;
-    private List<Professor> professor;
+    private Professor professor;
     private Endereco endereco;
     private Modalidade modalidade;
     private Boolean ativo;
@@ -31,7 +29,7 @@ public class Aluno {
     }
 
     public void adicionarProfessor(Professor professor) {
-        this.professor.add(professor);
+        this.professor = professor;
     }
 
     public void cancelarMatricula() {
@@ -55,7 +53,7 @@ public class Aluno {
         return email;
     }
 
-    public List<Professor> getProfessor() {
+    public Professor getProfessor() {
         return professor;
     }
 

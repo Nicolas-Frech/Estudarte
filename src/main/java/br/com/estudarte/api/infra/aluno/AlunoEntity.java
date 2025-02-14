@@ -26,11 +26,9 @@ public class AlunoEntity {
     private String telefone;
     private String email;
 
-    @ManyToMany
-    @JoinTable(name = "aluno_professor",
-            joinColumns = @JoinColumn(name = "aluno_id"),
-            inverseJoinColumns = @JoinColumn(name = "professor_id"))
-    private List<ProfessorEntity> professores;
+    @ManyToOne
+    @JoinColumn(name = ("professor_id"))
+    private ProfessorEntity professor;
 
     @Enumerated(EnumType.STRING)
     private Modalidade modalidade;
@@ -41,7 +39,9 @@ public class AlunoEntity {
     }
 
     public void adicionarProfessor(ProfessorEntity professor) {
-        this.professores.add(professor);
+        if(this.professor == null) {
+            this.professor = professor;
+        }
     }
 
     public void atualizarModalidade(Modalidade modalidade) {

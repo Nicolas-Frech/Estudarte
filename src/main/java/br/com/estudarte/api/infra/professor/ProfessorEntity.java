@@ -31,8 +31,10 @@ public class ProfessorEntity {
     @Enumerated(EnumType.STRING)
     private Modalidade modalidade;
 
-    @ManyToMany(mappedBy = "professores")
+    @OneToMany(mappedBy = "professor")
     private List<AlunoEntity> alunos = new ArrayList<>();
+
+
     private Double salario = alunos.size() * 200.0;
     private Boolean ativo;
 
