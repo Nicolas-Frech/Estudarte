@@ -2,7 +2,7 @@
 
 Estud'arte - Projeto de Software para gestão de escolas de música, contemplando os domínios Professor, Aluno e Aula, em processo de produção.
 
-
+----------------------------------------------------------------------------------
 ⚙️ Funcionalidades do Projeto:
 
 
@@ -19,6 +19,7 @@ Atualizar dados de Professores e Alunos;
 Cada professor tem o seu salário, baseado na quantidade de alunos que tem;
 
 
+----------------------------------------------------------------------------------
 🛠 Tecnologias
 
 
