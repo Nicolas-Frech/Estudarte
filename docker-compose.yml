@@ -13,7 +13,7 @@ services:
       retries: 10
 
   app:
-    image: nicolasfrech/estudarte-api:1.0
+    image: nicolasfrech/estudarte:1.0
     env_file: ./env/app.env
     restart: unless-stopped
     depends_on:
