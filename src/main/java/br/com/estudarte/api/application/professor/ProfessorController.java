@@ -51,4 +51,10 @@ public class ProfessorController {
 
         return ResponseEntity.ok(page);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity buscarProfessorPorId(@PathVariable Long id) {
+        ProfessorEntity professor = professorService.buscarProfessorPorId(id);
+        return ResponseEntity.ok(new ProfessorDetalhadamentoDTO(professor));
+    }
 }

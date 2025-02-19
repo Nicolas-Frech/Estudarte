@@ -59,4 +59,8 @@ public class ProfessorService {
         var page = professorRepository.findAllByAtivoTrue(paginacao).map(ProfessorDetalhadamentoDTO::new);
         return page;
     }
+
+    public ProfessorEntity buscarProfessorPorId(Long id) {
+        return professorRepository.getReferenceById(id);
+    }
 }

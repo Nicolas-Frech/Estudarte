@@ -63,4 +63,8 @@ public class AlunoService {
         var page = alunoRepository.findAllByAtivoTrue(paginacao).map(AlunoDetalhadamentoDTO::new);
         return page;
     }
+
+    public AlunoEntity buscarAlunoPorId(Long id) {
+        return alunoRepository.getReferenceById(id);
+    }
 }

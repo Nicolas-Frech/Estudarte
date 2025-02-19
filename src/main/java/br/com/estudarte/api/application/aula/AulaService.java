@@ -94,4 +94,8 @@ public class AulaService {
         var page = aulaRepository.findAllByProfessorNomeAndMotivoCancelamentoIsNull(paginacao, professorNome).map(AulaDetalhadamentoDTO::new);
         return page;
     }
+
+    public AulaEntity buscarAulaPorId(Long id) {
+        return aulaRepository.getReferenceById(id);
+    }
 }

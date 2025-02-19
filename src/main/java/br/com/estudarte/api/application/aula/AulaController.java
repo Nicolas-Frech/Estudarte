@@ -4,7 +4,9 @@ import br.com.estudarte.api.application.aula.dto.AulaAtualizacaoDTO;
 import br.com.estudarte.api.application.aula.dto.AulaCancelamentoDTO;
 import br.com.estudarte.api.application.aula.dto.AulaDTO;
 import br.com.estudarte.api.application.aula.dto.AulaDetalhadamentoDTO;
+import br.com.estudarte.api.application.professor.dto.ProfessorDetalhadamentoDTO;
 import br.com.estudarte.api.infra.aula.AulaEntity;
+import br.com.estudarte.api.infra.professor.ProfessorEntity;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -63,5 +65,11 @@ public class AulaController {
     public ResponseEntity listarAulasPorProfessor(@PathVariable String professorNome, @PageableDefault(size = 10, sort = {"data"}) Pageable paginacao) {
         var page = aulaService.listarAulasPorProfessor(professorNome, paginacao);
         return ResponseEntity.ok(page);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity buscarAulaPorId(@PathVariable Long id) {
+        AulaEntity aula = aulaService.buscarAulaPorId(id);
+        return ResponseEntity.ok(new AulaDetalhadamentoDTO(aula));
     }
 }

@@ -3,7 +3,9 @@ package br.com.estudarte.api.application.aluno;
 import br.com.estudarte.api.application.aluno.dto.AlunoAtualizacaoDTO;
 import br.com.estudarte.api.application.aluno.dto.AlunoDTO;
 import br.com.estudarte.api.application.aluno.dto.AlunoDetalhadamentoDTO;
+import br.com.estudarte.api.application.professor.dto.ProfessorDetalhadamentoDTO;
 import br.com.estudarte.api.infra.aluno.AlunoEntity;
+import br.com.estudarte.api.infra.professor.ProfessorEntity;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -51,5 +53,11 @@ public class AlunoController {
         var page = alunoService.listarAlunos(paginacao);
 
         return ResponseEntity.ok(page);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity buscarAlunoPorId(@PathVariable Long id) {
+        AlunoEntity aluno = alunoService.buscarAlunoPorId(id);
+        return ResponseEntity.ok(new AlunoDetalhadamentoDTO(aluno));
     }
 }
