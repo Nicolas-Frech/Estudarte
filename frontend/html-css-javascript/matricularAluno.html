@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matricular Aluno</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+        button {
+            margin-top: 15px;
+            padding: 10px;
+            width: 100%;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+    <h1 style="text-align: center;">Matricular Aluno</h1>
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required>
+
+        <label for="cpf">CPF:</label>
+        <input type="text" id="cpf" name="cpf" required>
+
+        <label for="telefone">Telefone:</label>
+        <input type="tel" id="telefone" name="telefone" required>
+
+        <label for="email">E-mail:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="modalidade">Modalidade:</label>
+        <select id="modalidade" name="modalidade" required>
+            <option value="GUITARRA">GUITARRA</option>
+            <option value="VIOLAO">VIOLÃO</option>
+            <option value="PIANO">PIANO</option>
+            <option value="TECLADO">TECLADO</option>
+            <option value="CANTO">CANTO</option>
+            <option value="BAIXO">BAIXO</option>
+            <option value="BATERIA">BATERIA</option>
+            <option value="MUSICALIZACAO">MUSICALIZAÇÃO</option>
+            <option value="SAXOFONE">SAXOFONE</option>
+        </select>
+        <button id="btn">Enviar</button>
+
+    <script src="/scripts/matricularAluno.js" type="module"></script>
+</body>
+</html>
