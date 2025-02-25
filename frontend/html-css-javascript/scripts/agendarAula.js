@@ -24,7 +24,7 @@ function agendarAula() {
 
   console.log(JSON.stringify(aula))
 
-  fetch('http://app:8080/aula', options)
+  fetch('/api/aula', options)
   .then(data => {
       if (!data.ok) {
         throw Error(data.status);

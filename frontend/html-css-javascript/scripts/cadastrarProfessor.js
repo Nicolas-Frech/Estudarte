@@ -25,7 +25,7 @@ function cadastrarProfessor() {
 
   console.log(JSON.stringify(professor))
 
-  fetch('http://app:8080/professor', options)
+  fetch('/api/professor', options)
   .then(data => {
       if (!data.ok) {
         throw Error(data.statusText);

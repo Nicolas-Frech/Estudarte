@@ -1,0 +1,53 @@
+let paginaAtual = 0;
+const tamanhoPagina = 10;
+
+function buscarProfessores() {
+    document.getElementById("loading").style.display = "block";
+
+    fetch(`/api/professor?page=${paginaAtual}&size=${tamanhoPagina}`)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("loading").style.display = "none";
+
+            const professores = data.content || [];
+            const lista = document.getElementById("listaProfessores");
+            lista.innerHTML = "";
+
+            professores.forEach(professor => {
+                const item = document.createElement("li");
+                item.textContent = `ID: ${professor.id} | Nome: ${professor.nome} | Modalidade: ${professor.modalidade} | Salário: R$${professor.salario}`;
+                lista.appendChild(item);
+            });
+
+            document.getElementById("paginaAtual").textContent = `Página ${data.number + 1} de ${data.totalPages}`;
+            paginaAtual = data.number;
+
+            document.getElementById("btnAnterior").disabled = paginaAtual === 0;
+            document.getElementById("btnProximo").disabled = paginaAtual >= data.totalPages - 1;
+        })
+        .catch(error => {
+            console.error("Erro:", error);
+            document.getElementById("loading").style.display = "none"; // Oculta "Carregando..."
+            alert("Erro ao carregar professores. Verifique o console.");
+        });
+}
+
+function proximaPagina() {
+    paginaAtual++;
+    buscarProfessores();
+}
+
+function paginaAnterior() {
+    if (paginaAtual > 0) {
+        paginaAtual--;
+        buscarProfessores();
+    }
+}
+
+const btnAnterior = document.getElementById("btnAnterior")
+const btnProximo = document.getElementById("btnProximo")
+
+btnAnterior.addEventListener("click", paginaAnterior)
+btnProximo.addEventListener("click", proximaPagina)
+
+buscarProfessores();

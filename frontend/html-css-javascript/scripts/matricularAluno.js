@@ -25,7 +25,7 @@ function matricularAluno() {
 
   console.log(JSON.stringify(aluno))
 
-  fetch('http://app:8080/aluno', options)
+  fetch('/api/aluno', options)
   .then(data => {
       if (!data.ok) {
         throw Error(data.statusText);
