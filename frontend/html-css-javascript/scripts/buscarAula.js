@@ -32,9 +32,9 @@ document.getElementById("btnBuscar").addEventListener("click", () => {
             const dataFormatada = formatarData(aula.data);
             resultado.innerHTML = `
                 <p><strong>👤 Professor:</strong> ${aula.professorNome}</p>
-                <p><strong>🆔 Aluno:</strong> ${aula.alunoNome}</p>
+                <p><strong>🎓 Aluno:</strong> ${aula.alunoNome}</p>
                 <p><strong>🎵 Modalidade:</strong> ${aula.modalidade}</p>
-                <p><strong>📞 Data:</strong> ${dataFormatada}</p>
+                <p><strong>📆 Data:</strong> ${dataFormatada}</p>
             `;
         })
         .catch(error => {

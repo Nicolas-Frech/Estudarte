@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Aulas</title>
+    <title>Lista de Aulas por Professor</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -51,7 +51,7 @@
         }
 
         button {
-            background:  #198754;
+            background: #198754;
             color: white;
             border: none;
             padding: 10px 15px;
@@ -76,38 +76,28 @@
             color: #666;
         }
 
-        .search-btn {
-        background:  #198754; /* Cor azul original */
-        color: white;
-        border: none;
-        padding: 10px 15px;
-        width: 100%;
-        max-width: 250px; /* Define um tamanho fixo para todos os botões */
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background 0.3s;
-        font-size: 16px;
-        font-weight: bold;
-        }
-
-        .search-btn:hover {
-        background: #28a745;
-        }
-
-        .btn-container {
+        #searchContainer {
             margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            border-radius: 5px;
+            width: 100%;
+            max-width: 300px;
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
-<h1>Lista de Aulas</h1>
+<h1>Lista de Aulas por Professor</h1>
 <div class="container">
-    <div class="btn-container">
-        <button class="search-btn" onclick="window.location.href='listarAulasPorProfessor.html'">🔍 Buscar por Professor</button>
+    <div id="searchContainer">
+        <input type="text" id="searchProfessor" placeholder="Buscar por nome do professor..." />
+        <button id="btn">🔍 Buscar</button>
     </div>
-    <div class="btn-container">
-        <button class="search-btn" onclick="window.location.href='listarAulasPorAluno.html'">🔍 Buscar por Aluno</button>
-    </div>
+
+
     <ul id="listaAulas"></ul>
     <div class="pagination">
         <button id="btnAnterior" disabled>◀ Anterior</button>
@@ -117,5 +107,6 @@
     <p id="loading" class="loading" style="display: none;">Carregando...</p>
 </div>
 
-<script src="/scripts/listarAulas.js" type="module"></script>
+<script src="/scripts/listarAulasPorNomeProfessor.js" type="module"></script>
 </body>
+</html>
