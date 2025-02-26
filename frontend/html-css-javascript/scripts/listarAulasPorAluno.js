@@ -26,7 +26,7 @@ function buscarAulas() {
         return;
     }
 
-    fetch(`http://localhost:8080/aula/aluno/${encodeURIComponent(nomeAluno)}?page=${paginaAtual}&size=${tamanhoPagina}`)
+    fetch(`/api/aula/aluno/${encodeURIComponent(nomeAluno)}?page=${paginaAtual}&size=${tamanhoPagina}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error(`Erro na requisição: ${response.status}`);
