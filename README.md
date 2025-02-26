@@ -1,6 +1,6 @@
 💻 <b>Sobre o Projeto
 
-Estud'arte - Projeto de Software para gestão de escolas de música, contemplando os domínios Professor, Aluno e Aula, em processo de produção.
+Estud'arte - Projeto de Software para gestão de escolas de música, contemplando os domínios Professor, Aluno e Aula.
 
 A Aplicação está sendo hospedada na url: http://3.145.46.54
 
