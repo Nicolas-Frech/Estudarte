@@ -18,10 +18,10 @@ function buscarProfessores() {
                 item.style.textAlign = "left";
                 item.style.listStyle = "none";
                 item.innerHTML = `
-                    <strong>ID:</strong> ${professor.id} <br>
-                    <strong>Nome:</strong> ${professor.nome} <br>
-                    <strong>Modalidade:</strong> ${professor.modalidade} <br>
-                    <strong>Salário:</strong> R$${professor.salario}
+                    <strong>🔢 ID:</strong> ${professor.id} <br>
+                    <strong>👤 Nome:</strong> ${professor.nome} <br>
+                    <strong>🎵 Modalidade:</strong> ${professor.modalidade} <br>
+                    <strong>💰 Salário:</strong> R$${professor.salario}
                     <hr>
                 `;
                 lista.appendChild(item);

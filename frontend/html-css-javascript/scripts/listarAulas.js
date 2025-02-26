@@ -33,11 +33,11 @@ function buscarAulas() {
                 item.style.textAlign = "left";
                 item.style.listStyle = "none";
                 item.innerHTML = `
-                    <strong>ID:</strong> ${aula.id} <br>
-                    <strong>Professor:</strong> ${aula.professorNome} <br>
-                    <strong>Aluno:</strong> ${aula.alunoNome} <br>
-                    <strong>Modalidade:</strong> ${aula.modalidade} <br>
-                    <strong>Data:</strong> ${dataFormatada}
+                    <strong>🔢 ID:</strong> ${aula.id} <br>
+                    <strong>👨‍🏫 Professor:</strong> ${aula.professorNome} <br>
+                    <strong>🎓 Aluno:</strong> ${aula.alunoNome} <br>
+                    <strong>🎵 Modalidade:</strong> ${aula.modalidade} <br>
+                    <strong>📆 Data:</strong> ${dataFormatada}
                     <hr>
                 `;
                 lista.appendChild(item);

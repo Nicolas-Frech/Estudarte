@@ -18,9 +18,9 @@ function buscarAlunos() {
                 item.style.textAlign = "left";
                 item.style.listStyle = "none";
                 item.innerHTML = `
-                    <strong>ID:</strong> ${aluno.id} <br>
-                    <strong>Nome:</strong> ${aluno.nome} <br>
-                    <strong>Modalidade:</strong> ${aluno.modalidade} <br>
+                    <strong>🔢 ID:</strong> ${aluno.id} <br>
+                    <strong>👤 Nome:</strong> ${aluno.nome} <br>
+                    <strong>🎵 Modalidade:</strong> ${aluno.modalidade} <br>
                     <hr>
                 `;
                 lista.appendChild(item)
