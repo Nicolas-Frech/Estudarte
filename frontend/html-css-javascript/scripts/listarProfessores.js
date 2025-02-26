@@ -15,7 +15,15 @@ function buscarProfessores() {
 
             professores.forEach(professor => {
                 const item = document.createElement("li");
-                item.textContent = `ID: ${professor.id} | Nome: ${professor.nome} | Modalidade: ${professor.modalidade} | Salário: R$${professor.salario}`;
+                item.style.textAlign = "left";
+                item.style.listStyle = "none";
+                item.innerHTML = `
+                    <strong>ID:</strong> ${professor.id} <br>
+                    <strong>Nome:</strong> ${professor.nome} <br>
+                    <strong>Modalidade:</strong> ${professor.modalidade} <br>
+                    <strong>Salário:</strong> R$${professor.salario}
+                    <hr>
+                `;
                 lista.appendChild(item);
             });
 

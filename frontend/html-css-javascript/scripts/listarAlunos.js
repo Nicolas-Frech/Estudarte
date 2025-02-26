@@ -15,8 +15,15 @@ function buscarAlunos() {
 
             alunos.forEach(aluno => {
                 const item = document.createElement("li");
-                item.textContent = `ID: ${aluno.id} | Nome: ${aluno.nome} | Modalidade: ${aluno.modalidade}`;
-                lista.appendChild(item);
+                item.style.textAlign = "left";
+                item.style.listStyle = "none";
+                item.innerHTML = `
+                    <strong>ID:</strong> ${aluno.id} <br>
+                    <strong>Nome:</strong> ${aluno.nome} <br>
+                    <strong>Modalidade:</strong> ${aluno.modalidade} <br>
+                    <hr>
+                `;
+                lista.appendChild(item)
             });
 
             document.getElementById("paginaAtual").textContent = `Página ${data.number + 1} de ${data.totalPages}`;

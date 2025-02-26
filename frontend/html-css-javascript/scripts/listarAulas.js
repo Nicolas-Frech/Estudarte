@@ -18,7 +18,7 @@ function formatarData(dataISO) {
 function buscarAulas() {
     document.getElementById("loading").style.display = "block";
 
-    fetch(`http://localhost:8080/aula?page=${paginaAtual}&size=${tamanhoPagina}`)
+    fetch(`/api/aula?page=${paginaAtual}&size=${tamanhoPagina}`)
         .then(response => response.json())
         .then(data => {
             document.getElementById("loading").style.display = "none";
@@ -30,7 +30,16 @@ function buscarAulas() {
             aulas.forEach(aula => {
                 const item = document.createElement("li");
                 const dataFormatada = formatarData(aula.data);
-                item.textContent = `ID: ${aula.id} | Professor: ${aula.professorNome} | Aluno: ${aula.alunoNome} | Modalidade: ${aula.modalidade} | Data: ${dataFormatada}`;
+                item.style.textAlign = "left";
+                item.style.listStyle = "none";
+                item.innerHTML = `
+                    <strong>ID:</strong> ${aula.id} <br>
+                    <strong>Professor:</strong> ${aula.professorNome} <br>
+                    <strong>Aluno:</strong> ${aula.alunoNome} <br>
+                    <strong>Modalidade:</strong> ${aula.modalidade} <br>
+                    <strong>Data:</strong> ${dataFormatada}
+                    <hr>
+                `;
                 lista.appendChild(item);
             });
 
