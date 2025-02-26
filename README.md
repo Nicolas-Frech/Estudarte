@@ -62,6 +62,8 @@ As seguintes tecnologias foram utilizadas no desenvolvimento da API do projeto:
 
 Java 22
 
+HTML/CSS/JAVASCRIPT
+
 Spring Boot 3
 
 JPA
