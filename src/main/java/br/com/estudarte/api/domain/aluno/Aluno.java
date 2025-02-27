@@ -1,6 +1,5 @@
 package br.com.estudarte.api.domain.aluno;
 
-import br.com.estudarte.api.domain.Endereco;
 import br.com.estudarte.api.domain.Modalidade;
 import br.com.estudarte.api.domain.professor.Professor;
 
@@ -11,7 +10,6 @@ public class Aluno {
     private String telefone;
     private String email;
     private Professor professor;
-    private Endereco endereco;
     private Modalidade modalidade;
     private Boolean ativo;
 
@@ -36,7 +34,6 @@ public class Aluno {
         this.ativo = false;
     }
 
-
     public String getNome() {
         return nome;
     }
@@ -55,14 +52,6 @@ public class Aluno {
 
     public Professor getProfessor() {
         return professor;
-    }
-
-    public Endereco getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
     }
 
     public Modalidade getModalidade() {

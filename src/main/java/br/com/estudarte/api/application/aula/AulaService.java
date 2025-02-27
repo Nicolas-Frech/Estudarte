@@ -12,6 +12,7 @@ import br.com.estudarte.api.infra.aula.AulaEntity;
 import br.com.estudarte.api.infra.aula.AulaRepository;
 import br.com.estudarte.api.infra.exception.ValidacaoException;
 import br.com.estudarte.api.infra.professor.ProfessorRepository;
+import br.com.estudarte.api.infra.sala.SalaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -32,6 +33,9 @@ public class AulaService {
     AlunoRepository alunoRepository;
 
     @Autowired
+    SalaRepository salaRepository;
+
+    @Autowired
     List<ValidadorAgendamentoAula> validadores;
 
     @Autowired
@@ -49,9 +53,15 @@ public class AulaService {
             throw new ValidacaoException("Não existe professor com esse nome!");
         }
 
+        if(!salaRepository.existsByNome(dto.salaNome())) {
+            throw new ValidacaoException("Não existe sala com esse nome!");
+        }
+
         validadores.forEach(v -> v.validar(dto));
 
         AulaEntity aula = new AulaEntity(dto);
+        aula.adicionarSala(salaRepository.findByNome(dto.salaNome()));
+
         aulaRepository.save(aula);
         return aula;
     }
