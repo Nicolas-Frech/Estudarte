@@ -1,6 +1,8 @@
 package br.com.estudarte.api.application.sala;
 
+import br.com.estudarte.api.application.aula.dto.AulaDetalhadamentoDTO;
 import br.com.estudarte.api.application.sala.dto.SalaDTO;
+import br.com.estudarte.api.application.sala.dto.SalaDetalhadamentoDTO;
 import br.com.estudarte.api.application.sala.dto.SalaReservaDTO;
 import br.com.estudarte.api.application.sala.validacoes.ValidadorReservaSala;
 import br.com.estudarte.api.infra.aula.AulaRepository;
@@ -8,6 +10,8 @@ import br.com.estudarte.api.infra.exception.ValidacaoException;
 import br.com.estudarte.api.infra.sala.SalaEntity;
 import br.com.estudarte.api.infra.sala.SalaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -52,5 +56,14 @@ public class SalaService {
 
         SalaEntity sala = salaRepository.getReferenceById(id);
         salaRepository.delete(sala);
+    }
+
+    public Page<SalaDetalhadamentoDTO> listarSalas(Pageable paginacao) {
+        var page = salaRepository.findAll(paginacao).map(SalaDetalhadamentoDTO::new);
+        return page;
+    }
+
+    public SalaEntity buscarSalaPorId(Long id) {
+        return salaRepository.getReferenceById(id);
     }
 }
