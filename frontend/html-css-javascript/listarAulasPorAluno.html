@@ -4,109 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Aulas por Aluno</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 20px;
-            text-align: center;
-        }
-
-        h1 {
-            color: #333;
-        }
-
-        .container {
-            max-width: 600px;
-            margin: auto;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        li {
-            background: #e3f2fd;
-            margin: 5px 0;
-            padding: 10px;
-            border-radius: 5px;
-            transition: transform 0.2s;
-        }
-
-        li:hover {
-            transform: scale(1.05);
-        }
-
-        .pagination {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 20px;
-        }
-
-        button {
-            background: #198754;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            margin: 0 5px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        button:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-        }
-
-        button:hover:not(:disabled) {
-            background: #28a745;
-        }
-
-        .loading {
-            margin-top: 20px;
-            font-size: 16px;
-            color: #666;
-        }
-
-        #searchContainer {
-            margin-bottom: 20px;
-        }
-
-        input[type="text"] {
-            padding: 10px;
-            border-radius: 5px;
-            width: 100%;
-            max-width: 300px;
-            margin-bottom: 10px;
-        }
-    </style>
+    <link rel="stylesheet" href="style/listarPorNome.css">
 </head>
 <body>
-<h1>Lista de Aulas por Aluno</h1>
-<div class="container">
-    <div id="searchContainer">
-        <input type="text" id="searchAluno" placeholder="Buscar por nome do aluno..." />
-        <button id="btn">🔍 Buscar</button>
+    <h1>Lista de Aulas por Aluno</h1>
+    <div class="container">
+        <div id="searchContainer">
+            <input type="text" id="searchAluno" placeholder="Buscar por nome do aluno..." />
+            <button id="btn">🔍 Buscar</button>
+        </div>
+
+
+        <ul id="listaAulas"></ul>
+        <div class="pagination">
+            <button id="btnAnterior" disabled>◀ Anterior</button>
+            <span id="paginaAtual">Página 1</span>
+            <button id="btnProximo">Próximo ▶</button>
+        </div>
+        <p id="loading" class="loading" style="display: none;">Carregando...</p>
     </div>
 
-
-    <ul id="listaAulas"></ul>
-    <div class="pagination">
-        <button id="btnAnterior" disabled>◀ Anterior</button>
-        <span id="paginaAtual">Página 1</span>
-        <button id="btnProximo">Próximo ▶</button>
-    </div>
-    <p id="loading" class="loading" style="display: none;">Carregando...</p>
-</div>
-
-<script src="/scripts/listarAulasPorAluno.js" type="module"></script>
+    <script src="/scripts/listarAulasPorAluno.js" type="module"></script>
 </body>
 </html>

@@ -1,0 +1,92 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    color: #333;
+}
+
+.container {
+    max-width: 600px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    background: #e3f2fd;
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 5px;
+    transition: transform 0.2s;
+}
+
+li:hover {
+    transform: scale(1.05);
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+button {
+    background:  #198754;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin: 0 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+    background: #28a745;
+}
+
+.loading {
+    margin-top: 20px;
+    font-size: 16px;
+    color: #666;
+}
+
+.search-btn {
+background:  #198754;
+color: white;
+border: none;
+padding: 10px 15px;
+width: 100%;
+max-width: 250px;
+border-radius: 5px;
+cursor: pointer;
+transition: background 0.3s;
+font-size: 16px;
+font-weight: bold;
+}
+
+.search-btn:hover {
+background: #28a745;
+}
+
+.btn-container {
+    margin-bottom: 20px;
+}
