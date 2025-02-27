@@ -14,5 +14,8 @@ public record AulaDTO(
         @NotNull
         Modalidade modalidade,
         @NotNull
-        LocalDateTime data) {
+        LocalDateTime data,
+
+        @NotNull
+        String salaNome) {
 }
