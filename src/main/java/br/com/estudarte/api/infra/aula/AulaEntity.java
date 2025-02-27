@@ -44,6 +44,10 @@ public class AulaEntity {
         this.data = dto.data();
     }
 
+    public void adicionarSala(SalaEntity sala) {
+        this.sala = sala;
+    }
+
     public void remarcarAula(LocalDateTime data) {
         this.data = data;
     }
