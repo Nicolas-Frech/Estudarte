@@ -1,6 +1,7 @@
 package br.com.estudarte.api.domain.aula;
 
 import br.com.estudarte.api.domain.Modalidade;
+import br.com.estudarte.api.domain.sala.Sala;
 
 import java.time.LocalDateTime;
 
@@ -11,14 +12,16 @@ public class Aula {
     private Modalidade modalidade;
     private LocalDateTime data;
     private MotivoCancelamento motivoCancelamento;
+    private Sala sala;
 
-    public Aula(String professorNome, String alunoNome, Modalidade modalidade, LocalDateTime data) {
+    public Aula(String professorNome, String alunoNome, Modalidade modalidade, LocalDateTime data, Sala sala) {
         validarData(data);
 
         this.professorNome = professorNome;
         this.alunoNome = alunoNome;
         this.modalidade = modalidade;
         this.data = data;
+        this.sala = sala;
     }
 
     public void alterarData(LocalDateTime data) {

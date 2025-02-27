@@ -1,6 +1,5 @@
 package br.com.estudarte.api.domain.professor;
 
-import br.com.estudarte.api.domain.Endereco;
 import br.com.estudarte.api.domain.Modalidade;
 import br.com.estudarte.api.domain.aluno.Aluno;
 
@@ -13,7 +12,6 @@ public class Professor {
     private String telefone;
     private String email;
     private Modalidade modalidade;
-    private Endereco endereco;
     private Double salario;
     private List<Aluno> alunos;
     private Boolean ativo;
@@ -62,14 +60,6 @@ public class Professor {
 
     public Modalidade getModalidade() {
         return modalidade;
-    }
-
-    public Endereco getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
     }
 
     public Double getSalario() {
