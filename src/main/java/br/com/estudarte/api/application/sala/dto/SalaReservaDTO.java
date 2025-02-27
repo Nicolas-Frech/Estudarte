@@ -6,5 +6,7 @@ import java.time.LocalDateTime;
 
 public record SalaReservaDTO(
         @NotNull
+        Long idSala,
+        @NotNull
         LocalDateTime horarioReserva) {
 }

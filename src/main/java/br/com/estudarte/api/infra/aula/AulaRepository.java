@@ -16,4 +16,6 @@ public interface AulaRepository extends JpaRepository<AulaEntity, Long> {
     Page<AulaEntity> findAllByAlunoNomeAndMotivoCancelamentoIsNull(Pageable paginacao, String alunoNome);
 
     Page<AulaEntity> findAllByProfessorNomeAndMotivoCancelamentoIsNull(Pageable paginacao, String professorNome);
+
+    Boolean existsByDataAndMotivoCancelamentoIsNull(LocalDateTime localDateTime);
 }
