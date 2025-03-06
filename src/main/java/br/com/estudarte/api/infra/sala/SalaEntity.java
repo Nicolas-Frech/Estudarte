@@ -26,7 +26,7 @@ public class SalaEntity {
     private Long id;
     private String nome;
     private Boolean reservada;
-    private LocalDateTime horarioReserva;
+    private List<LocalDateTime> horariosReserva;
 
     @Enumerated(EnumType.STRING)
     private Modalidade modalidade;
@@ -42,6 +42,6 @@ public class SalaEntity {
 
     public void reservarSala(SalaReservaDTO dto) {
         this.reservada = true;
-        this.horarioReserva = dto.horarioReserva();
+        this.horariosReserva.add(dto.horarioReserva());
     }
 }
