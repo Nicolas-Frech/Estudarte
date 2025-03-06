@@ -106,6 +106,12 @@ public class AulaService {
     }
 
     public AulaEntity buscarAulaPorId(Long id) {
-        return aulaRepository.getReferenceById(id);
+        AulaEntity aula = aulaRepository.findByIdAndMotivoCancelamentoIsNull(id);
+
+        if(aula == null) {
+            throw new ValidacaoException("Não existe aula marcada com esse ID!");
+        }
+
+        return aula;
     }
 }

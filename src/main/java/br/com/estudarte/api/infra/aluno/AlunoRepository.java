@@ -22,4 +22,6 @@ public interface AlunoRepository extends JpaRepository<AlunoEntity, Long> {
     List<String> findAllByProfessor(ProfessorEntity professor);
 
     Page<AlunoEntity> findAllByAtivoTrue(Pageable paginacao);
+
+    AlunoEntity findByIdAndAtivoTrue(Long id);
 }

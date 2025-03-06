@@ -63,6 +63,12 @@ public class AlunoService {
     }
 
     public AlunoEntity buscarAlunoPorId(Long id) {
-        return alunoRepository.getReferenceById(id);
+        AlunoEntity aluno =  alunoRepository.findByIdAndAtivoTrue(id);
+
+        if(aluno == null) {
+            throw new ValidacaoException("Não existe aluno com esse ID!");
+        }
+
+        return aluno;
     }
 }

@@ -16,4 +16,6 @@ public interface ProfessorRepository extends JpaRepository<ProfessorEntity, Long
     Boolean findAtivoByNome(String professorNome);
 
     Page<ProfessorEntity> findAllByAtivoTrue(Pageable paginacao);
+
+    ProfessorEntity findByIdAndAtivoTrue(Long id);
 }

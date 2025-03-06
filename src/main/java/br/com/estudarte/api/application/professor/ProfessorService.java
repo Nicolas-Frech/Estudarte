@@ -54,6 +54,12 @@ public class ProfessorService {
     }
 
     public ProfessorEntity buscarProfessorPorId(Long id) {
-        return professorRepository.getReferenceById(id);
+        ProfessorEntity professor = professorRepository.findByIdAndAtivoTrue(id);
+
+        if(professor == null) {
+            throw new ValidacaoException("Não existe professor com esse ID!");
+        }
+
+        return professor;
     }
 }
