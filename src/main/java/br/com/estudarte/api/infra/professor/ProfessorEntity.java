@@ -1,6 +1,7 @@
 package br.com.estudarte.api.infra.professor;
 
 import br.com.estudarte.api.application.professor.dto.ProfessorDTO;
+import br.com.estudarte.api.application.professor.dto.ProfessorDTOAtualizacao;
 import br.com.estudarte.api.domain.Modalidade;
 import br.com.estudarte.api.infra.aluno.AlunoEntity;
 
@@ -40,12 +41,22 @@ public class ProfessorEntity {
         this.ativo = false;
     }
 
-    public void atualizarSalario(Double novoSalario) {
-        this.salario = alunos.size() * novoSalario;
-    }
+    public void atualizarDados(ProfessorDTOAtualizacao dto) {
+        if(dto.modalidade() != null) {
+            this.modalidade = dto.modalidade();
+        }
 
-    public void atualizarModalidade(Modalidade modalidade) {
-        this.modalidade = modalidade;
+        if(dto.salario() != null) {
+            this.salario = alunos.size() * dto.salario();
+        }
+
+        if(dto.telefone() != null) {
+            this.telefone = dto.telefone();
+        }
+
+        if(dto.email() != null) {
+            this.email = dto.email();
+        }
     }
 
     public void setSalario(List<String> alunos) {
