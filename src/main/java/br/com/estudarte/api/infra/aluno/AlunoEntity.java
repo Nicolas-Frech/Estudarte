@@ -1,5 +1,6 @@
 package br.com.estudarte.api.infra.aluno;
 
+import br.com.estudarte.api.application.aluno.dto.AlunoAtualizacaoDTO;
 import br.com.estudarte.api.application.aluno.dto.AlunoDTO;
 import br.com.estudarte.api.domain.Modalidade;
 import br.com.estudarte.api.infra.professor.ProfessorEntity;
@@ -42,8 +43,18 @@ public class AlunoEntity {
         }
     }
 
-    public void atualizarModalidade(Modalidade modalidade) {
-        this.modalidade = modalidade;
+    public void atualizarDados(AlunoAtualizacaoDTO dto) {
+        if(dto.modalidade() != null) {
+            this.modalidade = dto.modalidade();
+        }
+
+        if(dto.telefone() != null) {
+            this.telefone = dto.telefone();
+        }
+
+        if(dto.email() != null) {
+            this.email = dto.email();
+        }
     }
 
     public AlunoEntity(AlunoDTO dto) {

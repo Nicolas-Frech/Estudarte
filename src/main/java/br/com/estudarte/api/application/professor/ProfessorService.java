@@ -43,14 +43,7 @@ public class ProfessorService {
 
     public ProfessorEntity atualizarProfessor(ProfessorDTOAtualizacao dto) {
         ProfessorEntity professorAtualizado = professorRepository.getReferenceById(dto.idProfessor());
-
-        if(dto.modalidade() != null) {
-            professorAtualizado.atualizarModalidade(dto.modalidade());
-        }
-
-        if(dto.salario() != null) {
-            professorAtualizado.atualizarSalario(dto.salario());
-        }
+        professorAtualizado.atualizarDados(dto);
 
         return professorAtualizado;
     }

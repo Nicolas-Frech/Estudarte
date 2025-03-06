@@ -52,10 +52,8 @@ public class AlunoService {
             }
         }
 
-        if(dto.modalidade() != null) {
-            aluno.atualizarModalidade(dto.modalidade());
-        }
 
+        aluno.atualizarDados(dto);
         return aluno;
     }
 
