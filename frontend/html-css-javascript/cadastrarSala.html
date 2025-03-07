@@ -3,29 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agendar Aula</title>
+    <title>Cadastro de Sala</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style/cadastrar.css">
 </head>
 <body>
-
     <div class="container">
-        <h1>📅 Agendar Aula</h1>
-
-        <label for="professor">👨‍🏫 Professor:</label>
-        <input type="text" id="professor" name="professor" placeholder="Nome do professor" required>
-
-        <label for="aluno">🎓 Aluno:</label>
-        <input type="text" id="aluno" name="aluno" placeholder="Nome do aluno" required>
-
-        <label for="data">📆 Data:</label>
-        <input type="date" id="data" name="data" required>
-
-        <label for="horario">⏰ Horário:</label>
-        <input type="time" id="horario" name="horario" required>
-
-        <label for="salaNome">🏫 Sala:</label>
-        <input type="text" id="salaNome" name="salaNome" placeholder="Nome da Sala" required>
+        <h1>📝 Cadastrar Sala</h1>
+        
+        <label for="nome">🏫 Nome:</label>
+        <input type="text" id="nome" name="nome" placeholder="Digite o nome da sala" required>
 
         <label for="modalidade">🎵 Modalidade:</label>
         <select id="modalidade" name="modalidade" required>
@@ -40,9 +27,9 @@
             <option value="SAXOFONE">🎷 Saxofone</option>
         </select>
 
-        <button id="btn">✅ Agendar</button>
+        <button id="btn">✅ Enviar</button>
     </div>
 
-    <script src="scripts/agendarAula.js" type="module"></script>
+    <script src="scripts/cadastrarSala.js" type="module"></script>
 </body>
 </html>

@@ -37,6 +37,7 @@ function buscarAulas() {
                     <strong>👨‍🏫 Professor:</strong> ${aula.professorNome} <br>
                     <strong>🎓 Aluno:</strong> ${aula.alunoNome} <br>
                     <strong>🎵 Modalidade:</strong> ${aula.modalidade} <br>
+                    <strong>🏫 Sala:</strong> ${aula.salaNome} <br>
                     <strong>📆 Data:</strong> ${dataFormatada}
                     <hr>
                 `;

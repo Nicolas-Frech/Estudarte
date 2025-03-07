@@ -34,6 +34,7 @@ document.getElementById("btnBuscar").addEventListener("click", () => {
                 <p><strong>👤 Professor:</strong> ${aula.professorNome}</p>
                 <p><strong>🎓 Aluno:</strong> ${aula.alunoNome}</p>
                 <p><strong>🎵 Modalidade:</strong> ${aula.modalidade}</p>
+                <p><strong>🏫 Sala:</strong> ${aula.salaNome}</p>
                 <p><strong>📆 Data:</strong> ${dataFormatada}</p>
             `;
         })

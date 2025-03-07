@@ -6,12 +6,14 @@ function agendarAula() {
   const modalidade = document.getElementById("modalidade").value;
   const data = document.getElementById("data").value;
   const horario = document.getElementById("horario").value;
+  const salaNome = document.getElementById("salaNome").value;
   
   const aula = {
     professorNome: professor,
     alunoNome: aluno,
     modalidade: modalidade,
-    data: data + "T" + horario + ":00"
+    data: data + "T" + horario + ":00",
+    salaNome: salaNome
   };
     
   const options = {

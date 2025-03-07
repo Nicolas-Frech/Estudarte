@@ -14,6 +14,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/sala")
@@ -24,10 +25,11 @@ public class SalaController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity registrarSala(@RequestBody @Valid SalaDTO dto) {
+    public ResponseEntity registrarSala(@RequestBody @Valid SalaDTO dto, UriComponentsBuilder uriBuilder) {
         SalaEntity sala = salaService.registrarSala(dto);
 
-        return ResponseEntity.ok(new SalaDetalhadamentoDTO(sala));
+        var uri = uriBuilder.path("/sala/{id}").buildAndExpand(sala.getId()).toUri();
+        return ResponseEntity.created(uri).body(new SalaDetalhadamentoDTO(sala));
     }
 
     @PutMapping

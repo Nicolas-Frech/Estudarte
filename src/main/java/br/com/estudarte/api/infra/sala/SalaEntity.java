@@ -11,6 +11,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -26,7 +27,11 @@ public class SalaEntity {
     private Long id;
     private String nome;
     private Boolean reservada;
-    private List<LocalDateTime> horariosReserva;
+
+    @ElementCollection
+    @CollectionTable(name = "sala_horarios_reserva", joinColumns = @JoinColumn(name = "sala_id"))
+    @Column(name = "horario_reserva")
+    private List<LocalDateTime> horariosReserva = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private Modalidade modalidade;
@@ -42,6 +47,9 @@ public class SalaEntity {
 
     public void reservarSala(SalaReservaDTO dto) {
         this.reservada = true;
+        if (this.horariosReserva == null) {
+            this.horariosReserva = new ArrayList<>();
+        }
         this.horariosReserva.add(dto.horarioReserva());
     }
 }
