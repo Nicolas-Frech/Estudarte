@@ -39,10 +39,17 @@ public class SalaEntity {
     @OneToMany(mappedBy = "sala")
     private List<AulaEntity> aulas;
 
+    private Boolean ativo;
+
     public SalaEntity(SalaDTO dto) {
         this.nome = dto.nome();
         this.modalidade = dto.modalidade();
         this.reservada = false;
+        this.ativo = true;
+    }
+
+    public void deletar() {
+        this.ativo = false;
     }
 
     public void reservarSala(SalaReservaDTO dto) {

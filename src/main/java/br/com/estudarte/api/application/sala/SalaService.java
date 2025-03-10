@@ -38,7 +38,7 @@ public class SalaService {
     }
 
     public SalaEntity reservarSala(SalaReservaDTO dto) {
-        if (!salaRepository.existsById(dto.idSala())) {
+        if (!salaRepository.existsByIdAndAtivoTrue(dto.idSala())) {
             throw new ValidacaoException("Não existe sala com esse ID!");
         }
 
@@ -50,20 +50,20 @@ public class SalaService {
     }
 
     public void deletarSala(Long id) {
-        if (!salaRepository.existsById(id)) {
+        if (!salaRepository.existsByIdAndAtivoTrue(id)) {
             throw new ValidacaoException("Não existe sala com esse ID!");
         }
 
         SalaEntity sala = salaRepository.getReferenceById(id);
-        salaRepository.delete(sala);
+        sala.deletar();
     }
 
     public Page<SalaDetalhadamentoDTO> listarSalas(Pageable paginacao) {
-        var page = salaRepository.findAll(paginacao).map(SalaDetalhadamentoDTO::new);
+        var page = salaRepository.findAllByAtivoTrue(paginacao).map(SalaDetalhadamentoDTO::new);
         return page;
     }
 
     public SalaEntity buscarSalaPorId(Long id) {
-        return salaRepository.getReferenceById(id);
+        return salaRepository.findByIdAndAtivoTrue(id);
     }
 }

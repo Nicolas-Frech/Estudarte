@@ -6,8 +6,8 @@ import br.com.estudarte.api.infra.sala.SalaEntity;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public record SalaDetalhadamentoDTO(Long id, String nome, Modalidade modalidade, Boolean reservada, List<LocalDateTime> horariosReserva) {
+public record SalaDetalhadamentoDTO(Long id, String nome, Modalidade modalidade, Boolean reservada, List<LocalDateTime> horariosReserva, Boolean ativo) {
     public SalaDetalhadamentoDTO(SalaEntity entity) {
-        this(entity.getId(), entity.getNome(), entity.getModalidade(), entity.getReservada(), entity.getHorariosReserva());
+        this(entity.getId(), entity.getNome(), entity.getModalidade(), entity.getReservada(), entity.getHorariosReserva(), entity.getAtivo());
     }
 }
