@@ -17,7 +17,7 @@ function cadastrarSala() {
         body: JSON.stringify(sala)
     };
 
-    fetch('http://localhost:8080/sala', options)
+    fetch('/api/sala', options)
         .then(response => {
             if (!response.ok) {
                 throw new Error(response.statusText);

@@ -20,4 +20,6 @@ public interface AulaRepository extends JpaRepository<AulaEntity, Long> {
     Boolean existsByDataAndMotivoCancelamentoIsNull(LocalDateTime localDateTime);
 
     AulaEntity findByIdAndMotivoCancelamentoIsNull(Long id);
+
+    Boolean existsByDataAndIdAndMotivoCancelamentoIsNull(LocalDateTime localDateTime, Long id);
 }

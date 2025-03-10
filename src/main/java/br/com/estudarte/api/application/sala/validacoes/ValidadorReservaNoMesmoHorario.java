@@ -17,13 +17,12 @@ public class ValidadorReservaNoMesmoHorario implements ValidadorReservaSala {
     SalaRepository salaRepository;
     @Override
     public void validar(SalaReservaDTO dto) {
-        var dataReserva = dto.horarioReserva();
 
-        if(aulaRepository.existsByDataAndMotivoCancelamentoIsNull(dto.horarioReserva())) {
+        if(aulaRepository.existsByDataAndIdAndMotivoCancelamentoIsNull(dto.horarioReserva(), dto.idSala())) {
             throw new ValidacaoException("Já existe uma aula marcada para esse horário nesta sala!");
         }
 
-        if(salaRepository.existsByHorarioReserva(dto.horarioReserva())) {
+        if(salaRepository.existsByHorarioReservaAndId(dto.horarioReserva(), dto.idSala())) {
             throw new ValidacaoException("Já existe uma reserva para esse horário nesta sala!");
         }
     }
