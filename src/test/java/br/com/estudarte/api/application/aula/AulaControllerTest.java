@@ -2,8 +2,10 @@ package br.com.estudarte.api.application.aula;
 
 import br.com.estudarte.api.application.aula.dto.AulaDTO;
 import br.com.estudarte.api.application.aula.dto.AulaDetalhadamentoDTO;
+import br.com.estudarte.api.application.sala.dto.SalaDTO;
 import br.com.estudarte.api.domain.Modalidade;
 import br.com.estudarte.api.infra.aula.AulaEntity;
+import br.com.estudarte.api.infra.sala.SalaEntity;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,21 +58,26 @@ class AulaControllerTest {
     void agendar_cenario2() throws Exception {
         var data = LocalDateTime.now().plusHours(1);
         var modalidade = Modalidade.SAXOFONE;
+        var saladto = new SalaDTO("Sala", Modalidade.SAXOFONE);
+        var sala = new SalaEntity(saladto);
 
-        var aulaDTO = new AulaDTO("", "",modalidade, data);
-        when(aulaService.agendarAula(any())).thenReturn(new AulaEntity(aulaDTO));
+        var aulaDTO = new AulaDTO("", "",modalidade, data, "Sala");
+        var aula = new AulaEntity(aulaDTO);
+        aula.adicionarSala(sala);
+
+        when(aulaService.agendarAula(any())).thenReturn(aula);
 
         var response = mvc
                 .perform(
                         post("/aula")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(aulaDTOJson.write(
-                                        new AulaDTO("", "", modalidade, data)).getJson()))
+                                        new AulaDTO("", "", modalidade, data, "Sala")).getJson()))
                 .andReturn().getResponse();
 
         assertThat(response.getStatus()).isEqualTo(HttpStatus.CREATED.value());
 
-        var aulaDetalhadamentoDTO = new AulaDetalhadamentoDTO(null,"", "",modalidade, data);
+        var aulaDetalhadamentoDTO = new AulaDetalhadamentoDTO(null,"", "",modalidade, data, "Sala");
 
         var jsonEsperado = aulaDetalhadamentoDTOJson.write(
                 aulaDetalhadamentoDTO
