@@ -2,7 +2,7 @@ let paginaAtual = 0;
 const tamanhoPagina = 10;
 
 function buscarAlunos() {
-    document.getElementById("loading").style.display = "block"; // Exibe "Carregando..."
+    document.getElementById("loading").style.display = "block";
 
     fetch(`/api/aluno?page=${paginaAtual}&size=${tamanhoPagina}`)
         .then(response => response.json())
@@ -34,7 +34,7 @@ function buscarAlunos() {
         })
         .catch(error => {
             console.error("Erro:", error);
-            document.getElementById("loading").style.display = "none"; // Oculta "Carregando..."
+            document.getElementById("loading").style.display = "none";
             alert("Erro ao carregar alunos. Verifique o console.");
         });
 }

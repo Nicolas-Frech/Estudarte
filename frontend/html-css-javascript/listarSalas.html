@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Alunos</title>
+    <link rel="stylesheet" href="style/listar.css">
+</head>
+<body>
+    <h1>Lista de Salas</h1>
+    <div class="container">
+        <ul id="listaSalas"></ul>
+        <div class="pagination">
+            <button id="btnAnterior" disabled>◀ Anterior</button>
+            <span id="paginaAtual">Página 1</span>
+            <button id="btnProximo">Próximo ▶</button>
+        </div>
+        <p id="loading" class="loading" style="display: none;">Carregando...</p>
+    </div>
+
+    <script src="scripts/listarSalas.js" type="module"></script>
+</body>

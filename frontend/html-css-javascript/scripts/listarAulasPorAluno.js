@@ -41,7 +41,7 @@ function buscarAulas() {
             lista.innerHTML = "";
 
             if (aulas.length === 0) {
-                lista.innerHTML = "<p>Nenhuma aula encontrada para esse professor.</p>";
+                lista.innerHTML = "<p>Nenhuma aula encontrada para esse aluno.</p>";
                 return;
             }
 

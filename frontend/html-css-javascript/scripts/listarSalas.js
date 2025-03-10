@@ -1,47 +1,29 @@
 let paginaAtual = 0;
 const tamanhoPagina = 10;
 
-function formatarData(dataISO) {
-    if (!dataISO) return "Data inválida";
-
-    const data = new Date(dataISO);
-    return new Intl.DateTimeFormat("pt-BR", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: false
-    }).format(data);
-}
-
-function buscarAulas() {
+function buscarSalas() {
     document.getElementById("loading").style.display = "block";
 
-    fetch(`/api/aula?page=${paginaAtual}&size=${tamanhoPagina}`)
+    fetch(`/api/sala?page=${paginaAtual}&size=${tamanhoPagina}`)
         .then(response => response.json())
         .then(data => {
             document.getElementById("loading").style.display = "none";
 
-            const aulas = data.content || [];
-            const lista = document.getElementById("listaAulas");
+            const alunos = data.content || [];
+            const lista = document.getElementById("listaSalas");
             lista.innerHTML = "";
 
-            aulas.forEach(aula => {
+            alunos.forEach(sala => {
                 const item = document.createElement("li");
-                const dataFormatada = formatarData(aula.data);
                 item.style.textAlign = "left";
                 item.style.listStyle = "none";
                 item.innerHTML = `
-                    <strong>🔢 ID:</strong> ${aula.id} <br>
-                    <strong>👨‍🏫 Professor:</strong> ${aula.professorNome} <br>
-                    <strong>🎓 Aluno:</strong> ${aula.alunoNome} <br>
-                    <strong>🎵 Modalidade:</strong> ${aula.modalidade} <br>
-                    <strong>🏫 Sala:</strong> ${aula.salaNome} <br>
-                    <strong>📆 Data:</strong> ${dataFormatada}
+                    <strong>🔢 ID:</strong> ${sala.id} <br>
+                    <strong>🏫 Nome:</strong> ${sala.nome} <br>
+                    <strong>🎵 Modalidade:</strong> ${sala.modalidade} <br>
                     <hr>
                 `;
-                lista.appendChild(item);
+                lista.appendChild(item)
             });
 
             document.getElementById("paginaAtual").textContent = `Página ${data.number + 1} de ${data.totalPages}`;
@@ -53,19 +35,19 @@ function buscarAulas() {
         .catch(error => {
             console.error("Erro:", error);
             document.getElementById("loading").style.display = "none";
-            alert("Erro ao carregar aulas. Verifique o console.");
+            alert("Erro ao carregar salas. Verifique o console.");
         });
 }
 
 function proximaPagina() {
     paginaAtual++;
-    buscarAulas();
+    buscarSalas();
 }
 
 function paginaAnterior() {
     if (paginaAtual > 0) {
         paginaAtual--;
-        buscarAulas();
+        buscarSalas();
     }
 }
 
@@ -75,4 +57,4 @@ const btnProximo = document.getElementById("btnProximo")
 btnAnterior.addEventListener("click", paginaAnterior)
 btnProximo.addEventListener("click", proximaPagina)
 
-buscarAulas();
+buscarSalas();
