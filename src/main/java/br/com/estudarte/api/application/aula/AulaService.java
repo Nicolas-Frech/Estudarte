@@ -11,7 +11,7 @@ import br.com.estudarte.api.infra.aluno.AlunoRepository;
 import br.com.estudarte.api.infra.aula.AulaEntity;
 import br.com.estudarte.api.infra.aula.AulaRepository;
 import br.com.estudarte.api.infra.exception.ValidacaoException;
-import br.com.estudarte.api.infra.professor.ProfessorRepository;
+import br.com.estudarte.api.infra.professor.repository.ProfessorRepositoryJpa;
 import br.com.estudarte.api.infra.sala.repository.SalaRepositoryJpa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -27,7 +27,7 @@ public class AulaService {
     AulaRepository aulaRepository;
 
     @Autowired
-    ProfessorRepository professorRepository;
+    ProfessorRepositoryJpa professorRepository;
 
     @Autowired
     AlunoRepository alunoRepository;

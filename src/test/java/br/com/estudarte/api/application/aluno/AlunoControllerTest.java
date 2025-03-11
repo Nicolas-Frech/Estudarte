@@ -2,13 +2,9 @@ package br.com.estudarte.api.application.aluno;
 
 import br.com.estudarte.api.application.aluno.dto.AlunoDTO;
 import br.com.estudarte.api.application.aluno.dto.AlunoDetalhadamentoDTO;
-import br.com.estudarte.api.application.professor.dto.ProfessorDTO;
-import br.com.estudarte.api.application.professor.dto.ProfessorDetalhadamentoDTO;
 import br.com.estudarte.api.domain.Modalidade;
 import br.com.estudarte.api.infra.aluno.AlunoEntity;
 import br.com.estudarte.api.infra.aluno.AlunoRepository;
-import br.com.estudarte.api.infra.professor.ProfessorEntity;
-import br.com.estudarte.api.infra.professor.ProfessorRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +17,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;

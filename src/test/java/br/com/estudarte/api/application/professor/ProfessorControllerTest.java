@@ -4,10 +4,9 @@ import br.com.estudarte.api.application.professor.dto.ProfessorDTO;
 import br.com.estudarte.api.application.professor.dto.ProfessorDetalhadamentoDTO;
 import br.com.estudarte.api.domain.Modalidade;
 import br.com.estudarte.api.infra.professor.ProfessorEntity;
-import br.com.estudarte.api.infra.professor.ProfessorRepository;
+import br.com.estudarte.api.infra.professor.repository.ProfessorRepositoryJpa;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -22,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -42,7 +40,7 @@ class ProfessorControllerTest {
     private JacksonTester<ProfessorDetalhadamentoDTO> professorDetalhadamentoDTOJson;
 
     @MockitoBean
-    private ProfessorRepository repository;
+    private ProfessorRepositoryJpa repository;
 
     @Test
     @DisplayName("Deveria devolver código 400 quando informacões estão inválidas")

@@ -7,7 +7,7 @@ import br.com.estudarte.api.infra.aluno.AlunoEntity;
 import br.com.estudarte.api.infra.aluno.AlunoRepository;
 import br.com.estudarte.api.infra.exception.ValidacaoException;
 import br.com.estudarte.api.infra.professor.ProfessorEntity;
-import br.com.estudarte.api.infra.professor.ProfessorRepository;
+import br.com.estudarte.api.infra.professor.repository.ProfessorRepositoryJpa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,7 +20,7 @@ public class AlunoService {
     private AlunoRepository alunoRepository;
 
     @Autowired
-    private ProfessorRepository professorRepository;
+    private ProfessorRepositoryJpa professorRepository;
 
     public AlunoEntity registrarAluno(AlunoDTO dto) {
         if(alunoRepository.existsByCpf(dto.cpf())) {
