@@ -1,28 +1,30 @@
 package br.com.estudarte.api.application.aula.validacoes.agendamento;
 
 import br.com.estudarte.api.application.aula.dto.AulaDTO;
-import br.com.estudarte.api.infra.aula.AulaRepositoryJpa;
+import br.com.estudarte.api.infra.aula.repository.AulaRepository;
 import br.com.estudarte.api.infra.exception.ValidacaoException;
-import br.com.estudarte.api.infra.sala.repository.SalaRepositoryJpa;
-import org.springframework.beans.factory.annotation.Autowired;
+import br.com.estudarte.api.infra.sala.repository.SalaRepository;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ValidadorAulaNoMesmoHorario implements ValidadorAgendamentoAula {
 
-    @Autowired
-    AulaRepositoryJpa aulaRepository;
+    private final AulaRepository aulaRepository;
 
-    @Autowired
-    SalaRepositoryJpa salaRepositoryJpa;
+    private final SalaRepository salaRepository;
+
+    public ValidadorAulaNoMesmoHorario(AulaRepository aulaRepository, SalaRepository salaRepository) {
+        this.aulaRepository = aulaRepository;
+        this.salaRepository = salaRepository;
+    }
 
     @Override
     public void validar(AulaDTO dto) {
-        var professorComAulaNoMesmoHorario = aulaRepository.existsByProfessorNomeAndDataAndMotivoCancelamentoIsNull(dto.professorNome(), dto.data());
+        var professorComAulaNoMesmoHorario = aulaRepository.existePorProfessorNomeEDataEMotivoCancelamentoNull(dto.professorNome(), dto.data());
 
-        var alunoComAulaNoMesmoHorario = aulaRepository.existsByAlunoNomeAndDataAndMotivoCancelamentoIsNull(dto.alunoNome(), dto.data());
+        var alunoComAulaNoMesmoHorario = aulaRepository.existePorAlunoNomeEDataEMotivoCancelamentoNull(dto.alunoNome(), dto.data());
 
-        var aulaNaMesmaSala = salaRepositoryJpa.existsByHorarioReservaAndNome(dto.data(), dto.salaNome());
+        var aulaNaMesmaSala = salaRepository.existePorHorarioReservaENome(dto.data(), dto.salaNome());
 
         if(professorComAulaNoMesmoHorario) {
             throw new ValidacaoException("Esse professor já tem uma aula agendada neste horário");

@@ -53,4 +53,14 @@ public class ProfessorRepositoryImpl implements ProfessorRepository {
     public boolean existePorId(Long id) {
         return jpaRepository.existsById(id);
     }
+
+    @Override
+    public boolean buscarAtivoByNome(String nome) {
+        return jpaRepository.findAtivoByNome(nome);
+    }
+
+    @Override
+    public ProfessorEntity buscarPorNome(String nome) {
+        return jpaRepository.findByNome(nome);
+    }
 }

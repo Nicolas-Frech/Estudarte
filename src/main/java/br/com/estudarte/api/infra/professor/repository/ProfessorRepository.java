@@ -19,4 +19,8 @@ public interface ProfessorRepository {
     ProfessorEntity buscarPorIdEAtivoTrue(Long id);
 
     boolean existePorId(Long id);
+
+    boolean buscarAtivoByNome(String nome);
+
+    ProfessorEntity buscarPorNome(String nome);
 }

@@ -22,4 +22,8 @@ public interface AlunoRepository {
     Page<AlunoEntity> buscarTodosPorAtivoTrue(Pageable paginacao);
 
     AlunoEntity buscarPorIdEAtivoTrue(Long id);
+
+    boolean buscarAtivoByNome(String nome);
+
+    AlunoEntity buscarPorNome(String nome);
 }

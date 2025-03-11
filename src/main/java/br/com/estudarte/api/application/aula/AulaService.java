@@ -9,7 +9,7 @@ import br.com.estudarte.api.application.aula.validacoes.cancelamento.ValidadorCa
 import br.com.estudarte.api.application.aula.validacoes.reagendamento.ValidadorReagendarAula;
 import br.com.estudarte.api.infra.aluno.repository.AlunoRepository;
 import br.com.estudarte.api.infra.aula.AulaEntity;
-import br.com.estudarte.api.infra.aula.AulaRepository;
+import br.com.estudarte.api.infra.aula.repository.AulaRepository;
 import br.com.estudarte.api.infra.exception.ValidacaoException;
 import br.com.estudarte.api.infra.professor.repository.ProfessorRepository;
 import br.com.estudarte.api.infra.sala.repository.SalaRepository;

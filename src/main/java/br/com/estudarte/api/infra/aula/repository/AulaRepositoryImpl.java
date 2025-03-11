@@ -1,10 +1,13 @@
-package br.com.estudarte.api.infra.aula;
+package br.com.estudarte.api.infra.aula.repository;
 
+import br.com.estudarte.api.infra.aula.AulaEntity;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
+
+import java.time.LocalDateTime;
 
 @Repository
 public class AulaRepositoryImpl implements AulaRepository {
@@ -51,5 +54,20 @@ public class AulaRepositoryImpl implements AulaRepository {
     @Override
     public AulaEntity buscarPorIdEMotivoCancelamentoNull(Long id) {
         return jpaRepository.findByIdAndMotivoCancelamentoIsNull(id);
+    }
+
+    @Override
+    public boolean existePorProfessorNomeEDataEMotivoCancelamentoNull(String nome, LocalDateTime data) {
+        return jpaRepository.existsByProfessorNomeAndDataAndMotivoCancelamentoIsNull(nome, data);
+    }
+
+    @Override
+    public boolean existePorAlunoNomeEDataEMotivoCancelamentoNull(String nome, LocalDateTime data) {
+        return jpaRepository.existsByAlunoNomeAndDataAndMotivoCancelamentoIsNull(nome, data);
+    }
+
+    @Override
+    public boolean existePorDataEIdEMotivoCancelamentoNull(LocalDateTime data, Long id) {
+        return jpaRepository.existsByDataAndIdAndMotivoCancelamentoIsNull(data, id);
     }
 }

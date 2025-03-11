@@ -1,7 +1,10 @@
-package br.com.estudarte.api.infra.aula;
+package br.com.estudarte.api.infra.aula.repository;
 
+import br.com.estudarte.api.infra.aula.AulaEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
+import java.time.LocalDateTime;
 
 public interface AulaRepository {
     AulaEntity salvar(AulaEntity aula);
@@ -17,4 +20,10 @@ public interface AulaRepository {
     Page<AulaEntity> buscarTodosPorProfessorNomeEMotivoCancelamentoNull(Pageable paginacao, String professorNome);
 
     AulaEntity buscarPorIdEMotivoCancelamentoNull(Long id);
+
+    boolean existePorProfessorNomeEDataEMotivoCancelamentoNull(String nome, LocalDateTime data);
+
+    boolean existePorAlunoNomeEDataEMotivoCancelamentoNull(String nome, LocalDateTime data);
+
+    boolean existePorDataEIdEMotivoCancelamentoNull(LocalDateTime data, Long id);
 }

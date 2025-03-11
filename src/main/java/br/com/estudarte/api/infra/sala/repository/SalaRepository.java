@@ -4,6 +4,8 @@ import br.com.estudarte.api.infra.sala.SalaEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.time.LocalDateTime;
+
 public interface SalaRepository {
 
     SalaEntity salvar(SalaEntity sala);
@@ -19,4 +21,8 @@ public interface SalaRepository {
     SalaEntity buscarPorId(Long id);
 
     SalaEntity buscarPorNome(String nome);
+
+    boolean existePorHorarioReservaENome(LocalDateTime data, String nome);
+
+    boolean existePorHorarioReservaEId(LocalDateTime data, Long id);
 }

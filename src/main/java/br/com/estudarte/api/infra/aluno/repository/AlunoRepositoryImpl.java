@@ -56,4 +56,14 @@ public class AlunoRepositoryImpl implements AlunoRepository {
     public AlunoEntity buscarPorIdEAtivoTrue(Long id) {
         return jpaRepository.findByIdAndAtivoTrue(id);
     }
+
+    @Override
+    public boolean buscarAtivoByNome(String nome) {
+        return jpaRepository.findAtivoByNome(nome);
+    }
+
+    @Override
+    public AlunoEntity buscarPorNome(String nome) {
+        return jpaRepository.findByNome(nome);
+    }
 }

@@ -8,6 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
+
 @Repository
 public class SalaRepositoryImpl implements SalaRepository {
 
@@ -53,5 +55,15 @@ public class SalaRepositoryImpl implements SalaRepository {
     @Override
     public SalaEntity buscarPorNome(String nome) {
         return jpaRepository.findByNome(nome);
+    }
+
+    @Override
+    public boolean existePorHorarioReservaENome(LocalDateTime data, String nome) {
+        return jpaRepository.existsByHorarioReservaAndNome(data, nome);
+    }
+
+    @Override
+    public boolean existePorHorarioReservaEId(LocalDateTime data, Long id) {
+        return jpaRepository.existsByHorarioReservaAndId(data, id);
     }
 }
