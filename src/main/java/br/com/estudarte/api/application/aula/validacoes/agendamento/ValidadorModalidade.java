@@ -2,7 +2,7 @@ package br.com.estudarte.api.application.aula.validacoes.agendamento;
 
 import br.com.estudarte.api.application.aula.dto.AulaDTO;
 import br.com.estudarte.api.infra.aluno.AlunoEntity;
-import br.com.estudarte.api.infra.aluno.AlunoRepository;
+import br.com.estudarte.api.infra.aluno.AlunoRepositoryJpa;
 import br.com.estudarte.api.infra.exception.ValidacaoException;
 import br.com.estudarte.api.infra.professor.ProfessorEntity;
 import br.com.estudarte.api.infra.professor.repository.ProfessorRepositoryJpa;
@@ -16,7 +16,7 @@ public class ValidadorModalidade implements ValidadorAgendamentoAula {
     ProfessorRepositoryJpa professorRepository;
 
     @Autowired
-    AlunoRepository alunoRepository;
+    AlunoRepositoryJpa alunoRepository;
 
     @Override
     public void validar(AulaDTO dto) {

@@ -3,25 +3,22 @@ package br.com.estudarte.api.infra.aluno;
 import br.com.estudarte.api.infra.professor.ProfessorEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface AlunoRepository extends JpaRepository<AlunoEntity, Long> {
-    boolean existsByCpf(String cpf);
+public interface AlunoRepository {
 
-    boolean existsByNome(String alunoNome);
+    AlunoEntity salvar(AlunoEntity aluno);
 
-    AlunoEntity findByNome(String alunoNome);
+    boolean existePorCpf(String cpf);
 
-    @Query("SELECT a.ativo FROM AlunoEntity a WHERE a.nome = :alunoNome")
-    Boolean findAtivoByNome(String alunoNome);
+    boolean existePorNome(String nome);
 
-    @Query("SELECT a.nome FROM AlunoEntity a WHERE a.professor = :professor")
-    List<String> findAllByProfessor(ProfessorEntity professor);
+    AlunoEntity buscarPorId(Long id);
 
-    Page<AlunoEntity> findAllByAtivoTrue(Pageable paginacao);
+    List<String> buscarTodosPorProfessor(ProfessorEntity professor);
 
-    AlunoEntity findByIdAndAtivoTrue(Long id);
+    Page<AlunoEntity> buscarTodosPorAtivoTrue(Pageable paginacao);
+
+    AlunoEntity buscarPorIdEAtivoTrue(Long id);
 }

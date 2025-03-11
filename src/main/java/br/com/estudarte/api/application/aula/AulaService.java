@@ -7,7 +7,7 @@ import br.com.estudarte.api.application.aula.dto.AulaDetalhadamentoDTO;
 import br.com.estudarte.api.application.aula.validacoes.agendamento.ValidadorAgendamentoAula;
 import br.com.estudarte.api.application.aula.validacoes.cancelamento.ValidadorCancelamentoAula;
 import br.com.estudarte.api.application.aula.validacoes.reagendamento.ValidadorReagendarAula;
-import br.com.estudarte.api.infra.aluno.AlunoRepository;
+import br.com.estudarte.api.infra.aluno.AlunoRepositoryJpa;
 import br.com.estudarte.api.infra.aula.AulaEntity;
 import br.com.estudarte.api.infra.aula.AulaRepository;
 import br.com.estudarte.api.infra.exception.ValidacaoException;
@@ -30,7 +30,7 @@ public class AulaService {
     ProfessorRepositoryJpa professorRepository;
 
     @Autowired
-    AlunoRepository alunoRepository;
+    AlunoRepositoryJpa alunoRepository;
 
     @Autowired
     SalaRepositoryJpa salaRepositoryJpa;

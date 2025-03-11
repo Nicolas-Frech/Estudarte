@@ -17,4 +17,6 @@ public interface ProfessorRepository {
     Page<ProfessorEntity> buscarTodosPorAtivoTrue(Pageable paginacao);
 
     ProfessorEntity buscarPorIdEAtivoTrue(Long id);
+
+    boolean existePorId(Long id);
 }
