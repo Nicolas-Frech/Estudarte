@@ -2,24 +2,19 @@ package br.com.estudarte.api.infra.aula;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.time.LocalDateTime;
+public interface AulaRepository {
+    AulaEntity salvar(AulaEntity aula);
 
-public interface AulaRepository extends JpaRepository<AulaEntity, Long> {
-    Boolean existsByProfessorNomeAndDataAndMotivoCancelamentoIsNull(String professorNome, LocalDateTime data);
+    boolean existePorId(Long id);
 
-    Boolean existsByAlunoNomeAndDataAndMotivoCancelamentoIsNull(String alunoNome, LocalDateTime data);
+    AulaEntity buscarPorId(Long id);
 
-    Page<AulaEntity> findAllByMotivoCancelamentoIsNull(Pageable paginacao);
+    Page<AulaEntity> buscarTodosPorMotivoCancelamentoNull(Pageable paginacao);
 
-    Page<AulaEntity> findAllByAlunoNomeAndMotivoCancelamentoIsNull(Pageable paginacao, String alunoNome);
+    Page<AulaEntity> buscarTodosPorAlunoNomeEMotivoCancelamentoNull(Pageable paginacao, String alunoNome);
 
-    Page<AulaEntity> findAllByProfessorNomeAndMotivoCancelamentoIsNull(Pageable paginacao, String professorNome);
+    Page<AulaEntity> buscarTodosPorProfessorNomeEMotivoCancelamentoNull(Pageable paginacao, String professorNome);
 
-    Boolean existsByDataAndMotivoCancelamentoIsNull(LocalDateTime localDateTime);
-
-    AulaEntity findByIdAndMotivoCancelamentoIsNull(Long id);
-
-    Boolean existsByDataAndIdAndMotivoCancelamentoIsNull(LocalDateTime localDateTime, Long id);
+    AulaEntity buscarPorIdEMotivoCancelamentoNull(Long id);
 }

@@ -49,4 +49,9 @@ public class SalaRepositoryImpl implements SalaRepository {
     public SalaEntity buscarPorId(Long id) {
         return entityManager.getReference(SalaEntity.class, id);
     }
+
+    @Override
+    public SalaEntity buscarPorNome(String nome) {
+        return jpaRepository.findByNome(nome);
+    }
 }

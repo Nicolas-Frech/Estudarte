@@ -4,7 +4,7 @@ import br.com.estudarte.api.application.aluno.dto.AlunoDTO;
 import br.com.estudarte.api.application.aluno.dto.AlunoDetalhadamentoDTO;
 import br.com.estudarte.api.domain.Modalidade;
 import br.com.estudarte.api.infra.aluno.AlunoEntity;
-import br.com.estudarte.api.infra.aluno.AlunoRepositoryJpa;
+import br.com.estudarte.api.infra.aluno.repository.AlunoRepositoryJpa;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

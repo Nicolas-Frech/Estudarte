@@ -2,7 +2,7 @@ package br.com.estudarte.api.application.aula.validacoes.agendamento;
 
 import br.com.estudarte.api.application.aula.dto.AulaDTO;
 import br.com.estudarte.api.infra.aluno.AlunoEntity;
-import br.com.estudarte.api.infra.aluno.AlunoRepositoryJpa;
+import br.com.estudarte.api.infra.aluno.repository.AlunoRepositoryJpa;
 import br.com.estudarte.api.infra.exception.ValidacaoException;
 import br.com.estudarte.api.infra.professor.ProfessorEntity;
 import br.com.estudarte.api.infra.professor.repository.ProfessorRepositoryJpa;

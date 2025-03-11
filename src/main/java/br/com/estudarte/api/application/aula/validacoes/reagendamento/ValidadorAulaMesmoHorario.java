@@ -2,7 +2,7 @@ package br.com.estudarte.api.application.aula.validacoes.reagendamento;
 
 import br.com.estudarte.api.application.aula.dto.AulaAtualizacaoDTO;
 import br.com.estudarte.api.infra.aula.AulaEntity;
-import br.com.estudarte.api.infra.aula.AulaRepository;
+import br.com.estudarte.api.infra.aula.AulaRepositoryJpa;
 import br.com.estudarte.api.infra.exception.ValidacaoException;
 import br.com.estudarte.api.infra.sala.repository.SalaRepositoryJpa;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 public class ValidadorAulaMesmoHorario implements ValidadorReagendarAula {
 
     @Autowired
-    AulaRepository aulaRepository;
+    AulaRepositoryJpa aulaRepository;
 
     @Autowired
     SalaRepositoryJpa salaRepositoryJpa;

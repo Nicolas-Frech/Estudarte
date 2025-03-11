@@ -4,7 +4,7 @@ import br.com.estudarte.api.application.aluno.dto.AlunoAtualizacaoDTO;
 import br.com.estudarte.api.application.aluno.dto.AlunoDTO;
 import br.com.estudarte.api.application.aluno.dto.AlunoDetalhadamentoDTO;
 import br.com.estudarte.api.infra.aluno.AlunoEntity;
-import br.com.estudarte.api.infra.aluno.AlunoRepository;
+import br.com.estudarte.api.infra.aluno.repository.AlunoRepository;
 import br.com.estudarte.api.infra.exception.ValidacaoException;
 import br.com.estudarte.api.infra.professor.ProfessorEntity;
 import br.com.estudarte.api.infra.professor.repository.ProfessorRepository;

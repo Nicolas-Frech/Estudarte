@@ -18,4 +18,5 @@ public interface SalaRepository {
 
     SalaEntity buscarPorId(Long id);
 
+    SalaEntity buscarPorNome(String nome);
 }

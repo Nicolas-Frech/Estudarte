@@ -1,5 +1,6 @@
-package br.com.estudarte.api.infra.aluno;
+package br.com.estudarte.api.infra.aluno.repository;
 
+import br.com.estudarte.api.infra.aluno.AlunoEntity;
 import br.com.estudarte.api.infra.professor.ProfessorEntity;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;

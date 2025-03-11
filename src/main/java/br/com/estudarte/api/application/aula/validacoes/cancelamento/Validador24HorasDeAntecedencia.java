@@ -2,7 +2,7 @@ package br.com.estudarte.api.application.aula.validacoes.cancelamento;
 
 import br.com.estudarte.api.application.aula.dto.AulaCancelamentoDTO;
 import br.com.estudarte.api.infra.aula.AulaEntity;
-import br.com.estudarte.api.infra.aula.AulaRepository;
+import br.com.estudarte.api.infra.aula.AulaRepositoryJpa;
 import br.com.estudarte.api.infra.exception.ValidacaoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,7 +15,7 @@ public class Validador24HorasDeAntecedencia implements ValidadorCancelamentoAula
 
 
     @Autowired
-    AulaRepository aulaRepository;
+    AulaRepositoryJpa aulaRepository;
 
     @Override
     public void validar(AulaCancelamentoDTO dto) {

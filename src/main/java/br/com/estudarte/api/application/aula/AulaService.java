@@ -7,12 +7,12 @@ import br.com.estudarte.api.application.aula.dto.AulaDetalhadamentoDTO;
 import br.com.estudarte.api.application.aula.validacoes.agendamento.ValidadorAgendamentoAula;
 import br.com.estudarte.api.application.aula.validacoes.cancelamento.ValidadorCancelamentoAula;
 import br.com.estudarte.api.application.aula.validacoes.reagendamento.ValidadorReagendarAula;
-import br.com.estudarte.api.infra.aluno.AlunoRepositoryJpa;
+import br.com.estudarte.api.infra.aluno.repository.AlunoRepository;
 import br.com.estudarte.api.infra.aula.AulaEntity;
 import br.com.estudarte.api.infra.aula.AulaRepository;
 import br.com.estudarte.api.infra.exception.ValidacaoException;
-import br.com.estudarte.api.infra.professor.repository.ProfessorRepositoryJpa;
-import br.com.estudarte.api.infra.sala.repository.SalaRepositoryJpa;
+import br.com.estudarte.api.infra.professor.repository.ProfessorRepository;
+import br.com.estudarte.api.infra.sala.repository.SalaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,17 +23,11 @@ import java.util.List;
 @Service
 public class AulaService {
 
-    @Autowired
-    AulaRepository aulaRepository;
 
-    @Autowired
-    ProfessorRepositoryJpa professorRepository;
-
-    @Autowired
-    AlunoRepositoryJpa alunoRepository;
-
-    @Autowired
-    SalaRepositoryJpa salaRepositoryJpa;
+    private final AulaRepository aulaRepository;
+    private final ProfessorRepository professorRepository;
+    private final AlunoRepository alunoRepository;
+    private final SalaRepository salaRepository;
 
     @Autowired
     List<ValidadorAgendamentoAula> validadores;
@@ -44,69 +38,76 @@ public class AulaService {
     @Autowired
     List<ValidadorReagendarAula> validadoresReagendamento;
 
+    public AulaService(AulaRepository aulaRepository, ProfessorRepository professorRepository, AlunoRepository alunoRepository, SalaRepository salaRepository) {
+        this.aulaRepository = aulaRepository;
+        this.professorRepository = professorRepository;
+        this.alunoRepository = alunoRepository;
+        this.salaRepository = salaRepository;
+    }
+
     public AulaEntity agendarAula(AulaDTO dto) {
-        if(!alunoRepository.existsByNome(dto.alunoNome())) {
+        if(!alunoRepository.existePorNome(dto.alunoNome())) {
             throw new ValidacaoException("Não existe aluno com esse nome!");
         }
 
-        if(!professorRepository.existsByNome(dto.professorNome())) {
+        if(!professorRepository.existePorNome(dto.professorNome())) {
             throw new ValidacaoException("Não existe professor com esse nome!");
         }
 
-        if(!salaRepositoryJpa.existsByNome(dto.salaNome())) {
+        if(!salaRepository.existePorNome(dto.salaNome())) {
             throw new ValidacaoException("Não existe sala com esse nome!");
         }
 
         validadores.forEach(v -> v.validar(dto));
 
         AulaEntity aula = new AulaEntity(dto);
-        aula.adicionarSala(salaRepositoryJpa.findByNome(dto.salaNome()));
+        aula.adicionarSala(salaRepository.buscarPorNome(dto.salaNome()));
 
-        aulaRepository.save(aula);
+        aulaRepository.salvar(aula);
         return aula;
     }
 
     public void cancelarAula(AulaCancelamentoDTO dto) {
-        if(!aulaRepository.existsById(dto.id())) {
+        if(!aulaRepository.existePorId(dto.id())) {
             throw new ValidacaoException("Não existe aula marcada com esse ID!");
         }
 
         validadoresCancelamento.forEach(v -> v.validar(dto));
         
-        AulaEntity aulaCancelada = aulaRepository.getReferenceById(dto.id());
+        AulaEntity aulaCancelada = aulaRepository.buscarPorId(dto.id());
         aulaCancelada.cancelarAula(dto.motivoCancelamento());
     }
 
     public AulaEntity reagendarAula(AulaAtualizacaoDTO dto) {
-        if(!aulaRepository.existsById(dto.aulaId())) {
+        if(!aulaRepository.existePorId(dto.aulaId())) {
             throw new ValidacaoException("Não existe aula marcada com esse ID!");
         }
 
         validadoresReagendamento.forEach(v -> v.validar(dto));
 
-        AulaEntity aulaReagendada = aulaRepository.getReferenceById(dto.aulaId());
+        AulaEntity aulaReagendada = aulaRepository.buscarPorId(dto.aulaId());
         aulaReagendada.remarcarAula(dto.data());
 
         return aulaReagendada;
     }
 
     public Page<AulaDetalhadamentoDTO> listarAulas(Pageable paginacao) {
-        var page = aulaRepository.findAllByMotivoCancelamentoIsNull(paginacao).map(AulaDetalhadamentoDTO::new);
+        var page = aulaRepository.buscarTodosPorMotivoCancelamentoNull(paginacao).map(AulaDetalhadamentoDTO::new);
         return page;
     }
 
     public Page<AulaDetalhadamentoDTO> listarAulasPorAluno(String alunoNome, Pageable paginacao) {
-        var page = aulaRepository.findAllByAlunoNomeAndMotivoCancelamentoIsNull(paginacao, alunoNome).map(AulaDetalhadamentoDTO::new);
+        var page = aulaRepository.buscarTodosPorAlunoNomeEMotivoCancelamentoNull(paginacao, alunoNome).map(AulaDetalhadamentoDTO::new);
         return page;
     }
 
     public Page<AulaDetalhadamentoDTO> listarAulasPorProfessor(String professorNome, Pageable paginacao) {
-        var page = aulaRepository.findAllByProfessorNomeAndMotivoCancelamentoIsNull(paginacao, professorNome).map(AulaDetalhadamentoDTO::new);
+        var page = aulaRepository.buscarTodosPorProfessorNomeEMotivoCancelamentoNull(paginacao, professorNome).map(AulaDetalhadamentoDTO::new);
         return page;
     }
 
     public AulaEntity buscarAulaPorId(Long id) {
-        AulaEntity aula = aulaRepository.findByIdAndMotivoCancelamentoIsNull(id);
+        AulaEntity aula = aulaRepository.buscarPorIdEMotivoCancelamentoNull(id);
 
         if(aula == null) {
             throw new ValidacaoException("Não existe aula marcada com esse ID!");
