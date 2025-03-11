@@ -4,7 +4,7 @@ import br.com.estudarte.api.application.aula.dto.AulaAtualizacaoDTO;
 import br.com.estudarte.api.infra.aula.AulaEntity;
 import br.com.estudarte.api.infra.aula.AulaRepository;
 import br.com.estudarte.api.infra.exception.ValidacaoException;
-import br.com.estudarte.api.infra.sala.SalaRepository;
+import br.com.estudarte.api.infra.sala.repository.SalaRepositoryJpa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +15,7 @@ public class ValidadorAulaMesmoHorario implements ValidadorReagendarAula {
     AulaRepository aulaRepository;
 
     @Autowired
-    SalaRepository salaRepository;
+    SalaRepositoryJpa salaRepositoryJpa;
 
     @Override
     public void validar(AulaAtualizacaoDTO dto) {
@@ -23,7 +23,7 @@ public class ValidadorAulaMesmoHorario implements ValidadorReagendarAula {
 
         var professorComAulaNoMesmoHorario = aulaRepository.existsByProfessorNomeAndDataAndMotivoCancelamentoIsNull(aula.getProfessorNome(), dto.data());
 
-        var aulaNaMesmaSala = salaRepository.existsByHorarioReservaAndNome(dto.data(), aula.getSala().getNome());
+        var aulaNaMesmaSala = salaRepositoryJpa.existsByHorarioReservaAndNome(dto.data(), aula.getSala().getNome());
 
         if(professorComAulaNoMesmoHorario) {
             throw new ValidacaoException("Esse professor já tem uma aula agendada neste horário!");

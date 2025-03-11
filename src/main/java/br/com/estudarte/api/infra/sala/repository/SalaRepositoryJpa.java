@@ -1,15 +1,15 @@
-package br.com.estudarte.api.infra.sala;
+package br.com.estudarte.api.infra.sala.repository;
 
+import br.com.estudarte.api.infra.sala.SalaEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Range;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDateTime;
 
-public interface SalaRepository extends JpaRepository<SalaEntity, Long> {
+public interface SalaRepositoryJpa extends JpaRepository<SalaEntity, Long> {
 
     boolean existsByNome(String nome);
 
@@ -25,5 +25,7 @@ public interface SalaRepository extends JpaRepository<SalaEntity, Long> {
 
     SalaEntity findByIdAndAtivoTrue(Long id);
 
-    Boolean existsByIdAndAtivoTrue(Long id);
+    boolean existsByIdAndAtivoTrue(Long id);
+
+
 }

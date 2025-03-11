@@ -3,7 +3,7 @@ package br.com.estudarte.api.application.aula.validacoes.agendamento;
 import br.com.estudarte.api.application.aula.dto.AulaDTO;
 import br.com.estudarte.api.infra.aula.AulaRepository;
 import br.com.estudarte.api.infra.exception.ValidacaoException;
-import br.com.estudarte.api.infra.sala.SalaRepository;
+import br.com.estudarte.api.infra.sala.repository.SalaRepositoryJpa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +14,7 @@ public class ValidadorAulaNoMesmoHorario implements ValidadorAgendamentoAula {
     AulaRepository aulaRepository;
 
     @Autowired
-    SalaRepository salaRepository;
+    SalaRepositoryJpa salaRepositoryJpa;
 
     @Override
     public void validar(AulaDTO dto) {
@@ -22,7 +22,7 @@ public class ValidadorAulaNoMesmoHorario implements ValidadorAgendamentoAula {
 
         var alunoComAulaNoMesmoHorario = aulaRepository.existsByAlunoNomeAndDataAndMotivoCancelamentoIsNull(dto.alunoNome(), dto.data());
 
-        var aulaNaMesmaSala = salaRepository.existsByHorarioReservaAndNome(dto.data(), dto.salaNome());
+        var aulaNaMesmaSala = salaRepositoryJpa.existsByHorarioReservaAndNome(dto.data(), dto.salaNome());
 
         if(professorComAulaNoMesmoHorario) {
             throw new ValidacaoException("Esse professor já tem uma aula agendada neste horário");
