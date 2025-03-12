@@ -4,6 +4,7 @@ import br.com.estudarte.api.application.professor.dto.ProfessorDTO;
 import br.com.estudarte.api.application.professor.dto.ProfessorDetalhadamentoDTO;
 import br.com.estudarte.api.domain.Modalidade;
 import br.com.estudarte.api.infra.professor.ProfessorEntity;
+import br.com.estudarte.api.infra.professor.repository.ProfessorRepository;
 import br.com.estudarte.api.infra.professor.repository.ProfessorRepositoryJpa;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -40,7 +41,7 @@ class ProfessorControllerTest {
     private JacksonTester<ProfessorDetalhadamentoDTO> professorDetalhadamentoDTOJson;
 
     @MockitoBean
-    private ProfessorRepositoryJpa repository;
+    private ProfessorRepository repository;
 
     @Test
     @DisplayName("Deveria devolver código 400 quando informacões estão inválidas")
@@ -56,7 +57,7 @@ class ProfessorControllerTest {
         List<String> alunos = new ArrayList<String>();
         var professorDTO = new ProfessorDTO( "Professor", "43.743.281/0001-68", "47996403810","professor@email.com", Modalidade.SAXOFONE);
 
-        when(repository.save(any())).thenReturn(new ProfessorEntity(professorDTO));
+        when(repository.salvar(any())).thenReturn(new ProfessorEntity(professorDTO));
 
         var response = mvc.perform(post("/professor")
                         .contentType(MediaType.APPLICATION_JSON)

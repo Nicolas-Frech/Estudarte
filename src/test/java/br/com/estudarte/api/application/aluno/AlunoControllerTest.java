@@ -4,6 +4,7 @@ import br.com.estudarte.api.application.aluno.dto.AlunoDTO;
 import br.com.estudarte.api.application.aluno.dto.AlunoDetalhadamentoDTO;
 import br.com.estudarte.api.domain.Modalidade;
 import br.com.estudarte.api.infra.aluno.AlunoEntity;
+import br.com.estudarte.api.infra.aluno.repository.AlunoRepository;
 import br.com.estudarte.api.infra.aluno.repository.AlunoRepositoryJpa;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -37,7 +38,7 @@ class AlunoControllerTest {
     private JacksonTester<AlunoDetalhadamentoDTO> alunoDetalhadamentoDTOJson;
 
     @MockitoBean
-    private AlunoRepositoryJpa repository;
+    private AlunoRepository repository;
     @Test
     @DisplayName("Deveria devolver código 400 quando informacões estão inválidas")
     void cadastrar_cenario1() throws Exception {
@@ -51,7 +52,7 @@ class AlunoControllerTest {
     void cadastrar_cenario2() throws Exception {
         var alunoDTO = new AlunoDTO( "Aluno", "063.888.324-09", "47996403810","aluno@email.com", Modalidade.SAXOFONE);
 
-        when(repository.save(any())).thenReturn(new AlunoEntity(alunoDTO));
+        when(repository.salvar(any())).thenReturn(new AlunoEntity(alunoDTO));
 
         var response = mvc.perform(post("/aluno")
                         .contentType(MediaType.APPLICATION_JSON)
