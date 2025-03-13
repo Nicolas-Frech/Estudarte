@@ -23,11 +23,19 @@ public class Validador24HorasRemarcar implements ValidadorReagendarAula {
     public void validar(AulaAtualizacaoDTO dto) {
         AulaEntity aula = aulaRepository.buscarPorId(dto.aulaId());
         var agora = LocalDateTime.now(ZoneId.of("America/Sao_Paulo"));
+        var dataAntiga = aula.getData();
+        var novaData = dto.data();
 
-        var diferencaEmHoras = Duration.between(agora, aula.getData()).toHours();
+        var diferencaEmHoras = Duration.between(agora, dataAntiga).toHours();
 
         if(diferencaEmHoras < 24) {
             throw new ValidacaoException("Somente reagendar aula com no mínimo 24 horas de antecedência!");
+        }
+
+        var diferencaEmMin = Duration.between(agora, novaData).toMinutes();
+
+        if(diferencaEmMin < 60) {
+            throw new ValidacaoException("Aula deve ser agendada com no mínimo 1 hora de antecedência");
         }
     }
 }
