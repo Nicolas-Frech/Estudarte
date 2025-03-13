@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 @Component
 public class ValidadorHorarioReservaAntecedencia implements ValidadorReservaSala {
@@ -13,7 +14,7 @@ public class ValidadorHorarioReservaAntecedencia implements ValidadorReservaSala
     public void validar(SalaReservaDTO dto) {
         var dataReserva = dto.horarioReserva();
 
-        var agora = LocalDateTime.now();
+        var agora = LocalDateTime.now(ZoneId.of("America/Sao_Paulo"));
 
         var diferencaEmMin = Duration.between(agora, dataReserva).toMinutes();
 
