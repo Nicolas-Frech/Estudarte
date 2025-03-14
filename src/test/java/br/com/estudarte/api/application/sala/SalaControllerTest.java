@@ -16,14 +16,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -86,9 +89,38 @@ class SalaControllerTest {
     void reservar_cenario1() throws Exception {
         LocalDateTime horarioReserva = LocalDateTime.of(2025, 03, 25, 6, 0, 0);
         SalaReservaDTO reserva = new SalaReservaDTO(1l, horarioReserva);
+        SalaEntity sala = new SalaEntity(new SalaDTO("Sala", Modalidade.SAXOFONE));
 
-        //when(repository.
+        doThrow(new ResponseStatusException(HttpStatus.BAD_REQUEST, "Reserva fora do horário de funcionamento da escola!"))
+                .when(salaService).reservarSala(reserva);
+
+        var response = mvc.perform(put("/sala")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(salaReservaDTOJson.write(reserva).getJson())
+                )
+                .andReturn().getResponse();
+
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
     }
 
+    @Test
+    @DisplayName("Não deve reservar sala quando o horário já estiver reservado")
+    void reservar_cenario2() throws Exception {
+        LocalDateTime horarioReserva = LocalDateTime.of(2025, 03, 25, 14, 0, 0);
+        SalaReservaDTO reserva = new SalaReservaDTO(2l, horarioReserva);
+        SalaEntity sala = new SalaEntity(2l, "Sala", true, new ArrayList<>(), Modalidade.SAXOFONE, new ArrayList<>(), true);
+        sala.reservarSala(reserva);
 
+        doThrow(new ResponseStatusException(HttpStatus.BAD_REQUEST, "Já existe uma reserva para esse horário nesta sala!"))
+                .when(salaService).reservarSala(reserva);
+
+        var response = mvc.perform(put("/sala")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(salaReservaDTOJson.write(reserva).getJson())
+                )
+                .andReturn().getResponse();
+
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
+
+    }
 }
