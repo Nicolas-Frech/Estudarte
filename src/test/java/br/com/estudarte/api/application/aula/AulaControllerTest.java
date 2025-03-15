@@ -3,6 +3,7 @@ package br.com.estudarte.api.application.aula;
 import br.com.estudarte.api.application.aula.dto.AulaDTO;
 import br.com.estudarte.api.application.aula.dto.AulaDetalhadamentoDTO;
 import br.com.estudarte.api.application.sala.dto.SalaDTO;
+import br.com.estudarte.api.application.sala.dto.SalaReservaDTO;
 import br.com.estudarte.api.domain.Modalidade;
 import br.com.estudarte.api.infra.aula.AulaEntity;
 import br.com.estudarte.api.infra.sala.SalaEntity;
@@ -17,12 +18,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
@@ -60,7 +64,7 @@ class AulaControllerTest {
         var saladto = new SalaDTO("Sala", Modalidade.SAXOFONE);
         var sala = new SalaEntity(saladto);
 
-        var aulaDTO = new AulaDTO("", "",modalidade, data, "Sala");
+        var aulaDTO = new AulaDTO("", "", modalidade, data, "Sala");
         var aula = new AulaEntity(aulaDTO);
         aula.adicionarSala(sala);
 
@@ -76,7 +80,7 @@ class AulaControllerTest {
 
         assertThat(response.getStatus()).isEqualTo(HttpStatus.CREATED.value());
 
-        var aulaDetalhadamentoDTO = new AulaDetalhadamentoDTO(null,"", "",modalidade, data, "Sala");
+        var aulaDetalhadamentoDTO = new AulaDetalhadamentoDTO(null, "", "", modalidade, data, "Sala");
 
         var jsonEsperado = aulaDetalhadamentoDTOJson.write(
                 aulaDetalhadamentoDTO
@@ -85,5 +89,27 @@ class AulaControllerTest {
         assertThat(response.getContentAsString()).isEqualTo(jsonEsperado);
     }
 
+    @Test
+    @DisplayName("Não deve agendar aula quando a sala estiver reservada no mesmo horário")
+    void agendar_cenario3() throws Exception {
+        var data = LocalDateTime.now().plusHours(1);
+        var modalidade = Modalidade.SAXOFONE;
+        var sala = new SalaEntity(1l, "sala", true, new ArrayList<>(), modalidade, new ArrayList<>(), true);
+        sala.reservarSala(new SalaReservaDTO(1l, data));
 
+        var aulaDTO = new AulaDTO("", "", modalidade, data, "sala");
+
+        doThrow(new ResponseStatusException(HttpStatus.BAD_REQUEST))
+                .when(aulaService).agendarAula(aulaDTO);
+
+        var response = mvc
+                .perform(
+                        post("/aula")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(aulaDTOJson.write(
+                                        new AulaDTO("", "", modalidade, data, "sala")).getJson()))
+                .andReturn().getResponse();
+
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
+    }
 }
