@@ -1,10 +1,14 @@
 package br.com.estudarte.api.application.sala;
 
+import br.com.estudarte.api.application.aula.dto.AulaDTO;
 import br.com.estudarte.api.application.sala.dto.SalaDTO;
 import br.com.estudarte.api.application.sala.dto.SalaDetalhadamentoDTO;
 import br.com.estudarte.api.application.sala.dto.SalaReservaDTO;
 import br.com.estudarte.api.domain.Modalidade;
+import br.com.estudarte.api.infra.aula.AulaEntity;
 import br.com.estudarte.api.infra.sala.SalaEntity;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,22 +26,16 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 @AutoConfigureJsonTesters
-class SalaControllerTest {
+public class SalaControllerReservaTest {
 
     @Autowired
     private MockMvc mvc;
-
-    @Autowired
-    private JacksonTester<SalaDTO> salaDTOJson;
 
     @Autowired
     private JacksonTester<SalaDetalhadamentoDTO> salaDetalhadamentoDTOJson;
@@ -45,44 +43,8 @@ class SalaControllerTest {
     @MockitoBean
     private SalaService salaService;
 
-    @Autowired JacksonTester<SalaReservaDTO> salaReservaDTOJson;
-
-    @Test
-    @DisplayName("Deveria devolver código 400 quando informacões estão inválidas")
-    void cadastrar_cenario1() throws Exception {
-        var response = mvc.perform(post("/sala")).andReturn().getResponse();
-
-        assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
-    }
-
-    @Test
-    @DisplayName("Deveria devolver código 200 quando informacões estão válidas")
-    void cadastrar_cenario2() throws Exception {
-        var salaDTO = new SalaDTO( "Sala", Modalidade.SAXOFONE);
-
-        when(salaService.registrarSala(any())).thenReturn(new SalaEntity(salaDTO));
-
-        var response = mvc.perform(post("/sala")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(salaDTOJson.write(salaDTO).getJson())
-                )
-                .andReturn().getResponse();
-
-        assertThat(response.getStatus()).isEqualTo(HttpStatus.CREATED.value());
-
-        var salaDTODetalhadamento = new SalaDetalhadamentoDTO(
-                null,
-                salaDTO.nome(),
-                salaDTO.modalidade(),
-                false,
-                new ArrayList<>(),
-                true
-        );
-
-        var jsonEsperado = salaDetalhadamentoDTOJson.write(salaDTODetalhadamento).getJson();
-
-        assertThat(response.getContentAsString()).isEqualTo(jsonEsperado);
-    }
+    @Autowired
+    JacksonTester<SalaReservaDTO> salaReservaDTOJson;
 
     @Test
     @DisplayName("Não deve reservar sala fora do horário de funcionamento")
@@ -122,5 +84,26 @@ class SalaControllerTest {
 
         assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
 
+    }
+    @Test
+    @DisplayName("Não deve reservar sala quando tem aula no mesmo horário")
+    void reservar_cenario3() throws Exception {
+        LocalDateTime horario = LocalDateTime.of(2025, 03, 25, 14, 0, 0);
+        SalaEntity sala = new SalaEntity(2l, "Sala", true, new ArrayList<>(), Modalidade.SAXOFONE, new ArrayList<>(), true);
+        AulaEntity aula = new AulaEntity(new AulaDTO("Professor", "Aluno", Modalidade.SAXOFONE, horario, "Sala"));
+        aula.adicionarSala(sala);
+
+        SalaReservaDTO reserva = new SalaReservaDTO(2l, horario);
+
+        doThrow(new ResponseStatusException(HttpStatus.BAD_REQUEST, "Já existe uma aula marcada para esse horário nesta sala!"))
+                .when(salaService).reservarSala(reserva);
+
+        var response = mvc.perform(put("/sala")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(salaReservaDTOJson.write(reserva).getJson())
+                )
+                .andReturn().getResponse();
+
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
     }
 }
