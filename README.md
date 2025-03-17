@@ -9,15 +9,27 @@
  # <br/> ⚙️ Funcionalidades de Professor:
 
 -  (GET) /professor - Listar todos os Professores:
+
+    ![image](https://github.com/user-attachments/assets/946141d8-2ec0-4a03-bae8-385258e363e4)
+
 -  (GET) /professor/{id} - Buscar Professor por Id:
+
+   ![image](https://github.com/user-attachments/assets/dd9b3e18-b830-48e4-a804-6ab41d4fdf5a)
+
+
 -  (POST) /professor - Cadastrar Professor:
 
-      ![image](https://github.com/user-attachments/assets/fd90f63e-8d88-48d6-a137-392997f99846)
+   ![image](https://github.com/user-attachments/assets/a2dccbbc-4428-49f5-bc76-9e9c0b497ba1)
 
-- (DELETE) /professor/{id} - Deletar Professor por Id:
-- (PUT) /professor - Alterar Salário ou Modalidade do Professor:
 
-  ![image](https://github.com/user-attachments/assets/d3892053-4083-4c66-af25-032dff79a77a)
+-  (DELETE) /professor/{id} - Deletar Professor por Id:
+
+   ![image](https://github.com/user-attachments/assets/f49d9077-65c6-4371-9c23-f7fe004702f8)
+
+-  (PUT) /professor - Alterar Salário ou Modalidade do Professor:
+
+   ![image](https://github.com/user-attachments/assets/cb9f696b-7c95-440f-8661-7cb2f86a8d00)
+
 
 
  # <br/> ⚙️ Funcionalidades de Aluno:
