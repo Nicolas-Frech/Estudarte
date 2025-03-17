@@ -1,11 +1,9 @@
-package br.com.estudarte.api.application.professor;
+package br.com.estudarte.api.application.sala;
 
-import br.com.estudarte.api.application.professor.dto.ProfessorDTO;
-import br.com.estudarte.api.application.professor.dto.ProfessorDetalhadamentoDTO;
+import br.com.estudarte.api.application.sala.dto.SalaDTO;
+import br.com.estudarte.api.application.sala.dto.SalaDetalhadamentoDTO;
 import br.com.estudarte.api.domain.Modalidade;
-import br.com.estudarte.api.infra.professor.ProfessorEntity;
-import br.com.estudarte.api.infra.professor.repository.ProfessorRepository;
-
+import br.com.estudarte.api.infra.sala.SalaEntity;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,35 +16,38 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 @AutoConfigureJsonTesters
-class ProfessorControllerTest {
+class SalaControllerCadastroTest {
 
     @Autowired
     private MockMvc mvc;
 
     @Autowired
-    private JacksonTester<ProfessorDTO> professorDTOJson;
+    private JacksonTester<SalaDTO> salaDTOJson;
 
     @Autowired
-    private JacksonTester<ProfessorDetalhadamentoDTO> professorDetalhadamentoDTOJson;
+    private JacksonTester<SalaDetalhadamentoDTO> salaDetalhadamentoDTOJson;
 
     @MockitoBean
-    private ProfessorService professorService;
+    private SalaService salaService;
+
 
     @Test
     @DisplayName("Deveria devolver código 400 quando informacões estão inválidas")
     void cadastrar_cenario1() throws Exception {
-        var response = mvc.perform(post("/professor")).andReturn().getResponse();
+        var response = mvc.perform(post("/sala")).andReturn().getResponse();
 
         assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
     }
@@ -54,34 +55,29 @@ class ProfessorControllerTest {
     @Test
     @DisplayName("Deveria devolver código 200 quando informacões estão válidas")
     void cadastrar_cenario2() throws Exception {
-        List<String> alunos = new ArrayList<String>();
-        var professorDTO = new ProfessorDTO( "Professor", "43.743.281/0001-68", "47996403810","professor@email.com", Modalidade.SAXOFONE);
+        var salaDTO = new SalaDTO( "Sala", Modalidade.SAXOFONE);
 
-        when(professorService.registrarProfessor(any())).thenReturn(new ProfessorEntity(professorDTO));
+        when(salaService.registrarSala(any())).thenReturn(new SalaEntity(salaDTO));
 
-        var response = mvc.perform(post("/professor")
+        var response = mvc.perform(post("/sala")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(professorDTOJson.write(professorDTO).getJson())
+                        .content(salaDTOJson.write(salaDTO).getJson())
                 )
                 .andReturn().getResponse();
 
         assertThat(response.getStatus()).isEqualTo(HttpStatus.CREATED.value());
 
-        var professorDTODetalhadamento = new ProfessorDetalhadamentoDTO(
+        var salaDTODetalhadamento = new SalaDetalhadamentoDTO(
                 null,
-                professorDTO.nome(),
-                professorDTO.cnpj(),
-                professorDTO.telefone(),
-                professorDTO.email(),
-                professorDTO.modalidade(),
-                alunos,
-                 null
+                salaDTO.nome(),
+                salaDTO.modalidade(),
+                false,
+                new ArrayList<>(),
+                true
         );
 
-        var jsonEsperado = professorDetalhadamentoDTOJson.write(professorDTODetalhadamento).getJson();
+        var jsonEsperado = salaDetalhadamentoDTOJson.write(salaDTODetalhadamento).getJson();
 
         assertThat(response.getContentAsString()).isEqualTo(jsonEsperado);
     }
-
-
 }
