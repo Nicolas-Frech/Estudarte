@@ -90,7 +90,6 @@ class SalaRepositoryTest {
         SalaDTO salaTeste = new SalaDTO("Sala", Modalidade.SAXOFONE);
         LocalDateTime horarioReserva = LocalDateTime.of(2025, 3, 3, 9, 0, 0);
 
-
         SalaEntity sala = helper.cadastrarSala(salaTeste);
         SalaReservaDTO reserva = new SalaReservaDTO((Long) em.getId(sala), horarioReserva);
 
@@ -98,5 +97,4 @@ class SalaRepositoryTest {
 
         assertThat(existeSalaDoBanco).isFalse();
     }
-
 }
