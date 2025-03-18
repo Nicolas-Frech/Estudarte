@@ -78,7 +78,9 @@ public class AulaService {
 
         AlunoEntity aluno = alunoRepository.buscarPorNome(dto.alunoNome());
         ProfessorEntity professor = professorRepository.buscarPorNome(dto.professorNome());
+
         var dataFormatada = emailService.formatarData(aula.getData());
+
         emailService.enviarEmail(aluno.getEmail(), "Agendamento de Aula", "Você tem uma aula marcada na data " + dataFormatada);
         emailService.enviarEmail(professor.getEmail(), "Agendamento de Aula", "Você tem uma aula marcada na data " + dataFormatada);
         return aula;
