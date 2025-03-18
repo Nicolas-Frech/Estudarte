@@ -1,5 +1,6 @@
 package br.com.estudarte.api.application.aula;
 
+import br.com.estudarte.api.application.EmailService;
 import br.com.estudarte.api.application.aula.dto.AulaAtualizacaoDTO;
 import br.com.estudarte.api.application.aula.dto.AulaCancelamentoDTO;
 import br.com.estudarte.api.application.aula.dto.AulaDTO;
@@ -7,10 +8,12 @@ import br.com.estudarte.api.application.aula.dto.AulaDetalhadamentoDTO;
 import br.com.estudarte.api.application.aula.validacoes.agendamento.ValidadorAgendamentoAula;
 import br.com.estudarte.api.application.aula.validacoes.cancelamento.ValidadorCancelamentoAula;
 import br.com.estudarte.api.application.aula.validacoes.reagendamento.ValidadorReagendarAula;
+import br.com.estudarte.api.infra.aluno.AlunoEntity;
 import br.com.estudarte.api.infra.aluno.repository.AlunoRepository;
 import br.com.estudarte.api.infra.aula.AulaEntity;
 import br.com.estudarte.api.infra.aula.repository.AulaRepository;
 import br.com.estudarte.api.infra.exception.ValidacaoException;
+import br.com.estudarte.api.infra.professor.ProfessorEntity;
 import br.com.estudarte.api.infra.professor.repository.ProfessorRepository;
 import br.com.estudarte.api.infra.sala.repository.SalaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,16 +21,24 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
 public class AulaService {
 
 
-    private final AulaRepository aulaRepository;
-    private final ProfessorRepository professorRepository;
-    private final AlunoRepository alunoRepository;
-    private final SalaRepository salaRepository;
+    private final
+    AulaRepository aulaRepository;
+    private final
+    ProfessorRepository professorRepository;
+    private final
+    AlunoRepository alunoRepository;
+    private final
+    SalaRepository salaRepository;
+
+    @Autowired
+    EmailService emailService;
 
     @Autowired
     List<ValidadorAgendamentoAula> validadores;
@@ -64,6 +75,12 @@ public class AulaService {
         aula.adicionarSala(salaRepository.buscarPorNome(dto.salaNome()));
 
         aulaRepository.salvar(aula);
+
+        AlunoEntity aluno = alunoRepository.buscarPorNome(dto.alunoNome());
+        ProfessorEntity professor = professorRepository.buscarPorNome(dto.professorNome());
+        var dataFormatada = emailService.formatarData(aula.getData());
+        emailService.enviarEmail(aluno.getEmail(), "Agendamento de Aula", "Você tem uma aula marcada na data " + dataFormatada);
+        emailService.enviarEmail(professor.getEmail(), "Agendamento de Aula", "Você tem uma aula marcada na data " + dataFormatada);
         return aula;
     }
 
@@ -76,6 +93,14 @@ public class AulaService {
         
         AulaEntity aulaCancelada = aulaRepository.buscarPorId(dto.id());
         aulaCancelada.cancelarAula(dto.motivoCancelamento());
+
+        AlunoEntity aluno = alunoRepository.buscarPorNome(aulaCancelada.getAlunoNome());
+        ProfessorEntity professor = professorRepository.buscarPorNome(aulaCancelada.getProfessorNome());
+
+        var dataFormatada = emailService.formatarData(aulaCancelada.getData());
+
+        emailService.enviarEmail(aluno.getEmail(), "Cancelamento de Aula", "A aula da data " + dataFormatada + " foi cancelada pelo motivo: " + aulaCancelada.getMotivoCancelamento());
+        emailService.enviarEmail(professor.getEmail(), "Cancelamento de Aula", "A aula da data " + dataFormatada + " foi cancelada pelo motivo: " + aulaCancelada.getMotivoCancelamento());
     }
 
     public AulaEntity reagendarAula(AulaAtualizacaoDTO dto) {
@@ -86,7 +111,19 @@ public class AulaService {
         validadoresReagendamento.forEach(v -> v.validar(dto));
 
         AulaEntity aulaReagendada = aulaRepository.buscarPorId(dto.aulaId());
+
+        var dataOriginal = aulaReagendada.getData();
+        var dataOriginalFormatada = emailService.formatarData(dataOriginal);
+
         aulaReagendada.remarcarAula(dto.data());
+
+        var novaDataFormatada = emailService.formatarData(aulaReagendada.getData());
+
+        AlunoEntity aluno = alunoRepository.buscarPorNome(aulaReagendada.getAlunoNome());
+        ProfessorEntity professor = professorRepository.buscarPorNome(aulaReagendada.getProfessorNome());
+
+        emailService.enviarEmail(aluno.getEmail(), "Reagendamento de Aula", "A aula da data " + dataOriginalFormatada + " foi reagendada para a data " + novaDataFormatada);
+        emailService.enviarEmail(professor.getEmail(), "Reagendamento de Aula", "A aula da data " + dataOriginalFormatada + " foi reagendada para a data " + novaDataFormatada);
 
         return aulaReagendada;
     }
