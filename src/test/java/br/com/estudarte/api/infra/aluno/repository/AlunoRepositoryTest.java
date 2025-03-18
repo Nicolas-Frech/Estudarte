@@ -3,6 +3,8 @@ package br.com.estudarte.api.infra.aluno.repository;
 import br.com.estudarte.api.application.aluno.dto.AlunoDTO;
 import br.com.estudarte.api.application.professor.dto.ProfessorDTO;
 import br.com.estudarte.api.domain.Modalidade;
+import br.com.estudarte.api.infra.TestConfig;
+import br.com.estudarte.api.infra.TestPersistenceHelper;
 import br.com.estudarte.api.infra.aluno.AlunoEntity;
 import br.com.estudarte.api.infra.professor.ProfessorEntity;
 import org.junit.jupiter.api.DisplayName;
@@ -10,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 
 
@@ -18,12 +20,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
+@Import(TestConfig.class)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ActiveProfiles("test")
 class AlunoRepositoryTest {
 
     @Autowired
-    private TestEntityManager em;
+    private TestPersistenceHelper helper;
 
     @Autowired
     private AlunoRepositoryJpa alunoRepository;
@@ -34,7 +37,7 @@ class AlunoRepositoryTest {
         AlunoDTO alunoTeste = new AlunoDTO("Aluno", "123.456.789-00", "123456789", "email@email.com",
                 Modalidade.SAXOFONE);
 
-        AlunoEntity aluno = matricularAluno(alunoTeste);
+        AlunoEntity aluno = helper.matricularAluno(alunoTeste);
 
         var alunoDoBanco = alunoRepository.findByNome(alunoTeste.nome());
 
@@ -58,11 +61,11 @@ class AlunoRepositoryTest {
         AlunoDTO alunoTeste = new AlunoDTO("Aluno", "123.456.789-00", "123456789", "email@email.com",
                 Modalidade.SAXOFONE);
 
-        AlunoEntity aluno = matricularAluno(alunoTeste);
+        AlunoEntity aluno = helper.matricularAluno(alunoTeste);
 
         ProfessorDTO professorTeste = new ProfessorDTO("Professor", "12.343.123/0001-39", "12345678", "email@email.com",
                 Modalidade.SAXOFONE);
-        ProfessorEntity professor = cadastrarProfessor(professorTeste);
+        ProfessorEntity professor = helper.cadastrarProfessor(professorTeste);
 
         aluno.adicionarProfessor(professor);
 
@@ -77,31 +80,14 @@ class AlunoRepositoryTest {
         AlunoDTO alunoTeste = new AlunoDTO("Aluno", "123.456.789-00", "123456789", "email@email.com",
                 Modalidade.SAXOFONE);
 
-        AlunoEntity aluno = matricularAluno(alunoTeste);
+        AlunoEntity aluno = helper.matricularAluno(alunoTeste);
 
         ProfessorDTO professorTeste = new ProfessorDTO("Professor", "12.343.123/0001-39", "12345678", "email@email.com",
                 Modalidade.SAXOFONE);
-        ProfessorEntity professor = cadastrarProfessor(professorTeste);
+        ProfessorEntity professor = helper.cadastrarProfessor(professorTeste);
 
         var alunoDoBanco = alunoRepository.findAllByProfessor(professor);
 
         assertThat(alunoDoBanco).doesNotContain(aluno.getNome());
-    }
-
-
-
-
-    private AlunoEntity matricularAluno(AlunoDTO dto) {
-        AlunoEntity aluno = new AlunoEntity(dto);
-        this.em.persist(aluno);
-
-        return aluno;
-    }
-
-    private ProfessorEntity cadastrarProfessor(ProfessorDTO dto) {
-        ProfessorEntity professor = new ProfessorEntity(dto);
-        this.em.persist(professor);
-
-        return professor;
     }
 }

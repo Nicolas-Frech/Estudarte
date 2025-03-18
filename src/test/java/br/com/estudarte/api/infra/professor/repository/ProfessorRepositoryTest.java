@@ -2,25 +2,28 @@ package br.com.estudarte.api.infra.professor.repository;
 
 import br.com.estudarte.api.application.professor.dto.ProfessorDTO;
 import br.com.estudarte.api.domain.Modalidade;
+import br.com.estudarte.api.infra.TestConfig;
+import br.com.estudarte.api.infra.TestPersistenceHelper;
 import br.com.estudarte.api.infra.professor.ProfessorEntity;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
+@Import(TestConfig.class)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ActiveProfiles("test")
 class ProfessorRepositoryTest {
 
     @Autowired
-    private TestEntityManager em;
+    private TestPersistenceHelper helper;
 
     @Autowired
     private ProfessorRepositoryJpa repository;
@@ -31,7 +34,7 @@ class ProfessorRepositoryTest {
         ProfessorDTO professorTeste = new ProfessorDTO("Professor", "12.343.123/0001-39", "12345678", "email@email.com",
                 Modalidade.SAXOFONE);
 
-        ProfessorEntity professor = cadastrarProfessor(professorTeste);
+        ProfessorEntity professor = helper.cadastrarProfessor(professorTeste);
 
         var professorDoBanco = repository.findByNome(professorTeste.nome());
 
@@ -55,7 +58,7 @@ class ProfessorRepositoryTest {
         ProfessorDTO professorTeste = new ProfessorDTO("Professor", "12.343.123/0001-39", "12345678", "email@email.com",
                 Modalidade.SAXOFONE);
 
-        ProfessorEntity professor = cadastrarProfessor(professorTeste);
+        ProfessorEntity professor = helper.cadastrarProfessor(professorTeste);
 
         var ativo = repository.findAtivoByNome(professorTeste.nome());
 
@@ -71,13 +74,5 @@ class ProfessorRepositoryTest {
         var ativo = repository.findAtivoByNome(professorTeste.nome());
 
         assertThat(ativo).isNull();
-    }
-
-
-    private ProfessorEntity cadastrarProfessor(ProfessorDTO dto) {
-        ProfessorEntity professor = new ProfessorEntity(dto);
-        this.em.persist(professor);
-
-        return professor;
     }
 }
