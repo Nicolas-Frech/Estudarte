@@ -1,3 +1,8 @@
+if(!localStorage.getItem("token")) {
+    alert("Você precisa estar logado!");
+    window.location.href = "login.html";
+}
+
 function deletarSala() {
     const id = document.getElementById("salaId").value;
     const mensagem = document.getElementById("mensagem");

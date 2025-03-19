@@ -1,3 +1,8 @@
+if(!localStorage.getItem("token")) {
+    alert("Você precisa estar logado!");
+    window.location.href = "login.html";
+}
+
 document.getElementById("btn").addEventListener("click", function () {
     const id = document.getElementById("id").value;
     const salario = document.getElementById("salario").value;

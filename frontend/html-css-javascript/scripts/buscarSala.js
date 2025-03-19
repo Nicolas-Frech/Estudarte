@@ -1,6 +1,12 @@
+if(!localStorage.getItem("token")) {
+    alert("Você precisa estar logado!");
+    window.location.href = "login.html";
+}
 document.getElementById("btnBuscar").addEventListener("click", () => {
     const id = document.getElementById("salaId").value;
     const resultado = document.getElementById("resultado");
+
+
 
     function formatarData(dataISO) {
         if (!dataISO) return "Data inválida";

@@ -1,3 +1,8 @@
+if(!localStorage.getItem("token")) {
+    alert("Você precisa estar logado!");
+    window.location.href = "login.html";
+}
+
 function deletarProfessor() {
     const id = document.getElementById("professorId").value;
     const mensagem = document.getElementById("mensagem");

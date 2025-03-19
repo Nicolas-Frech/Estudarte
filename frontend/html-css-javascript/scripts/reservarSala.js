@@ -1,5 +1,10 @@
 const btnReserva = document.getElementById("btnReserva");
 
+if(!localStorage.getItem("token")) {
+    alert("Você precisa estar logado!");
+    window.location.href = "login.html";
+}
+
 function reservarSala() {
     const salaId = document.getElementById("salaId").value;
     const horario = document.getElementById("horario").value;

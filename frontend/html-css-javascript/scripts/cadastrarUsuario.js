@@ -35,6 +35,7 @@ function cadastrarUsuario() {
         .then(data => {
             console.log(data);
             alert("✅ Usuário cadastrado com sucesso!");
+            window.location.href = "login.html";
         })
         .catch(error => {
             console.log(error);

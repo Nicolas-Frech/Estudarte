@@ -1,3 +1,8 @@
+if(!localStorage.getItem("token")) {
+    alert("Você precisa estar logado!");
+    window.location.href = "login.html";
+}
+
 document.getElementById("btnRemarcar").addEventListener("click", function () {
     const idAula = document.getElementById("idAula").value;
     const novaData = document.getElementById("novaData").value;

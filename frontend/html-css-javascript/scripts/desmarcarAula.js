@@ -1,3 +1,8 @@
+if(!localStorage.getItem("token")) {
+    alert("Você precisa estar logado!");
+    window.location.href = "login.html";
+}
+
 function desmarcarAula() {
     const id = document.getElementById("aulaId").value;
     const motivo = document.getElementById("motivo").value;

@@ -1,3 +1,8 @@
+if(!localStorage.getItem("token")) {
+    alert("Você precisa estar logado!");
+    window.location.href = "login.html";
+}
+
 function trancarMatricula() {
     const id = document.getElementById("alunoId").value;
     const mensagem = document.getElementById("mensagem");

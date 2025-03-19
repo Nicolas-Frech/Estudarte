@@ -1,5 +1,10 @@
 const btn = document.getElementById("btn");
 
+if(!localStorage.getItem("token")) {
+  alert("Você precisa estar logado!");
+  window.location.href = "login.html";
+}
+
 function agendarAula() {
   const professor = document.getElementById("professor").value;
   const aluno = document.getElementById("aluno").value;
@@ -15,7 +20,8 @@ function agendarAula() {
     data: data + "T" + horario + ":00",
     salaNome: salaNome
   };
-    
+
+
   const options = {
     method: 'POST',
     headers: {

@@ -1,3 +1,8 @@
+if(!localStorage.getItem("token")) {
+    alert("Você precisa estar logado!");
+    window.location.href = "login.html";
+}
+
 function formatarData(dataISO) {
     if (!dataISO) return "Data inválida";
 
@@ -20,6 +25,7 @@ document.getElementById("btnBuscar").addEventListener("click", () => {
         resultado.innerHTML = "<p style='color: red;'>⚠️ Por favor, insira um ID válido.</p>";
         return;
     }
+
 
     fetch(`/api/aula/${id}`)
         .then(response => {

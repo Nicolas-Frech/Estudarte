@@ -1,6 +1,11 @@
 let paginaAtual = 0;
 const tamanhoPagina = 10;
 
+if(!localStorage.getItem("token")) {
+    alert("Você precisa estar logado!");
+    window.location.href = "login.html";
+}
+
 function buscarProfessores() {
     document.getElementById("loading").style.display = "block";
 

@@ -1,5 +1,10 @@
 const btn = document.getElementById("btn");
 
+if(!localStorage.getItem("token")) {
+  alert("Você precisa estar logado!");
+  window.location.href = "login.html";
+}
+
 function cadastrarProfessor() {
   const nome = document.getElementById("nome").value;
   const cnpj = document.getElementById("cnpj").value;
