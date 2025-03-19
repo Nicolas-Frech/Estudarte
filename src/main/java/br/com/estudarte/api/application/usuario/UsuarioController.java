@@ -2,6 +2,7 @@ package br.com.estudarte.api.application.usuario;
 
 import br.com.estudarte.api.application.usuario.dto.UsuarioDTO;
 import br.com.estudarte.api.application.usuario.dto.UsuarioDetalhadamentoDTO;
+import br.com.estudarte.api.infra.security.token.TokenDTO;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,9 +28,7 @@ public class UsuarioController {
 
     @PostMapping("/login")
     public ResponseEntity loginUsuario(@RequestBody @Valid UsuarioDTO dto) {
-        var usuario = usuarioService.loginUsuario(dto);
-        return ResponseEntity.ok(new UsuarioDetalhadamentoDTO(usuario));
+        var tokenJWT = usuarioService.loginUsuario(dto);
+        return ResponseEntity.ok(new TokenDTO(tokenJWT));
     }
-
-
 }

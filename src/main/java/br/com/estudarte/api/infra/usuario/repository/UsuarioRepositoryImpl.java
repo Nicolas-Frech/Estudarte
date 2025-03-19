@@ -22,4 +22,9 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
     public UsuarioEntity salvar(UsuarioEntity usuario) {
         return jpaRepository.save(usuario);
     }
+
+    @Override
+    public UsuarioEntity buscarPorLogin(String login) {
+        return jpaRepository.findByLogin(login);
+    }
 }

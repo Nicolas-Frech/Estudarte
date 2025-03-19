@@ -2,6 +2,7 @@ package br.com.estudarte.api.application.usuario;
 
 import br.com.estudarte.api.application.usuario.dto.UsuarioDTO;
 import br.com.estudarte.api.infra.exception.ValidacaoException;
+import br.com.estudarte.api.infra.security.token.TokenService;
 import br.com.estudarte.api.infra.usuario.UsuarioEntity;
 import br.com.estudarte.api.infra.usuario.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ public class UsuarioService {
     @Autowired
     AuthenticationManager manager;
 
+    @Autowired
+    TokenService tokenService;
+
     public UsuarioService(UsuarioRepository usuarioRepository) {
         this.usuarioRepository = usuarioRepository;
     }
@@ -37,7 +41,9 @@ public class UsuarioService {
         }
     }
 
-    public UsuarioEntity loginUsuario(UsuarioDTO dto) {
+    public String loginUsuario(UsuarioDTO dto) {
         var authentication = manager.authenticate(new UsernamePasswordAuthenticationToken(dto.login(), dto.senha()));
+        var tokenJWT = tokenService.createToken((UsuarioEntity) authentication.getPrincipal());
+        return tokenJWT;
     }
 }

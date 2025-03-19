@@ -7,4 +7,6 @@ public interface UsuarioRepository {
     boolean existePorLogin(String login);
 
     UsuarioEntity salvar(UsuarioEntity usuario);
+
+    UsuarioEntity buscarPorLogin(String login);
 }
