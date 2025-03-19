@@ -1,7 +1,8 @@
 let paginaAtual = 0;
 const tamanhoPagina = 10;
 
-if(!localStorage.getItem("token")) {
+const token = localStorage.getItem("token");
+if (!token) {
     alert("Você precisa estar logado!");
     window.location.href = "login.html";
 }
@@ -31,7 +32,13 @@ function buscarAulas() {
         return;
     }
 
-    fetch(`/api/aula/professor/${encodeURIComponent(nomeProfessor)}?page=${paginaAtual}&size=${tamanhoPagina}`)
+    fetch(`/api/aula/professor/${encodeURIComponent(nomeProfessor)}?page=${paginaAtual}&size=${tamanhoPagina}`, {
+        method: "GET",
+        headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
+        }
+    })
         .then(response => {
             if (!response.ok) {
                 throw new Error(`Erro na requisição: ${response.status}`);

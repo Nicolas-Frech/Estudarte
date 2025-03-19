@@ -1,6 +1,7 @@
-if(!localStorage.getItem("token")) {
-    alert("Você precisa estar logado!");
-    window.location.href = "login.html";
+const token = localStorage.getItem("token");
+if(!token) {
+  alert("Você precisa estar logado!");
+  window.location.href = "login.html";
 }
 
 function trancarMatricula() {
@@ -14,7 +15,10 @@ function trancarMatricula() {
 
     fetch(`/api/aluno/${id}`, {
         method: "DELETE",
-        headers: { "Content-Type": "application/json" }
+        headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
     })
     .then(response => {
         if (response.ok) {

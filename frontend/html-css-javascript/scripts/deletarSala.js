@@ -1,6 +1,7 @@
-if(!localStorage.getItem("token")) {
-    alert("Você precisa estar logado!");
-    window.location.href = "login.html";
+const token = localStorage.getItem("token");
+if(!token) {
+  alert("Você precisa estar logado!");
+  window.location.href = "login.html";
 }
 
 function deletarSala() {
@@ -14,7 +15,10 @@ function deletarSala() {
 
     fetch(`/api/sala/${id}`, {
         method: "DELETE",
-        headers: { "Content-Type": "application/json" }
+        headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
     })
     .then(response => {
         if (response.ok) {

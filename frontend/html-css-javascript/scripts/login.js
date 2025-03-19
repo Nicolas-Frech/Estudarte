@@ -20,7 +20,7 @@ function loginUsuario() {
     spinner.style.display = "block";
     btnLogin.disabled = true;
 
-    fetch("http://localhost:8080/login", options)
+    fetch("/api/login", options)
         .then(response => {
             if (!response.ok) {
                 throw new Error("\nUsuário ou senha inválidos!");

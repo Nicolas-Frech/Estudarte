@@ -1,6 +1,7 @@
-if(!localStorage.getItem("token")) {
-    alert("Você precisa estar logado!");
-    window.location.href = "login.html";
+const token = localStorage.getItem("token");
+if(!token) {
+  alert("Você precisa estar logado!");
+  window.location.href = "login.html";
 }
 
 document.getElementById("btnBuscar").addEventListener("click", () => {
@@ -12,7 +13,13 @@ document.getElementById("btnBuscar").addEventListener("click", () => {
         return;
     }
 
-    fetch(`/api/aluno/${id}`)
+    fetch(`/api/aluno/${id}`, {
+        method: "GET",
+        headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
+        }
+    })
         .then(response => {
             if (!response.ok) {
                 throw new Error("Aluno não encontrado");

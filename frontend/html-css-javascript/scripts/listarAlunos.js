@@ -1,7 +1,8 @@
 let paginaAtual = 0;
 const tamanhoPagina = 10;
 
-if(!localStorage.getItem("token")) {
+const token = localStorage.getItem("token");
+if (!token) {
     alert("Você precisa estar logado!");
     window.location.href = "login.html";
 }
@@ -9,7 +10,13 @@ if(!localStorage.getItem("token")) {
 function buscarAlunos() {
     document.getElementById("loading").style.display = "block";
 
-    fetch(`/api/aluno?page=${paginaAtual}&size=${tamanhoPagina}`)
+    fetch(`/api/aluno?page=${paginaAtual}&size=${tamanhoPagina}`, {
+        method: "GET",
+        headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
+        }
+    })
         .then(response => response.json())
         .then(data => {
             document.getElementById("loading").style.display = "none";

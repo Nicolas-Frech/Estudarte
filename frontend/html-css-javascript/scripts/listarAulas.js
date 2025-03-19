@@ -1,10 +1,12 @@
 let paginaAtual = 0;
 const tamanhoPagina = 10;
 
-if(!localStorage.getItem("token")) {
+const token = localStorage.getItem("token");
+if (!token) {
     alert("Você precisa estar logado!");
     window.location.href = "login.html";
 }
+
 
 function formatarData(dataISO) {
     if (!dataISO) return "Data inválida";
@@ -23,7 +25,13 @@ function formatarData(dataISO) {
 function buscarAulas() {
     document.getElementById("loading").style.display = "block";
 
-    fetch(`/api/aula?page=${paginaAtual}&size=${tamanhoPagina}`)
+    fetch(`/api/aula?page=${paginaAtual}&size=${tamanhoPagina}`, {
+        method: "GET",
+        headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
+        }
+    })
         .then(response => response.json())
         .then(data => {
             document.getElementById("loading").style.display = "none";

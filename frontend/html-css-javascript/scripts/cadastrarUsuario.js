@@ -23,9 +23,9 @@ function cadastrarUsuario() {
         body: JSON.stringify(usuario)
     };
 
-    console.log(JSON.stringify(usuario)); // Debug
+    console.log(JSON.stringify(usuario));
 
-    fetch("http://localhost:8080/login/cadastro", options)
+    fetch("/api/login/cadastro", options)
         .then(response => {
             if (!response.ok) {
                 throw Error(response.statusText);

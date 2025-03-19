@@ -1,6 +1,7 @@
-if(!localStorage.getItem("token")) {
-    alert("Você precisa estar logado!");
-    window.location.href = "login.html";
+const token = localStorage.getItem("token");
+if(!token) {
+  alert("Você precisa estar logado!");
+  window.location.href = "login.html";
 }
 
 document.getElementById("btnRemarcar").addEventListener("click", function () {
@@ -18,7 +19,10 @@ document.getElementById("btnRemarcar").addEventListener("click", function () {
 
     fetch(`/api/aula`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
         body: JSON.stringify({ aulaId: idAula, data: dataAtualizada})
     })
     .then(response => {
