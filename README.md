@@ -8,6 +8,7 @@
 - API RESTful
 - Autenticação e Autorização
 - Princípios SOLID
+- Testes Unitários e Integrados
 - Desenvolvimento WEB
 - Conexão API com Front-end
 - Deploy utilizando instância EC2 AWS
