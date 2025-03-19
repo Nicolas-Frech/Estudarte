@@ -22,8 +22,6 @@
             <li><a class="dropdown-item" href="listarProfessores.html">📋 Listar Professores</a></li>
             <li><a class="dropdown-item" href="deletarProfessor.html">🗑️ Deletar Professor</a></li>
             <li><a class="dropdown-item" href="editarProfessor.html">⚙️ Editar Professor</a></li>
-
-
         </ul>
     </div>
 
@@ -38,7 +36,6 @@
             <li><a class="dropdown-item" href="listarAlunos.html">📋 Listar Alunos</a></li>
             <li><a class="dropdown-item" href="trancarMatricula.html">🗑️ Trancar Matrícula</a></li>
             <li><a class="dropdown-item" href="editarAluno.html">⚙️ Editar Aluno</a></li>
-
         </ul>
     </div>
 
@@ -53,7 +50,6 @@
             <li><a class="dropdown-item" href="listarAulas.html">📋 Listar Aulas</a></li>
             <li><a class="dropdown-item" href="desmarcarAula.html">🗑️ Desmarcar Aula</a></li>
             <li><a class="dropdown-item" href="remarcarAula.html">⚙️ Remarcar Aula</a></li>
-
         </ul>
     </div>
 
@@ -67,14 +63,25 @@
             <li><a class="dropdown-item" href="buscarSala.html">🔍 Buscar Sala</a></li>
             <li><a class="dropdown-item" href="listarSalas.html">📋 Listar Salas</a></li>
             <li><a class="dropdown-item" href="deletarSala.html">🗑️ Deletar Sala</a></li>
-
-
-
         </ul>
 
     </div>
-</div>
 
+    <div class="my-3">
+        <button class="btn btn-danger" id="btnLogout">🚪 Trocar Usuário</button>
+    </div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script>
+    if (!localStorage.getItem("token")) {
+    alert("Você precisa estar logado!");
+    window.location.href = "login.html";
+    }
+    
+    document.getElementById("btnLogout").addEventListener("click", function() {
+        localStorage.removeItem("token");
+        window.location.href = "login.html"; 
+    });
+</script>
 </body>
 </html>

@@ -1,5 +1,11 @@
 const btn = document.getElementById("btn");
 
+const token = localStorage.getItem("token");
+if(!token) {
+  alert("Você precisa estar logado!");
+  window.location.href = "login.html";
+}
+
 function cadastrarSala() {
     const nome = document.getElementById("nome").value;
     const modalidade = document.getElementById("modalidade").value;
@@ -12,7 +18,8 @@ function cadastrarSala() {
     const options = {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(sala)
     };

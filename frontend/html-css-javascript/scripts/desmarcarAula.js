@@ -1,3 +1,9 @@
+const token = localStorage.getItem("token");
+if(!token) {
+  alert("Você precisa estar logado!");
+  window.location.href = "login.html";
+}
+
 function desmarcarAula() {
     const id = document.getElementById("aulaId").value;
     const motivo = document.getElementById("motivo").value;
@@ -15,7 +21,10 @@ function desmarcarAula() {
 
     fetch(`/api/aula`, {
         method: "DELETE",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
         body: JSON.stringify(cancelamento)
     })
     .then(response => {

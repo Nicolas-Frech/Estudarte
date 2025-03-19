@@ -1,10 +1,22 @@
 let paginaAtual = 0;
 const tamanhoPagina = 10;
 
+const token = localStorage.getItem("token");
+if(!token) {
+  alert("Você precisa estar logado!");
+  window.location.href = "login.html";
+}
+
 function buscarProfessores() {
     document.getElementById("loading").style.display = "block";
 
-    fetch(`/api/professor?page=${paginaAtual}&size=${tamanhoPagina}`)
+    fetch(`/api/professor?page=${paginaAtual}&size=${tamanhoPagina}`, {
+        method: "GET",
+        headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
+        }
+    })
         .then(response => response.json())
         .then(data => {
             document.getElementById("loading").style.display = "none";

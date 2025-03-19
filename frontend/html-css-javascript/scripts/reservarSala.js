@@ -1,5 +1,11 @@
 const btnReserva = document.getElementById("btnReserva");
 
+const token = localStorage.getItem("token");
+if(!token) {
+  alert("Você precisa estar logado!");
+  window.location.href = "login.html";
+}
+
 function reservarSala() {
     const salaId = document.getElementById("salaId").value;
     const horario = document.getElementById("horario").value;
@@ -19,6 +25,7 @@ function reservarSala() {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(reserva)
     };

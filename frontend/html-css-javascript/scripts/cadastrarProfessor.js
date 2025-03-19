@@ -1,5 +1,11 @@
 const btn = document.getElementById("btn");
 
+const token = localStorage.getItem("token");
+if(!token) {
+  alert("Você precisa estar logado!");
+  window.location.href = "login.html";
+}
+
 function cadastrarProfessor() {
   const nome = document.getElementById("nome").value;
   const cnpj = document.getElementById("cnpj").value;
@@ -18,7 +24,8 @@ function cadastrarProfessor() {
   const options = {
     method: 'POST',
     headers: {
-    'Content-Type': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
     },
     body: JSON.stringify(professor),
   };

@@ -1,6 +1,14 @@
+const token = localStorage.getItem("token");
+if(!token) {
+  alert("Você precisa estar logado!");
+  window.location.href = "login.html";
+}
+
 document.getElementById("btnBuscar").addEventListener("click", () => {
     const id = document.getElementById("salaId").value;
     const resultado = document.getElementById("resultado");
+
+
 
     function formatarData(dataISO) {
         if (!dataISO) return "Data inválida";
@@ -21,7 +29,13 @@ document.getElementById("btnBuscar").addEventListener("click", () => {
         return;
     }
 
-    fetch(`/api/sala/${id}`)
+    fetch(`/api/sala/${id}`, {
+        method: "GET",
+        headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
+        }
+    })
         .then(response => {
             if (!response.ok) {
                 throw new Error("Sala não encontrada");

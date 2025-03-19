@@ -1,3 +1,9 @@
+const token = localStorage.getItem("token");
+if(!token) {
+  alert("Você precisa estar logado!");
+  window.location.href = "login.html";
+}
+
 document.getElementById("btnBuscar").addEventListener("click", () => {
     const id = document.getElementById("professorId").value;
     const resultado = document.getElementById("resultado");
@@ -7,7 +13,13 @@ document.getElementById("btnBuscar").addEventListener("click", () => {
         return;
     }
 
-    fetch(`/api/professor/${id}`)
+    fetch(`/api/professor/${id}`, {
+        method: "GET",
+        headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
+        }
+    })
         .then(response => {
             if (!response.ok) {
                 throw new Error("Professor não encontrado");

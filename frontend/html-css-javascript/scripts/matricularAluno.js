@@ -1,5 +1,11 @@
 const btn = document.getElementById("btn");
 
+const token = localStorage.getItem("token");
+if(!token) {
+  alert("Você precisa estar logado!");
+  window.location.href = "login.html";
+}
+
 function matricularAluno() {
   const nome = document.getElementById("nome").value;
   const cpf = document.getElementById("cpf").value;
@@ -19,6 +25,7 @@ function matricularAluno() {
     method: 'POST',
     headers: {
     'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`
     },
     body: JSON.stringify(aluno),
   };
