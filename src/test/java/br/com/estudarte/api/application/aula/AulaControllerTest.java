@@ -16,6 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.server.ResponseStatusException;
@@ -49,6 +50,7 @@ class AulaControllerTest {
 
     @Test
     @DisplayName("Deveria devolver código http 400 quando informações estão inválidas")
+    @WithMockUser
     void agendar_cenario1() throws Exception {
         var response = mvc.perform(post("/aula"))
                 .andReturn().getResponse();
@@ -58,6 +60,7 @@ class AulaControllerTest {
 
     @Test
     @DisplayName("Deveria devolver código http 200 quando informações estão válidas")
+    @WithMockUser
     void agendar_cenario2() throws Exception {
         var data = LocalDateTime.now().plusHours(1);
         var modalidade = Modalidade.SAXOFONE;
@@ -91,6 +94,7 @@ class AulaControllerTest {
 
     @Test
     @DisplayName("Não deve agendar aula quando a sala estiver reservada no mesmo horário")
+    @WithMockUser
     void agendar_cenario3() throws Exception {
         var data = LocalDateTime.now().plusHours(1);
         var modalidade = Modalidade.SAXOFONE;

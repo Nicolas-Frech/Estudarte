@@ -14,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -38,8 +39,10 @@ class AlunoControllerTest {
 
     @MockitoBean
     private AlunoService alunoService;
+
     @Test
     @DisplayName("Deveria devolver código 400 quando informacões estão inválidas")
+    @WithMockUser
     void cadastrar_cenario1() throws Exception {
         var response = mvc.perform(post("/aluno")).andReturn().getResponse();
 
@@ -48,6 +51,7 @@ class AlunoControllerTest {
 
     @Test
     @DisplayName("Deveria devolver código 200 quando informacões estão válidas")
+    @WithMockUser
     void cadastrar_cenario2() throws Exception {
         var alunoDTO = new AlunoDTO( "Aluno", "063.888.324-09", "47996403810","aluno@email.com", Modalidade.SAXOFONE);
 

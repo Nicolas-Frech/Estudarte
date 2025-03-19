@@ -18,6 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.server.ResponseStatusException;
@@ -48,6 +49,7 @@ public class SalaControllerReservaTest {
 
     @Test
     @DisplayName("Não deve reservar sala fora do horário de funcionamento")
+    @WithMockUser
     void reservar_cenario1() throws Exception {
         LocalDateTime horarioReserva = LocalDateTime.of(2025, 03, 25, 6, 0, 0);
         SalaReservaDTO reserva = new SalaReservaDTO(1l, horarioReserva);
@@ -67,6 +69,7 @@ public class SalaControllerReservaTest {
 
     @Test
     @DisplayName("Não deve reservar sala quando o horário já estiver reservado")
+    @WithMockUser
     void reservar_cenario2() throws Exception {
         LocalDateTime horarioReserva = LocalDateTime.of(2025, 03, 25, 14, 0, 0);
         SalaReservaDTO reserva = new SalaReservaDTO(2l, horarioReserva);
