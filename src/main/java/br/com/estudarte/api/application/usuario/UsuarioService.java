@@ -5,6 +5,8 @@ import br.com.estudarte.api.infra.exception.ValidacaoException;
 import br.com.estudarte.api.infra.usuario.UsuarioEntity;
 import br.com.estudarte.api.infra.usuario.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,9 @@ public class UsuarioService {
     private PasswordEncoder passwordEncoder;
 
     private final UsuarioRepository usuarioRepository;
+
+    @Autowired
+    AuthenticationManager manager;
 
     public UsuarioService(UsuarioRepository usuarioRepository) {
         this.usuarioRepository = usuarioRepository;
@@ -30,5 +35,9 @@ public class UsuarioService {
             usuarioRepository.salvar(usuario);
             return usuario;
         }
+    }
+
+    public UsuarioEntity loginUsuario(UsuarioDTO dto) {
+        var authentication = manager.authenticate(new UsernamePasswordAuthenticationToken(dto.login(), dto.senha()));
     }
 }

@@ -1,8 +1,11 @@
 package br.com.estudarte.api.application.usuario;
 
 import br.com.estudarte.api.application.usuario.dto.UsuarioDTO;
+import br.com.estudarte.api.application.usuario.dto.UsuarioDetalhadamentoDTO;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,9 +18,18 @@ public class UsuarioController {
     @Autowired
     UsuarioService usuarioService;
 
-    @PostMapping
-    public ResponseEntity cadastrarUsuario(@RequestBody UsuarioDTO dto) {
+    @PostMapping("/cadastro")
+    @Transactional
+    public ResponseEntity cadastrarUsuario(@RequestBody @Valid UsuarioDTO dto) {
         var usuario = usuarioService.cadastrarUsuario(dto);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(new UsuarioDetalhadamentoDTO(usuario));
     }
+
+    @PostMapping("/login")
+    public ResponseEntity loginUsuario(@RequestBody @Valid UsuarioDTO dto) {
+        var usuario = usuarioService.loginUsuario(dto);
+        return ResponseEntity.ok(new UsuarioDetalhadamentoDTO(usuario));
+    }
+
+
 }
