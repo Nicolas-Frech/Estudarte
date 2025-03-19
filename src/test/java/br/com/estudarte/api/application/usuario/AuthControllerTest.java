@@ -1,7 +1,5 @@
 package br.com.estudarte.api.application.usuario;
 
-import br.com.estudarte.api.application.professor.dto.ProfessorDTO;
-import br.com.estudarte.api.application.professor.dto.ProfessorDetalhadamentoDTO;
 import br.com.estudarte.api.application.usuario.dto.UsuarioDTO;
 import br.com.estudarte.api.application.usuario.dto.UsuarioDetalhadamentoDTO;
 import br.com.estudarte.api.infra.usuario.UsuarioEntity;
@@ -54,7 +52,6 @@ class AuthControllerTest {
 
     @Test
     @DisplayName("Deveria devolver código 200 quando informacões estão válidas")
-    @WithMockUser
     void cadastrar_cenario2() throws Exception {
         UsuarioDTO usuarioDTO = new UsuarioDTO("loginUsuario", "senha");
 

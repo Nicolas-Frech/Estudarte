@@ -90,6 +90,7 @@ public class SalaControllerReservaTest {
     }
     @Test
     @DisplayName("Não deve reservar sala quando tem aula no mesmo horário")
+    @WithMockUser
     void reservar_cenario3() throws Exception {
         LocalDateTime horario = LocalDateTime.of(2025, 03, 25, 14, 0, 0);
         SalaEntity sala = new SalaEntity(2l, "Sala", true, new ArrayList<>(), Modalidade.SAXOFONE, new ArrayList<>(), true);
