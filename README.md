@@ -2,7 +2,15 @@
 
 ### Estud'arte - Projeto de Software para gestão de escolas de música, contemplando os domínios Professor, Aluno, Aula e Sala.
 
-### A Aplicação com Front-end está sendo hospedada na url: http://3.145.46.54
+### A Aplicação com Front-end (API + Front-end) está sendo hospedada na url: http://3.145.46.54
+
+### Alguns conceitos que o software aborda:
+- API RESTful
+- Autenticação e Autorização
+- Princípios SOLID
+- Desenvolvimento WEB
+- Conexão API com Front-end
+- Deploy utilizando instância EC2 AWS
 
 
 
@@ -132,6 +140,10 @@
 - HTML/CSS/JAVASCRIPT
 
 - Spring Boot 3
+
+- Spring Security
+
+- JWT
 
 - JPA
 
