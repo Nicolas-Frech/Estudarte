@@ -1,5 +1,6 @@
 package br.com.estudarte.api.application.usuario;
 
+import br.com.estudarte.api.application.sala.dto.SalaDetalhadamentoDTO;
 import br.com.estudarte.api.application.usuario.dto.UsuarioDTO;
 import br.com.estudarte.api.application.usuario.dto.UsuarioDetalhadamentoDTO;
 import br.com.estudarte.api.infra.security.token.TokenDTO;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/login")
@@ -31,9 +33,11 @@ public class AuthController {
 
     @PostMapping("/cadastro")
     @Transactional
-    public ResponseEntity cadastrarUsuario(@RequestBody @Valid UsuarioDTO dto) {
+    public ResponseEntity cadastrarUsuario(@RequestBody @Valid UsuarioDTO dto, UriComponentsBuilder uriBuilder) {
         var usuario = authService.cadastrarUsuario(dto);
-        return ResponseEntity.ok(new UsuarioDetalhadamentoDTO(usuario));
+
+        var uri = uriBuilder.path("/login/cadastro/{id}").buildAndExpand(usuario.getId()).toUri();
+        return ResponseEntity.created(uri).body(new UsuarioDetalhadamentoDTO(usuario));
     }
 
     @PostMapping
