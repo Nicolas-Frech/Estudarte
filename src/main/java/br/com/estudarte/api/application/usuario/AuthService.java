@@ -2,30 +2,24 @@ package br.com.estudarte.api.application.usuario;
 
 import br.com.estudarte.api.application.usuario.dto.UsuarioDTO;
 import br.com.estudarte.api.infra.exception.ValidacaoException;
-import br.com.estudarte.api.infra.security.token.TokenService;
 import br.com.estudarte.api.infra.usuario.UsuarioEntity;
 import br.com.estudarte.api.infra.usuario.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UsuarioService {
+public class AuthService implements UserDetailsService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     private final UsuarioRepository usuarioRepository;
 
-    @Autowired
-    AuthenticationManager manager;
-
-    @Autowired
-    TokenService tokenService;
-
-    public UsuarioService(UsuarioRepository usuarioRepository) {
+    public AuthService(UsuarioRepository usuarioRepository) {
         this.usuarioRepository = usuarioRepository;
     }
 
@@ -41,9 +35,8 @@ public class UsuarioService {
         }
     }
 
-    public String loginUsuario(UsuarioDTO dto) {
-        var authentication = manager.authenticate(new UsernamePasswordAuthenticationToken(dto.login(), dto.senha()));
-        var tokenJWT = tokenService.createToken((UsuarioEntity) authentication.getPrincipal());
-        return tokenJWT;
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return usuarioRepository.buscarPorLogin(username);
     }
 }
