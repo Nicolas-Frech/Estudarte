@@ -7,12 +7,14 @@ function cadastrarUsuario() {
     const senha = document.getElementById("senha").value;
     const confirmarSenha = document.getElementById("confirmarSenha").value;
 
-    if (login == null) {
-        alert("⚠️ Por favor, digite um login!")
+    if (!login) {
+        alert("⚠️ Por favor, digite um login!");
+        return;
     }
 
-    if (senha == null) {
-        alert("⚠️ Por favor, digite uma senha!")
+    if (!senha) {
+        alert("⚠️ Por favor, digite uma senha!");
+        return;
     }
 
     if (senha !== confirmarSenha) {
