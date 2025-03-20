@@ -1,5 +1,7 @@
 const btn = document.getElementById("btn");
 
+console.log("API URL:", CONFIG.API_URL);
+
 const token = localStorage.getItem("token");
 if(!token) {
   alert("Você precisa estar logado!");
@@ -32,7 +34,7 @@ function matricularAluno() {
 
   console.log(JSON.stringify(aluno))
 
-  fetch('/api/aluno', options)
+  fetch(`${CONFIG.API_URL}/aluno`, options)
   .then(data => {
       if (!data.ok) {
         throw Error(data.statusText);

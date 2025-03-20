@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @Service
-@Profile("prod")
 public class EmailService {
 
     @Autowired

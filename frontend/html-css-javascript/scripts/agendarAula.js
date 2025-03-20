@@ -1,5 +1,7 @@
 const btn = document.getElementById("btn");
 
+console.log("API URL:", CONFIG.API_URL);
+
 const token = localStorage.getItem("token");
 if(!token) {
   alert("Você precisa estar logado!");
@@ -34,7 +36,7 @@ function agendarAula() {
 
   console.log(JSON.stringify(aula))
 
-  fetch('/api/aula', options)
+  fetch(`${CONFIG.API_URL}/aula`, options)
   .then(data => {
       if (!data.ok) {
         throw new Error(`Erro ${data.status}: Não foi possível agendar a aula.`);

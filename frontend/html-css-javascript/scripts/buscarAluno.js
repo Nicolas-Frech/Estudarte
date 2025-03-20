@@ -1,4 +1,7 @@
 const token = localStorage.getItem("token");
+
+console.log("API URL:", CONFIG.API_URL);
+
 if(!token) {
   alert("Você precisa estar logado!");
   window.location.href = "login.html";
@@ -13,7 +16,7 @@ document.getElementById("btnBuscar").addEventListener("click", () => {
         return;
     }
 
-    fetch(`/api/aluno/${id}`, {
+    fetch(`${CONFIG.API_URL}/aluno/${id}`, {
         method: "GET",
         headers: {
             "Authorization": `Bearer ${token}`,

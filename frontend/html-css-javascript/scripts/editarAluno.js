@@ -1,4 +1,7 @@
 const token = localStorage.getItem("token");
+
+console.log("API URL:", CONFIG.API_URL);
+
 if(!token) {
   alert("Você precisa estar logado!");
   window.location.href = "login.html";
@@ -16,7 +19,7 @@ document.getElementById("btn").addEventListener("click", function () {
         return;
     }
 
-    fetch(`/api/aluno`, {
+    fetch(`${CONFIG.API_URL}/aluno`, {
         method: "PUT",
         headers: { 
             'Content-Type': 'application/json',

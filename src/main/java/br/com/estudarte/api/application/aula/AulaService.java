@@ -28,14 +28,10 @@ import java.util.List;
 public class AulaService {
 
 
-    private final
-    AulaRepository aulaRepository;
-    private final
-    ProfessorRepository professorRepository;
-    private final
-    AlunoRepository alunoRepository;
-    private final
-    SalaRepository salaRepository;
+    private final AulaRepository aulaRepository;
+    private final ProfessorRepository professorRepository;
+    private final AlunoRepository alunoRepository;
+    private final SalaRepository salaRepository;
 
     @Autowired
     EmailService emailService;

@@ -1,5 +1,7 @@
 const btnReserva = document.getElementById("btnReserva");
 
+console.log("API URL:", CONFIG.API_URL);
+
 const token = localStorage.getItem("token");
 if(!token) {
   alert("Você precisa estar logado!");
@@ -30,7 +32,7 @@ function reservarSala() {
         body: JSON.stringify(reserva)
     };
 
-    fetch('/api/sala', options)
+    fetch(`${CONFIG.API_URL}/sala`, options)
         .then(response => {
             if (!response.ok) {
                 throw new Error(response.statusText);

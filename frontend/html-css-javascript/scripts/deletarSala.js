@@ -1,4 +1,7 @@
 const token = localStorage.getItem("token");
+
+console.log("API URL:", CONFIG.API_URL);
+
 if(!token) {
   alert("Você precisa estar logado!");
   window.location.href = "login.html";
@@ -13,7 +16,7 @@ function deletarSala() {
         return;
     }
 
-    fetch(`/api/sala/${id}`, {
+    fetch(`${CONFIG.API_URL}/sala/${id}`, {
         method: "DELETE",
         headers: { 
             'Content-Type': 'application/json',

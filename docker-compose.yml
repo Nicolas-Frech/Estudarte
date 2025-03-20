@@ -1,10 +1,18 @@
 version: '3'
+
+networks:
+  proxy_network:
+    driver: bridge
+
 services:
+
   mysql:
     image: mysql:8.0.36
     env_file: ./env/mysql.env
     volumes:
-      - ./mysql-data:/var/lib/mysql
+      - ./mysql-data-1:/var/lib/mysql
+    networks:
+      - proxy_network
     restart: unless-stopped
     healthcheck:
       test: mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password=$$MYSQL_PASSWORD
@@ -15,10 +23,14 @@ services:
   app:
     image: nicolasfrech/estudarte:1.1
     env_file: ./env/app.env
+    networks:
+      - proxy_network
     restart: unless-stopped
+    ports:
+      - "8080:8080"
     depends_on:
       mysql:
         condition: service_healthy
 
 volumes:
-  mysql-data:
+  mysql-data-1:

@@ -1,5 +1,7 @@
 const btn = document.getElementById("btn");
 
+console.log("API URL:", CONFIG.API_URL);
+
 function cadastrarUsuario() {
     const login = document.getElementById("login").value;
     const senha = document.getElementById("senha").value;
@@ -25,7 +27,7 @@ function cadastrarUsuario() {
 
     console.log(JSON.stringify(usuario));
 
-    fetch("/api/login/cadastro", options)
+    fetch(`${CONFIG.API_URL}/login/cadastro`, options)
         .then(response => {
             if (!response.ok) {
                 throw Error(response.statusText);

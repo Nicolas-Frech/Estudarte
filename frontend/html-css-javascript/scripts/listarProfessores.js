@@ -1,6 +1,8 @@
 let paginaAtual = 0;
 const tamanhoPagina = 10;
 
+console.log("API URL:", CONFIG.API_URL);
+
 const token = localStorage.getItem("token");
 if(!token) {
   alert("Você precisa estar logado!");
@@ -10,7 +12,7 @@ if(!token) {
 function buscarProfessores() {
     document.getElementById("loading").style.display = "block";
 
-    fetch(`/api/professor?page=${paginaAtual}&size=${tamanhoPagina}`, {
+    fetch(`${CONFIG.API_URL}/professor?page=${paginaAtual}&size=${tamanhoPagina}`, {
         method: "GET",
         headers: {
             "Authorization": `Bearer ${token}`,

@@ -1,4 +1,7 @@
 const token = localStorage.getItem("token");
+
+console.log("API URL:", CONFIG.API_URL);
+
 if(!token) {
   alert("Você precisa estar logado!");
   window.location.href = "login.html";
@@ -19,7 +22,7 @@ function desmarcarAula() {
         motivoCancelamento: motivo
     }
 
-    fetch(`/api/aula`, {
+    fetch(`${CONFIG.API_URL}/aula`, {
         method: "DELETE",
         headers: { 
             'Content-Type': 'application/json',

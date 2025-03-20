@@ -1,4 +1,7 @@
 const token = localStorage.getItem("token");
+
+console.log("API URL:", CONFIG.API_URL);
+
 if(!token) {
   alert("Você precisa estar logado!");
   window.location.href = "login.html";
@@ -28,7 +31,7 @@ document.getElementById("btnBuscar").addEventListener("click", () => {
     }
 
 
-    fetch(`/api/aula/${id}`, {
+    fetch(`${CONFIG.API_URL}/aula/${id}`, {
         method: "GET",
         headers: {
             "Authorization": `Bearer ${token}`,

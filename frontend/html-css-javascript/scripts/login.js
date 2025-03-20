@@ -1,6 +1,8 @@
 const btnLogin = document.getElementById("btnLogin");
 const spinner = document.getElementById("spinner");
 
+console.log("API URL:", CONFIG.API_URL);
+
 function loginUsuario() {
     const login = document.getElementById("login").value;
     const senha = document.getElementById("senha").value;
@@ -20,7 +22,7 @@ function loginUsuario() {
     spinner.style.display = "block";
     btnLogin.disabled = true;
 
-    fetch("/api/login", options)
+    fetch(`${CONFIG.API_URL}/login`, options)
         .then(response => {
             if (!response.ok) {
                 throw new Error("\nUsuário ou senha inválidos!");
