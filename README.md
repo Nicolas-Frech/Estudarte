@@ -1,8 +1,8 @@
-# 📚 Sistema de Gestão de Escola de Música
+# 📚 Sistema de Gestão de Escola de Música - Estud'arte
 
 ## 📌 Sobre o Projeto
 
-Este projeto é um sistema web para o gerenciamento de Escolas de Música, permitindo o cadastro e a administração de Professores, Alunos, Salas e suas respectivas Aulas. Também é necessário ter um cadastro e login para acessar a aplicação como usuário, abordando conceitos de autenticação e autorização.
+Estud'arte é um sistema web para o gerenciamento de Escolas de Música, permitindo o cadastro e a administração de Professores, Alunos, Salas e suas respectivas Aulas. Também é necessário ter um cadastro e login para acessar a aplicação como usuário, abordando conceitos de autenticação e autorização.
 
 A aplicação é composta por:
 
@@ -41,6 +41,7 @@ Este software foi desenvolvido com as seguintes tecnologias:
   - Spring Security
   - Lombok
   - JWT
+  - Nginx
  
 ## 🌐 Acesso à Aplicação
 
