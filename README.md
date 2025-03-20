@@ -151,22 +151,6 @@ A aplicação está hospedada e pode ser acessada através do seguinte link:
   - Possibilita o cancelamento de uma aula do sistema, passando o motivo de cancelamento.
   - Assim que uma aula é cancelada, o professor e o aluno recebem um e-mail avisando-os.
 
-## 🛠️ Como Executar o Projeto na sua máquina local
-
-### Pré-requisitos
-
-Antes de iniciar, certifique-se de ter instalado:
-
-- [Docker](https://www.docker.com/)
-- [Docker Compose](https://docs.docker.com/compose/)
-
-### Passos para Rodar o Projeto na sua máquina
-
-1. Clone o repositório:
-2. Acesse o diretório do projeto:
-3. Inicie os containers com Docker Compose:
-4. Acesse a aplicação no navegador:
-
 ## 🤝 Contribuição
 
 Contribuições são sempre bem-vindas! Para contribuir:
