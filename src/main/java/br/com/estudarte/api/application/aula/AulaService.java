@@ -1,6 +1,6 @@
 package br.com.estudarte.api.application.aula;
 
-import br.com.estudarte.api.application.EmailService;
+import br.com.estudarte.api.application.email.EmailSender;
 import br.com.estudarte.api.application.aula.dto.AulaAtualizacaoDTO;
 import br.com.estudarte.api.application.aula.dto.AulaCancelamentoDTO;
 import br.com.estudarte.api.application.aula.dto.AulaDTO;
@@ -21,7 +21,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -32,9 +31,7 @@ public class AulaService {
     private final ProfessorRepository professorRepository;
     private final AlunoRepository alunoRepository;
     private final SalaRepository salaRepository;
-
-    @Autowired
-    EmailService emailService;
+    private final EmailSender emailService;
 
     @Autowired
     List<ValidadorAgendamentoAula> validadores;
@@ -45,11 +42,12 @@ public class AulaService {
     @Autowired
     List<ValidadorReagendarAula> validadoresReagendamento;
 
-    public AulaService(AulaRepository aulaRepository, ProfessorRepository professorRepository, AlunoRepository alunoRepository, SalaRepository salaRepository) {
+    public AulaService(AulaRepository aulaRepository, ProfessorRepository professorRepository, AlunoRepository alunoRepository, SalaRepository salaRepository, EmailSender emailService) {
         this.aulaRepository = aulaRepository;
         this.professorRepository = professorRepository;
         this.alunoRepository = alunoRepository;
         this.salaRepository = salaRepository;
+        this.emailService = emailService;
     }
 
     public AulaEntity agendarAula(AulaDTO dto) {

@@ -1,4 +1,4 @@
-package br.com.estudarte.api.application;
+package br.com.estudarte.api.application.email;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
@@ -11,7 +11,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @Service
-public class EmailService {
+@Profile("prod")
+public class EmailService implements EmailSender {
 
     @Autowired
     private JavaMailSender sender;
