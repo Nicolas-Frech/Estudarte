@@ -1,165 +1,187 @@
-# 💻 Sobre o Projeto
+# 📚 Sistema de Gestão de Escola de Música
 
-### Estud'arte - Projeto de Software para gestão de escolas de música, contemplando os domínios Professor, Aluno, Aula e Sala.
+## 📌 Sobre o Projeto
 
-### A Aplicação com Front-end (API + Front-end) está sendo hospedada na url: http://3.145.46.54
+Este projeto é um sistema web para o gerenciamento de Escolas de Música, permitindo o cadastro e a administração de Professores, Alunos, Salas e suas respectivas Aulas. Também é necessário ter um cadastro e login para acessar a aplicação como usuário, abordando conceitos de autenticação e autorização.
 
-### Alguns conceitos que o software aborda:
-- API RESTful
-- Autenticação e Autorização
-- Princípios SOLID
-- Testes Unitários e Integrados
-- Desenvolvimento WEB
-- Conexão API com Front-end
-- Deploy utilizando instância EC2 AWS
+A aplicação é composta por:
 
+- **Frontend:** HTML/CSS/JAVASCRIPT e Bootstrap 5
+- **Backend:** Java com Spring Boot 3
+- **Banco de Dados:** MySQL
+- **Containerização:** Docker e Docker Compose
 
+## 🚀 Tecnologias Utilizadas
 
- # <br/> ⚙️ Funcionalidades de Professor 👨‍🏫:
+Este software foi desenvolvido com as seguintes tecnologias:
 
--  (GET) /professor - Listar todos os Professores:
+- **Frontend:**
 
-    ![image](https://github.com/user-attachments/assets/946141d8-2ec0-4a03-bae8-385258e363e4)
+  - HTML/CSS/JAVASCRIPT
+  - Bootstrap 5
 
--  (GET) /professor/{id} - Buscar Professor por Id:
+- **Backend:**
 
-   ![image](https://github.com/user-attachments/assets/dd9b3e18-b830-48e4-a804-6ab41d4fdf5a)
+  - Java
+  - Spring Boot 3
+  - Maven
+  - JPA
+  - Hibernate
 
+- **Banco de Dados:**
 
--  (POST) /professor - Cadastrar Professor:
+  - MySQL
 
-   ![image](https://github.com/user-attachments/assets/a2dccbbc-4428-49f5-bc76-9e9c0b497ba1)
+- **Outras Ferramentas:**
 
+  - Docker e Docker Compose
+  - Git e GitHub
+  - Imsomnia
+  - AWS Instância EC2
+  - Spring Security
+  - Lombok
+  - JWT
+ 
+## 🌐 Acesso à Aplicação
 
--  (DELETE) /professor/{id} - Deletar Professor por Id:
+A aplicação está hospedada e pode ser acessada através do seguinte link:
+🔗 URL: http://3.145.46.54
 
-   ![image](https://github.com/user-attachments/assets/f49d9077-65c6-4371-9c23-f7fe004702f8)
+## 🔧 Funcionalidades
 
--  (PUT) /professor - Alterar Salário ou Modalidade do Professor:
+### 👨‍🏫 Funcionalidades do Professor
 
-   ![image](https://github.com/user-attachments/assets/cb9f696b-7c95-440f-8661-7cb2f86a8d00)
+- **Listagem de Professores** 📋
 
+  - Exibe uma lista com todos os professores cadastrados.
+  - Paginação para melhor visualização.
 
+- **Buscar Professor** 🔎
 
- # <br/> ⚙️ Funcionalidades de Aluno 🎓:
+  - Permite pesquisar professores pelo ID.
+  - Retorna detalhes como e-mail, telefone e modalidade.
 
--  (GET) /aluno - Listar todos os Alunos:
+- **Criar Professor** ➕
 
-   ![image](https://github.com/user-attachments/assets/d3a24d1b-596b-45e2-a4a0-29c66e09dda5)
+  - Cadastro de novos professores com informações detalhadas.
 
--  (GET) /aluno/{id} - Buscar Aluno por Id:
+- **Editar Professor** ✏️
 
-   ![image](https://github.com/user-attachments/assets/7d5092bf-eda4-4fdc-9bee-ca3e3f3711d3)
+  - Atualização dos dados cadastrais de um professor existente.
 
--  (POST) /aluno - Matricular Aluno:
-  
-   ![image](https://github.com/user-attachments/assets/c38ddb42-6edc-49e4-9747-f4f652bf7c88)
+- **Excluir Professor** 🗑️
 
+  - Remoção de um professor do sistema.
 
-- (DELETE) /aluno/{id} - Trancar a Matrícula do Aluno por Id:
+### 🎓 Funcionalidades do Aluno
 
-  ![image](https://github.com/user-attachments/assets/6515607b-8dbd-4bae-863a-50d2bb81afe0)
+- **Listagem de Alunos** 📋
 
-- (PUT) /aluno - Alterar a Modalidade ou Adicionar um Professor ao Aluno, passando esse JSON:
+  - Exibe uma lista com todos os alunos cadastrados.
+  - Paginação para melhor organização.
 
-  ![image](https://github.com/user-attachments/assets/04d48d7d-a450-427a-bb8a-cf3fe7441e32)
+- **Buscar Aluno** 🔎
 
+  - Permite pesquisar alunos pelo ID.
+  - Retorna detalhes como e-mail, telefone e modalidade.
 
+- **Criar Aluno** ➕
 
- # <br/> ⚙️ Funcionalidades de Aula 🎼:
+  - Cadastro de novos alunos no sistema.
 
--  (GET) /aula - Listar todos as Aulas:
+- **Editar Aluno** ✏️
 
-   ![image](https://github.com/user-attachments/assets/37efab61-3ced-4664-a103-deb0de1caac0)
+  - Atualização dos dados cadastrais de um aluno existente.
 
--  (GET) /aula/{id} - Buscar Aula por Id:
+- **Excluir Aluno** 🗑️
 
-   ![image](https://github.com/user-attachments/assets/2abd552c-4988-4f14-8d07-d63c3fd1210a)
+  - Remoção de um aluno do sistema.
 
--  (GET) /aula/aluno/{nome} - Buscar Aulas por nome do Aluno:
+### 🏫 Funcionalidades de Sala
 
-   ![image](https://github.com/user-attachments/assets/048d27e9-7273-4faf-bfa0-72e697306d7a)
+- **Listagem de Salas** 📋
 
--  (GET) /aula/professor/{nome} - Buscar Aulas por nome do Professor:
+  - Exibe uma lista com todas as salas cadastradas.
+  - Paginação para facilitar a navegação.
 
-   ![image](https://github.com/user-attachments/assets/11572a3d-e52c-4c03-ad5b-1732659528bd)
+- **Buscar Sala** 🔎
 
--  (POST) /aula - Agendar Aula:
+  - Permite pesquisar salas pelo ID.
+  - Retorna detalhes como nome, modalidade e horários reservados.
 
-   ![image](https://github.com/user-attachments/assets/d7b919af-0bd2-4c0a-bc06-fa8204896541)
+- **Criar Sala** ➕
 
+  - Cadastro de novas salas no sistema.
 
-- (PUT) /aula - Remarcar Aula:
+- **Editar Sala** ✏️
 
-  ![image](https://github.com/user-attachments/assets/548ed6bf-d96b-4f3d-8353-6a831f190164)
+  - Atualização dos dados de uma sala existente.
 
+- **Excluir Sala** 🗑️
 
-- (DELETE) /aula - Desmarcar Aula:
+  - Remoção de uma sala do sistema.
 
-  ![image](https://github.com/user-attachments/assets/0e639696-529b-41f1-9000-dad272ff7fef)
+- **Reservar Sala** 📅
 
+  - Permite reservar uma sala para estudo.
 
- # <br/> ⚙️ Funcionalidades de Sala 🏫:
+### 📚 Funcionalidades de Aula
 
--  (GET) /sala - Listar todas as Salas:
+- **Listagem de Aulas** 📋
 
-    ![image](https://github.com/user-attachments/assets/047fa8b8-f333-4a12-a883-c750aba2f4bc)
+  - Exibe todas as aulas cadastradas no sistema.
+  - Possibilidade de busca por nome de professor ou aluno.
 
+- **Buscar Aula** 🔎
 
--  (GET) /sala/{id} - Buscar Sala por Id:
+  - Permite pesquisar aulas pelo ID.
 
-   ![image](https://github.com/user-attachments/assets/c708c95d-3e7c-41d3-bc3b-11c7740bc628)
+* **Agendar Aula** 📅
 
+  - Permite o agendamento de novas aulas, associando professor, alunos, sala, data e horário.
+  - Assim que uma aula é agendada, o professor e o aluno recebem um e-mail avisando-os.
+ 
+* **Reagendar Aula** 📅
 
--  (POST) /sala - Cadastrar Sala:
+  - Permite o reagendamento de aulas, associando professor, alunos, sala, modalidade data e horário.
+  - Assim que uma aula é reagendada, o professor e o aluno recebem um e-mail avisando-os.
 
-   ![image](https://github.com/user-attachments/assets/1a5f8eb2-c186-499f-8726-e79962160bf1)
+* **Cancelar Aula** ❌
 
+  - Possibilita o cancelamento de uma aula do sistema, passando o motivo de cancelamento.
+  - Assim que uma aula é cancelada, o professor e o aluno recebem um e-mail avisando-os.
 
--  (DELETE) /sala/{id} - Deletar Sala por Id:
+## 🛠️ Como Executar o Projeto na sua máquina local
 
-   ![image](https://github.com/user-attachments/assets/b59381b7-4669-49bb-85b1-219bcdc54d8a)
+### Pré-requisitos
 
+Antes de iniciar, certifique-se de ter instalado:
 
--  (PUT) /sala - Reservar Sala:
+- [Docker](https://www.docker.com/)
+- [Docker Compose](https://docs.docker.com/compose/)
 
-   ![image](https://github.com/user-attachments/assets/c6ced67f-19ad-47a6-a0cc-2e283785c3b6)
+### Passos para Rodar o Projeto na sua máquina
 
+1. Clone o repositório:
+2. Acesse o diretório do projeto:
+3. Inicie os containers com Docker Compose:
+4. Acesse a aplicação no navegador:
 
+## 🤝 Contribuição
 
+Contribuições são sempre bem-vindas! Para contribuir:
 
+1. Faça um fork do projeto
+2. Crie uma branch para sua feature (`git checkout -b minha-feature`)
+3. Commit suas mudanças (`git commit -m 'Adiciona nova feature'`)
+4. Faça um push para a branch (`git push origin minha-feature`)
+5. Abra um Pull Request
 
+## 📄 Licença
 
- # <br/> 🛠 Tecnologias
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 
+---
 
-### As seguintes tecnologias foram utilizadas no desenvolvimento do projeto:
+💡 **Dica:** Para mais detalhes sobre a API, consulte a documentação no repositório.
 
-
-- Java 22
-
-- HTML/CSS/JAVASCRIPT
-
-- Spring Boot 3
-
-- Spring Security
-
-- JWT
-
-- JPA
-
-- Maven
-
-- Lombok
-
-- MySQL
-
-- Hibernate
-
-- Insomnia
-
-- Docker e Docker Compose
-
-- Nginx como Proxy Reverso
-
-- Servidor Instância EC2 da Amazon
