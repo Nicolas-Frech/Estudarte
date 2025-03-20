@@ -8,6 +8,14 @@ function loginUsuario() {
     const senha = document.getElementById("senha").value;
     const mensagemErro = document.getElementById("mensagemErro");
 
+    if (login == null) {
+        alert("⚠️ Por favor, digite um login!")
+    }
+
+    if (senha == null) {
+        alert("⚠️ Por favor, digite uma senha!")
+    }
+
     const usuario = {
         login: login,
         senha: senha
