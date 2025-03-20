@@ -90,3 +90,8 @@ background: #28a745;
 .btn-container {
     margin-bottom: 20px;
 }
+
+.alert {
+    text-align: center;
+    font-weight: bold;
+}

@@ -55,3 +55,8 @@ button:hover {
     background-color: #28a745;
     transform: scale(1.05);
 }
+
+.alert {
+    text-align: center;
+    font-weight: bold;
+}

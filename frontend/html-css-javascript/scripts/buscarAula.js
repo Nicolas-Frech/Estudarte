@@ -1,10 +1,14 @@
+import { exibirMensagem } from "./notificacao.js";
+
 const token = localStorage.getItem("token");
 
 console.log("API URL:", CONFIG.API_URL);
 
 if(!token) {
-  alert("Você precisa estar logado!");
-  window.location.href = "login.html";
+    exibirMensagem("danger", "Você precisa estar logado!");
+    setTimeout(() => {
+        window.location.href = "login.html";
+    },  2000);
 }
 
 function formatarData(dataISO) {
@@ -26,9 +30,11 @@ document.getElementById("btnBuscar").addEventListener("click", () => {
     const resultado = document.getElementById("resultado");
 
     if (!id) {
-        resultado.innerHTML = "<p style='color: red;'>⚠️ Por favor, insira um ID válido.</p>";
+        exibirMensagem("danger", "⚠️ Por favor, insira um ID válido!");
+        resultado.innerHTML = ""
         return;
     }
+
 
 
     fetch(`${CONFIG.API_URL}/aula/${id}`, {
@@ -55,6 +61,8 @@ document.getElementById("btnBuscar").addEventListener("click", () => {
             `;
         })
         .catch(error => {
-            resultado.innerHTML = "<p style='color: red;'>❌ Aula não encontrada.</p>";
+            exibirMensagem("danger", "❌ Aula não encontrada!");
+            resultado.innerHTML = ""
+            return;
         });
 });

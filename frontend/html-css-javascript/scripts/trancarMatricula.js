@@ -1,10 +1,14 @@
+import { exibirMensagem } from "./notificacao.js";
+
 const token = localStorage.getItem("token");
 
 console.log("API URL:", CONFIG.API_URL);
 
 if(!token) {
-  alert("Você precisa estar logado!");
-  window.location.href = "login.html";
+    exibirMensagem("danger", "Você precisa estar logado!");
+    setTimeout(() => {
+        window.location.href = "login.html";
+    },  2000);
 }
 
 function trancarMatricula() {
@@ -12,7 +16,7 @@ function trancarMatricula() {
     const mensagem = document.getElementById("mensagem");
 
     if (!id) {
-        mensagem.textContent = "Por favor, insira um ID válido.";
+        exibirMensagem("danger", "⚠️ Por favor, insira um ID válido!");
         return;
     }
 
@@ -25,13 +29,13 @@ function trancarMatricula() {
     })
     .then(response => {
         if (response.ok) {
-            mensagem.textContent = "✅ Matrícula trancada com sucesso!";
+            exibirMensagem("success", "✅ Matrícula trancada com sucesso!");
         } else {
-            mensagem.textContent = "❌ Erro ao trancar matrícula.";
+            exibirMensagem("danger", "❌ Erro ao trancar matrícula.");
         }
     })
     .catch(error => {
-        mensagem.textContent = "⚠️ Erro na requisição: " + error;
+        exibirMensagem("danger", "⚠️ Erro na requisição: " + error);
     });
 }
 

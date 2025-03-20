@@ -3,8 +3,10 @@ const token = localStorage.getItem("token");
 console.log("API URL:", CONFIG.API_URL);
 
 if(!token) {
-  alert("Você precisa estar logado!");
-  window.location.href = "login.html";
+    exibirMensagem("danger", "Você precisa estar logado!");
+    setTimeout(() => {
+        window.location.href = "login.html";
+    },  2000);
 }
 
 document.getElementById("btnRemarcar").addEventListener("click", function () {

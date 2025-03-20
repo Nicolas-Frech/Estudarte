@@ -63,3 +63,8 @@ button:hover {
     border-radius: 5px;
     background: #e9ecef;
 }
+
+.alert {
+    text-align: center;
+    font-weight: bold;
+}

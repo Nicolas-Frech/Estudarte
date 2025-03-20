@@ -1,3 +1,5 @@
+import { exibirMensagem } from "./notificacao.js";
+
 const btnLogin = document.getElementById("btnLogin");
 const spinner = document.getElementById("spinner");
 
@@ -9,12 +11,12 @@ function loginUsuario() {
     const mensagemErro = document.getElementById("mensagemErro");
 
     if (!login) {
-        alert("⚠️ Por favor, digite um login!");
+        exibirMensagem("danger", "⚠️ Por favor, digite um login!");
         return;
     }
 
     if (!senha) {
-        alert("⚠️ Por favor, digite uma senha!");
+        exibirMensagem("danger", "⚠️ Por favor, digite uma senha!");
         return;
     }
 
@@ -35,7 +37,7 @@ function loginUsuario() {
     fetch(`${CONFIG.API_URL}/login`, options)
         .then(response => {
             if (!response.ok) {
-                throw new Error("\nUsuário ou senha inválidos!");
+                exibirMensagem("danger", "⚠️ Usuário ou senha inválidos!");
             }
             return response.json();
         })
@@ -45,8 +47,9 @@ function loginUsuario() {
             window.location.href = "index.html";
         })
         .catch(error => {
-            mensagemErro.textContent = error.message;
-            spinner.style.display = "none"; // Esconde o spinner em caso de erro
+            exibirMensagem("danger", "❌ Erro ao fazer login!");
+            console.log(error);
+            spinner.style.display = "none";
             btnLogin.disabled = false;
         });
 }

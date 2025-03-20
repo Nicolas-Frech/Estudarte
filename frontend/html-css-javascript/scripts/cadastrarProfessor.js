@@ -5,34 +5,36 @@ const btn = document.getElementById("btn");
 console.log("API URL:", CONFIG.API_URL);
 
 const token = localStorage.getItem("token");
-if (!token) {
-  exibirMensagem("danger", "Você precisa estar logado!");
-  window.location.href = "login.html";
+if(!token) {
+    exibirMensagem("danger", "Você precisa estar logado!");
+    setTimeout(() => {
+        window.location.href = "login.html";
+    },  2000);
 }
 
 function validarCampos(nome, cnpj, telefone, email, modalidade) {
   if (!nome.trim()) {
-    exibirMensagem("danger", "O campo Nome é obrigatório!");
+    exibirMensagem("danger", "⚠️ O Nome é obrigatório!");
     return false;
   }
   
   if (!cnpj.match(/^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/)) {
-    exibirMensagem("danger", "CNPJ inválido! Use o formato 00.000.000/0000-00");
+    exibirMensagem("danger", "⚠️ CNPJ inválido! Use o formato 00.000.000/0000-00");
     return false;
   }
 
   if (!telefone.match(/^\(\d{2}\) \d{5}-\d{4}$/)) {
-    exibirMensagem("danger", "Telefone inválido! Use o formato (XX) XXXXX-XXXX");
+    exibirMensagem("danger", "⚠️ Telefone inválido! Use o formato (XX) XXXXX-XXXX");
     return false;
   }
 
   if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
-    exibirMensagem("danger", "E-mail inválido!");
+    exibirMensagem("danger", "⚠️ E-mail inválido!");
     return false;
   }
 
   if (!modalidade) {
-    exibirMensagem("danger", "Escolha uma modalidade!");
+    exibirMensagem("danger", "⚠️ Escolha uma modalidade!");
     return false;
   }
 
@@ -71,10 +73,10 @@ function cadastrarProfessor() {
       return data.json();
     })
     .then(() => {
-      exibirMensagem("success", "Professor cadastrado com sucesso!");
+      exibirMensagem("success", "✅ Professor cadastrado com sucesso!");
     })
     .catch((e) => {
-      exibirMensagem("danger", "Erro ao cadastrar professor: " + e.message);
+      exibirMensagem("danger", "❌ Erro ao cadastrar professor!");
       console.log(e);
     });
 }

@@ -1,12 +1,30 @@
+import { exibirMensagem } from "./notificacao.js";
+
 const btn = document.getElementById("btn");
 
 console.log("API URL:", CONFIG.API_URL);
 
 const token = localStorage.getItem("token");
 if(!token) {
-  alert("Você precisa estar logado!");
-  window.location.href = "login.html";
+    exibirMensagem("danger", "Você precisa estar logado!");
+    setTimeout(() => {
+        window.location.href = "login.html";
+    },  2000);
 }
+
+function validarCampos(nome, modalidade) {
+    if (!nome.trim()) {
+      exibirMensagem("danger", "⚠️ O Nome é obrigatório!");
+      return false;
+    }
+
+    if (!modalidade) {
+      exibirMensagem("danger", "⚠️ Escolha uma modalidade!");
+      return false;
+    }
+  
+    return true;
+  }
 
 function cadastrarSala() {
     const nome = document.getElementById("nome").value;
@@ -16,6 +34,10 @@ function cadastrarSala() {
         nome: nome,
         modalidade: modalidade
     };
+
+    if (!validarCampos(nome, modalidade)) {
+        return;
+    }
 
     const options = {
         method: 'POST',
@@ -27,20 +49,19 @@ function cadastrarSala() {
     };
 
     fetch(`${CONFIG.API_URL}/sala`, options)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(response.statusText);
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log(data);
-            alert("Sala cadastrada com sucesso!");
-        })
-        .catch(error => {
-            console.error(error);
-            alert("Erro ao cadastrar a sala.");
-        });
+    .then((data) => {
+        if (!data.ok) {
+          throw Error(data.statusText);
+        }
+        return data.json();
+      })
+      .then(() => {
+        exibirMensagem("success", "✅ Sala cadastrada com sucesso!");
+      })
+      .catch((e) => {
+        exibirMensagem("danger", "❌ Erro ao cadastrar sala!");
+        console.log(e);
+      });
 }
 
 btn.addEventListener("click", cadastrarSala);

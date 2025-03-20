@@ -1,11 +1,44 @@
+import { exibirMensagem } from "./notificacao.js";
+
 const btn = document.getElementById("btn");
 
 console.log("API URL:", CONFIG.API_URL);
 
 const token = localStorage.getItem("token");
 if(!token) {
-  alert("Você precisa estar logado!");
-  window.location.href = "login.html";
+    exibirMensagem("danger", "Você precisa estar logado!");
+    setTimeout(() => {
+        window.location.href = "login.html";
+    },  2000);
+}
+
+function validarCampos(nome, cpf, telefone, email, modalidade) {
+  if (!nome.trim()) {
+    exibirMensagem("danger", "⚠️ O Nome é obrigatório!");
+    return false;
+  }
+  
+  if (!cpf.match(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/)) {
+    exibirMensagem("danger", "⚠️ CPF inválido! Use o formato 000.000.000-00");
+    return false;
+  }
+
+  if (!telefone.match(/^\(\d{2}\) \d{5}-\d{4}$/)) {
+    exibirMensagem("danger", "⚠️ Telefone inválido! Use o formato (XX) XXXXX-XXXX");
+    return false;
+  }
+
+  if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+    exibirMensagem("danger", "⚠️ E-mail inválido!");
+    return false;
+  }
+
+  if (!modalidade) {
+    exibirMensagem("danger", "⚠️ Escolha uma modalidade!");
+    return false;
+  }
+
+  return true;
 }
 
 function matricularAluno() {
@@ -15,6 +48,10 @@ function matricularAluno() {
   const email = document.getElementById("email").value;
   const modalidade = document.getElementById("modalidade").value;
   
+  if (!validarCampos(nome, cpf, telefone, email, modalidade)) {
+    return;
+  }
+
   const aluno = {
     nome: nome,
     cpf: cpf,
@@ -38,16 +75,16 @@ function matricularAluno() {
   .then(data => {
       if (!data.ok) {
         throw Error(data.statusText);
-       }
-
-       return data.json();
-      }).then(aluno => {
-      console.log(aluno)
-      alert("Aluno Matriculado!");
-
-      }).catch(e => {
+      }
+      return data.json();
+    })
+    .then(() => {
+      exibirMensagem("success", "✅ Aluno matriculado com sucesso!");
+    })
+    .catch((e) => {
+      exibirMensagem("danger", "❌ Erro ao matricular aluno!");
       console.log(e);
-      });
+    });
 }
 
 btn.addEventListener('click', matricularAluno);

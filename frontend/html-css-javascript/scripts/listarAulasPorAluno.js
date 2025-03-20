@@ -1,14 +1,17 @@
+import { exibirMensagem } from "./notificacao.js";
+
 let paginaAtual = 0;
 const tamanhoPagina = 10;
 
 console.log("API URL:", CONFIG.API_URL);
 
 const token = localStorage.getItem("token");
-if (!token) {
-    alert("Você precisa estar logado!");
-    window.location.href = "login.html";
+if(!token) {
+    exibirMensagem("danger", "Você precisa estar logado!");
+    setTimeout(() => {
+        window.location.href = "login.html";
+    },  2000);
 }
-
 function formatarData(dataISO) {
     if (!dataISO) return "Data inválida";
 

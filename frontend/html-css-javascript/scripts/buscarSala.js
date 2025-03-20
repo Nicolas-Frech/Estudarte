@@ -1,10 +1,14 @@
+import { exibirMensagem } from "./notificacao.js";
+
 const token = localStorage.getItem("token");
 
 console.log("API URL:", CONFIG.API_URL);
 
 if(!token) {
-  alert("Você precisa estar logado!");
-  window.location.href = "login.html";
+    exibirMensagem("danger", "Você precisa estar logado!");
+    setTimeout(() => {
+        window.location.href = "login.html";
+    },  2000);
 }
 
 document.getElementById("btnBuscar").addEventListener("click", () => {
@@ -28,7 +32,8 @@ document.getElementById("btnBuscar").addEventListener("click", () => {
     }
 
     if (!id) {
-        resultado.innerHTML = "<p style='color: red;'>⚠️ Por favor, insira um ID válido.</p>";
+        exibirMensagem("danger", "⚠️ Por favor, insira um ID válido!");
+        resultado.innerHTML = ""
         return;
     }
 
@@ -57,6 +62,8 @@ document.getElementById("btnBuscar").addEventListener("click", () => {
             `;
         })
         .catch(error => {
-            resultado.innerHTML = "<p style='color: red;'>❌ Sala não encontrada.</p>";
+            exibirMensagem("danger", "❌ Aluno não encontrado!");
+            resultado.innerHTML = ""
+            return;
         });
 });

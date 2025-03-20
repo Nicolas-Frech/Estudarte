@@ -1,5 +1,7 @@
 const btn = document.getElementById("btn");
 
+import { exibirMensagem } from "./notificacao.js";
+
 console.log("API URL:", CONFIG.API_URL);
 
 function cadastrarUsuario() {
@@ -8,17 +10,17 @@ function cadastrarUsuario() {
     const confirmarSenha = document.getElementById("confirmarSenha").value;
 
     if (!login) {
-        alert("⚠️ Por favor, digite um login!");
+        exibirMensagem("danger", "⚠️ Por favor, digite um login!");
         return;
     }
 
     if (!senha) {
-        alert("⚠️ Por favor, digite uma senha!");
+        exibirMensagem("danger", "⚠️ Por favor, digite uma senha!");
         return;
     }
 
     if (senha !== confirmarSenha) {
-        alert("⚠️ As senhas não coincidem!");
+        exibirMensagem("danger", "⚠️ As senhas não coincidem!");
         return;
     }
 
@@ -46,12 +48,14 @@ function cadastrarUsuario() {
         })
         .then(data => {
             console.log(data);
-            alert("✅ Usuário cadastrado com sucesso!");
-            window.location.href = "login.html";
+            exibirMensagem("success", "✅ Usuário cadastrado com sucesso!");
+            setTimeout(() => {
+                window.location.href = "login.html";
+            }, 3000);
         })
         .catch(error => {
             console.log(error);
-            alert("❌ Erro ao cadastrar usuário!");
+            exibirMensagem("danger", "❌ Erro ao cadastrar usuário!");
         });
 }
 
