@@ -13,16 +13,10 @@ if(!token) {
 }
 
 function validarCampos(nome, modalidade) {
-    if (!nome.trim()) {
-      exibirMensagem("danger", "⚠️ O Nome é obrigatório!");
+    if (!nome.trim() || !modalidade) {
+      exibirMensagem("danger", "⚠️ Por favor, insira todos os campos!");
       return false;
     }
-
-    if (!modalidade) {
-      exibirMensagem("danger", "⚠️ Escolha uma modalidade!");
-      return false;
-    }
-  
     return true;
   }
 

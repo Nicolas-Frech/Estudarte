@@ -13,8 +13,8 @@ if(!token) {
 }
 
 function validarCampos(nome, cnpj, telefone, email, modalidade) {
-  if (!nome.trim()) {
-    exibirMensagem("danger", "⚠️ O Nome é obrigatório!");
+  if (!nome.trim() || !cnpj || !telefone || !email || !modalidade) {
+    exibirMensagem("danger", "⚠️ Por favor, insira todos os campos!");
     return false;
   }
   
@@ -32,12 +32,6 @@ function validarCampos(nome, cnpj, telefone, email, modalidade) {
     exibirMensagem("danger", "⚠️ E-mail inválido!");
     return false;
   }
-
-  if (!modalidade) {
-    exibirMensagem("danger", "⚠️ Escolha uma modalidade!");
-    return false;
-  }
-
   return true;
 }
 

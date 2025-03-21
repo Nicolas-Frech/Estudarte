@@ -13,37 +13,10 @@ if(!token) {
 }
 
 function validarCampos(professor, aluno, modalidade, data, horario, salaNome) {
-  if (!professor.trim()) {
-    exibirMensagem("danger", "⚠️ Por favor, digite um Professor!");
+  if (!professor.trim() || !aluno.trim() || !modalidade || !data || !horario || !salaNome) {
+    exibirMensagem("danger", "⚠️ Por favor, insira todos os campos!");
     return false;
   }
-  
-  if (!aluno.trim()) {
-    exibirMensagem("danger", "⚠️ Por favor, digite um Aluno!");
-    return false;
-  }
-
-  if (!modalidade) {
-    exibirMensagem("danger", "⚠️ Escolha uma modalidade!");
-    return false;
-  }
-
-  if (!data) {
-    exibirMensagem("danger", "⚠️ O campo Data é obrigatório!");
-    return false;
-  }
-
-  if (!horario) {
-    exibirMensagem("danger", "⚠️ O campo Horário é obrigatório!");
-    return false;
-  }
-  
-  if (!salaNome) {
-    exibirMensagem("danger", "⚠️ O campo Sala é obrigatório!");
-    return false;
-  }
-
-
   return true;
 }
 
