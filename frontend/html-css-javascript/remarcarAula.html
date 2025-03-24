@@ -12,6 +12,9 @@
     <div class="container">
         <h1>🔄 Remarcar Aula</h1>
 
+        <div id="mensagemSucesso" class="alert alert-success d-none" role="alert"></div>
+        <div id="mensagemErro" class="alert alert-danger d-none" role="alert"></div>
+
         <label for="idAula">📌 ID da Aula:</label>
         <input type="text" id="idAula" name="idAula" placeholder="Digite o ID da aula" required>
 
@@ -23,7 +26,6 @@
 
         <button id="btnRemarcar">✅ Remarcar</button>
 
-        <p id="mensagem"></p>
     </div>
 
     <script src="scripts/config.js"></script>

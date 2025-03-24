@@ -45,8 +45,17 @@ public class AlunoService {
     public AlunoEntity atualizarInformacoes(AlunoAtualizacaoDTO dto) {
         AlunoEntity aluno = alunoRepository.buscarPorId(dto.alunoId());
 
-        if(professorRepository.existePorId(dto.professorId())) {
+        if(dto.modalidade() != null) {
+            aluno.atualizarDados(dto);
+        }
+
+        if(dto.professorId() != null) {
+            if(!professorRepository.existePorId(dto.professorId())) {
+                throw new ValidacaoException("Não existe professor com esse ID!");
+            }
+
             ProfessorEntity professor = professorRepository.buscarPorId(dto.professorId());
+
             if(professor.getModalidade() != aluno.getModalidade()) {
                 throw new ValidacaoException("Professor não ministra aula desse tipo de modalidade!");
             } else {
@@ -54,8 +63,6 @@ public class AlunoService {
                 professor.setSalario(alunoRepository.buscarTodosPorProfessor(professor));
             }
         }
-
-        aluno.atualizarDados(dto);
         alunoRepository.salvar(aluno);
         return aluno;
     }

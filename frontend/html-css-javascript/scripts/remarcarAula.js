@@ -1,24 +1,31 @@
+import { exibirMensagem } from "./notificacao.js";
+
 const token = localStorage.getItem("token");
 
 console.log("API URL:", CONFIG.API_URL);
 
 if(!token) {
-    exibirMensagem("danger", "Você precisa estar logado!");
+    exibirMensagem("danger", "⚠️ Você precisa estar logado!");
     setTimeout(() => {
         window.location.href = "login.html";
     },  2000);
+}
+
+function validarCampos(idAula, novaData, novoHorario) {
+    if (!idAula || !novaData || !novoHorario) {
+      exibirMensagem("danger", "⚠️ Por favor, insira todos os campos!");
+      return false;
+    }
+    return true;
 }
 
 document.getElementById("btnRemarcar").addEventListener("click", function () {
     const idAula = document.getElementById("idAula").value;
     const novaData = document.getElementById("novaData").value;
     const novoHorario = document.getElementById("novoHorario").value;
-    const mensagem = document.getElementById("mensagem");
     const dataAtualizada = novaData + "T" + novoHorario + ":00"
 
-    if (idAula === "" || novaData === "" || novoHorario === "") {
-        mensagem.style.color = "red";
-        mensagem.textContent = "⚠️ Preencha todos os campos!";
+    if (!validarCampos(idAula, novaData, novoHorario)) {
         return;
     }
 
@@ -32,15 +39,12 @@ document.getElementById("btnRemarcar").addEventListener("click", function () {
     })
     .then(response => {
         if (response.ok) {
-            mensagem.style.color = "green";
-            mensagem.textContent = `✅ Aula ID ${idAula} remarcada com sucesso!`;
+            exibirMensagem("success", "✅ Aula reagendada com sucesso!");
         } else {
-            mensagem.style.color = "red";
-            mensagem.textContent = "❌ Erro ao remarcar a aula.";
+            exibirMensagem("danger", "❌ Erro ao reagendar aula!");
         }
     })
     .catch(error => {
-        mensagem.style.color = "red";
-        mensagem.textContent = "⚠️ Erro na requisição: " + error;
+        exibirMensagem("danger", "⚠️ Erro na requisição: " + error);
     });
 });
