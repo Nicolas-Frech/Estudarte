@@ -1,3 +1,5 @@
+import { exibirMensagem } from "./notificacao.js";
+
 const token = localStorage.getItem("token");
 
 console.log("API URL:", CONFIG.API_URL);
@@ -9,16 +11,29 @@ if(!token) {
     },  2000);
 }
 
+function validarCampos(id, salario, modalidade, telefone, email) {
+    if (!id) {
+        exibirMensagem("danger", "⚠️ Por favor, insira um ID!");
+        return false;
+    }
+
+    if (!salario && !modalidade && !telefone && !email) {
+        exibirMensagem("danger", "⚠️ Por favor, insira algum dos campos!");
+        return false;
+    }
+    return true;
+}
+
 document.getElementById("btn").addEventListener("click", function () {
     const id = document.getElementById("id").value;
     const salario = document.getElementById("salario").value;
     const modalidade = document.getElementById("modalidade").value;
-    const mensagem = document.getElementById("mensagem");
+    const telefone = document.getElementById("telefone").value;
+    const email = document.getElementById("email").value;
 
-    if (id === "" || salario === "" || modalidade === "") {
-        mensagem.style.color = "red";
-        mensagem.textContent = "⚠️ Preencha todos os campos!";
-        return;
+
+    if(!validarCampos(id, salario, telefone, email)) {
+        return
     }
 
     fetch(`${CONFIG.API_URL}/professor`, {
@@ -27,19 +42,16 @@ document.getElementById("btn").addEventListener("click", function () {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify({idProfessor: id, salario: salario, modalidade: modalidade })
+        body: JSON.stringify({idProfessor: id, salario: salario, modalidade: modalidade, telefone: telefone, email: email })
     })
     .then(response => {
         if (response.ok) {
-            mensagem.style.color = "green";
-            mensagem.textContent = `✅ Professor ID ${id} atualizado com sucesso!`;
+            exibirMensagem("success", "✅ Dados atualizados com sucesso!");
         } else {
-            mensagem.style.color = "red";
-            mensagem.textContent = "❌ Erro ao atualizar o professor.";
+            exibirMensagem("danger", "❌ Erro ao atualizar os dados.");
         }
     })
     .catch(error => {
-        mensagem.style.color = "red";
-        mensagem.textContent = "⚠️ Erro na requisição: " + error;
+        exibirMensagem("danger", "⚠️ Erro na requisição: " + error);    
     });
 });

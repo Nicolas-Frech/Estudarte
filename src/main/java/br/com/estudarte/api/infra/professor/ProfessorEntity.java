@@ -50,11 +50,11 @@ public class ProfessorEntity {
             this.salario = alunos.size() * dto.salario();
         }
 
-        if(dto.telefone() != null) {
+        if(dto.telefone() == null || !dto.telefone().equals("")) {
             this.telefone = dto.telefone();
         }
 
-        if(dto.email() != null) {
+        if(dto.email() == null || !dto.email().equals("")) {
             this.email = dto.email();
         }
     }

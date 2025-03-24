@@ -12,6 +12,7 @@
     <div class="container">
         <h1>✏️ Editar Professor</h1>
 
+        <div id="mensagemSucesso" class="alert alert-success d-none" role="alert"></div>
         <div id="mensagemErro" class="alert alert-danger d-none" role="alert"></div>
 
         <label for="id">🔢 ID do Professor:</label>
@@ -19,6 +20,12 @@
 
         <label for="salario">💰 Salário:</label>
         <input type="number" id="salario" name="salario" placeholder="Digite o salário" required>
+
+        <label for="telefone">📞 Telefone:</label>
+        <input type="tel" id="telefone" name="telefone" placeholder="(XX) XXXXX-XXXX" required>
+    
+        <label for="email">📧 E-mail:</label>
+        <input type="email" id="email" name="email" placeholder="email@exemplo.com" required>
 
         <label for="modalidade">🎵 Modalidade:</label>
         <select id="modalidade" name="modalidade" required>
@@ -35,7 +42,6 @@
 
         <button id="btn">✅ Atualizar</button>
 
-        <p id="mensagem"></p>
     </div>
 
     <script src="scripts/config.js"></script>

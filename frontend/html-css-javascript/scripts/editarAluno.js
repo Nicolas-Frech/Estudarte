@@ -33,8 +33,6 @@ document.getElementById("btn").addEventListener("click", function () {
     const telefone = document.getElementById("telefone").value;
     const email = document.getElementById("email").value;
 
-    console.log(idProfessor);
-
     if (!validarCampos(idAluno, idProfessor, modalidade, telefone, email)) {
         return;
     }
