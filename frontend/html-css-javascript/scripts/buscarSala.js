@@ -62,7 +62,7 @@ document.getElementById("btnBuscar").addEventListener("click", () => {
             `;
         })
         .catch(error => {
-            exibirMensagem("danger", "❌ Aluno não encontrado!");
+            exibirMensagem("danger", "❌ Sala não encontrada!");
             resultado.innerHTML = ""
             return;
         });

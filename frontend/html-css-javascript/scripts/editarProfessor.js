@@ -5,7 +5,7 @@ const token = localStorage.getItem("token");
 console.log("API URL:", CONFIG.API_URL);
 
 if(!token) {
-    exibirMensagem("danger", "Você precisa estar logado!");
+    exibirMensagem("danger", "⚠️ Você precisa estar logado!");
     setTimeout(() => {
         window.location.href = "login.html";
     },  2000);

@@ -1,13 +1,28 @@
+import { exibirMensagem } from "./notificacao.js";
+
 const btnReserva = document.getElementById("btnReserva");
 
 console.log("API URL:", CONFIG.API_URL);
 
 const token = localStorage.getItem("token");
 if(!token) {
-    exibirMensagem("danger", "Você precisa estar logado!");
+    exibirMensagem("danger", "⚠️ Você precisa estar logado!");
     setTimeout(() => {
         window.location.href = "login.html";
     },  2000);
+}
+
+function validarCampos(salaId, horario, data) {
+    if (!salaId) {
+        exibirMensagem("danger", "⚠️ Por favor, insira um ID!");
+        return false;
+    }
+
+    if (!horario || !data) {
+        exibirMensagem("danger", "⚠️ Por favor, insira todos os campos!");
+        return false;
+    }
+    return true;
 }
 
 function reservarSala() {
@@ -15,8 +30,7 @@ function reservarSala() {
     const horario = document.getElementById("horario").value;
     const data = document.getElementById("data").value;
 
-    if (!salaId || !horario) {
-        alert("Por favor, preencha todos os campos.");
+    if (!validarCampos(salaId, horario, data)) {
         return;
     }
 
@@ -36,18 +50,14 @@ function reservarSala() {
 
     fetch(`${CONFIG.API_URL}/sala`, options)
         .then(response => {
-            if (!response.ok) {
-                throw new Error(response.statusText);
+            if (response.ok) {
+                exibirMensagem("success", "✅ Sala reservada com sucesso!");
+            } else {
+                exibirMensagem("danger", "❌ Erro ao reservar sala.");
             }
-            return response.json();
-        })
-        .then(data => {
-            console.log(data);
-            alert("Reserva realizada com sucesso!");
         })
         .catch(error => {
-            console.error(error);
-            alert("Erro ao realizar a reserva.");
+            exibirMensagem("danger", "⚠️ Erro na requisição: " + error);    
         });
 }
 
