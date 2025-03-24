@@ -12,13 +12,13 @@ if(!token) {
 }
 
 
-function validarCampos(idAluno, idProfessor, modalidade) {
+function validarCampos(idAluno, idProfessor, modalidade, telefone, email) {
     if (!idAluno) {
         exibirMensagem("danger", "⚠️ Por favor, insira um ID!");
         return false;
     }
 
-    if (!idProfessor && !modalidade) {
+    if (!idProfessor && !modalidade && !telefone && !email) {
         exibirMensagem("danger", "⚠️ Por favor, insira algum dos campos!");
         return false;
     }
@@ -30,10 +30,12 @@ document.getElementById("btn").addEventListener("click", function () {
     const idAluno = document.getElementById("idAluno").value;
     const idProfessor = document.getElementById("idProfessor").value;
     const modalidade = document.getElementById("modalidade").value;
+    const telefone = document.getElementById("telefone").value;
+    const email = document.getElementById("email").value;
 
     console.log(idProfessor);
 
-    if (!validarCampos(idAluno, idProfessor, modalidade)) {
+    if (!validarCampos(idAluno, idProfessor, modalidade, telefone, email)) {
         return;
     }
 
@@ -43,7 +45,7 @@ document.getElementById("btn").addEventListener("click", function () {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify({alunoId: idAluno, professorId: idProfessor, modalidade: modalidade })
+        body: JSON.stringify({alunoId: idAluno, professorId: idProfessor, modalidade: modalidade, telefone: telefone, email: email })
     })
     .then(response => {
         if (response.ok) {

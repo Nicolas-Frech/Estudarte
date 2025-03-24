@@ -3,6 +3,7 @@ package br.com.estudarte.api.infra.aluno;
 import br.com.estudarte.api.application.aluno.dto.AlunoAtualizacaoDTO;
 import br.com.estudarte.api.application.aluno.dto.AlunoDTO;
 import br.com.estudarte.api.domain.Modalidade;
+import br.com.estudarte.api.infra.exception.ValidacaoException;
 import br.com.estudarte.api.infra.professor.ProfessorEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -48,13 +49,15 @@ public class AlunoEntity {
             this.modalidade = dto.modalidade();
         }
 
-        if(dto.telefone() != null) {
+        if(dto.telefone() == null || !dto.telefone().equals("")) {
             this.telefone = dto.telefone();
         }
 
-        if(dto.email() != null) {
+        if(dto.email() == null || !dto.email().equals("")) {
             this.email = dto.email();
         }
+
+
     }
 
     public AlunoEntity(AlunoDTO dto) {
