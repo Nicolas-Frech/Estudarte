@@ -43,12 +43,6 @@ function cadastrarSala() {
     };
 
     fetch(`${CONFIG.API_URL}/sala`, options)
-    .then((data) => {
-        if (!data.ok) {
-          throw Error(data.statusText);
-        }
-        return data.json();
-      })
       .then(() => {
         exibirMensagem("success", "✅ Sala cadastrada com sucesso!");
       })

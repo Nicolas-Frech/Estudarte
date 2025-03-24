@@ -53,17 +53,12 @@ function agendarAula() {
   console.log(JSON.stringify(aula))
 
   fetch(`${CONFIG.API_URL}/aula`, options)
-  .then(data => {
-    if (!data.ok) {
-      throw Error(data.statusText);
-    }
-    return data.json();
-  })
+  .then(response => response.json())
   .then(() => {
     exibirMensagem("success", "✅ Aula agendada com sucesso!");
   })
   .catch((e) => {
-    exibirMensagem("danger", "❌ Erro ao agendar aula!");
+    exibirMensagem("danger", "❌ Erro ao agendar aula: " + data.statusText);
     console.log(e);
   });
 }

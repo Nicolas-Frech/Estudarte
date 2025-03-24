@@ -32,7 +32,7 @@ document.getElementById("btn").addEventListener("click", function () {
     const email = document.getElementById("email").value;
 
 
-    if(!validarCampos(id, salario, telefone, email)) {
+    if(!validarCampos(id, salario, modalidade, telefone, email)) {
         return
     }
 

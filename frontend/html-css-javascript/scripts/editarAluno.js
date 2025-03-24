@@ -2,6 +2,8 @@ import { exibirMensagem } from "./notificacao.js";
 
 const token = localStorage.getItem("token");
 
+console.log(token)
+
 console.log("API URL:", CONFIG.API_URL);
 
 if(!token) {

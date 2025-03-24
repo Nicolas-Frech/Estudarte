@@ -1,3 +1,5 @@
+import { exibirMensagem } from "./notificacao.js";
+
 const token = localStorage.getItem("token");
 
 console.log("API URL:", CONFIG.API_URL);
@@ -12,10 +14,9 @@ if(!token) {
 function desmarcarAula() {
     const id = document.getElementById("aulaId").value;
     const motivo = document.getElementById("motivo").value;
-    const mensagem = document.getElementById("mensagem");
 
     if (!id) {
-        mensagem.textContent = "Por favor, insira um ID válido.";
+        exibirMensagem("danger", "⚠️ Por favor, insira um ID válido!");
         return;
     }
 
@@ -34,13 +35,13 @@ function desmarcarAula() {
     })
     .then(response => {
         if (response.ok) {
-            mensagem.textContent = "✅ Aula desmarcada com sucesso!";
+            exibirMensagem("success", "✅ Aula cancelada com sucesso!");
         } else {
-            mensagem.textContent = "❌ Erro ao desmarcar aula!.";
+            exibirMensagem("danger", "❌ Erro ao cancelar Aula!");
         }
     })
     .catch(error => {
-        mensagem.textContent = "⚠️ Erro na requisição: " + error;
+        exibirMensagem("danger", "⚠️ Erro na requisição: " + error);
     });
 }
 

@@ -35,12 +35,7 @@ function loginUsuario() {
     btnLogin.disabled = true;
 
     fetch(`${CONFIG.API_URL}/login`, options)
-        .then(response => {
-            if (!response.ok) {
-                exibirMensagem("danger", "⚠️ Usuário ou senha inválidos!");
-            }
-            return response.json();
-        })
+        .then(response => response.json())
         .then(data => {
             console.log("Token recebido:", data.token);
             localStorage.setItem("token", data.token);

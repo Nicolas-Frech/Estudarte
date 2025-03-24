@@ -25,6 +25,7 @@ function buscarAlunos() {
         }
     })
         .then(response => response.json())
+
         .then(data => {
             document.getElementById("loading").style.display = "none";
 

@@ -40,12 +40,6 @@ function cadastrarUsuario() {
     console.log(JSON.stringify(usuario));
 
     fetch(`${CONFIG.API_URL}/login/cadastro`, options)
-        .then(response => {
-            if (!response.ok) {
-                throw Error(response.statusText);
-            }
-            return response.json();
-        })
         .then(data => {
             console.log(data);
             exibirMensagem("success", "✅ Usuário cadastrado com sucesso!");
