@@ -20,7 +20,7 @@ function validarCampos(professor, aluno, modalidade, data, horario, salaNome) {
   return true;
 }
 
-function agendarAula() {
+async function agendarAula() {
   const professor = document.getElementById("professor").value;
   const aluno = document.getElementById("aluno").value;
   const modalidade = document.getElementById("modalidade").value;
@@ -52,15 +52,26 @@ function agendarAula() {
 
   console.log(JSON.stringify(aula))
 
-  fetch(`${CONFIG.API_URL}/aula`, options)
-  .then(response => response.json())
-  .then(() => {
+  try {
+    const response = await fetch(`${CONFIG.API_URL}/aula`, options);
+
+    let mensagemErro = "❌ Erro ao agendar aula!";
+    
+    let data = await response.text();
+
+    mensagemErro = data || mensagemErro;
+    
+    if (!response.ok) {
+        exibirMensagem("danger", `❌ ${mensagemErro}`);
+        return;
+    }
+
     exibirMensagem("success", "✅ Aula agendada com sucesso!");
-  })
-  .catch((e) => {
-    exibirMensagem("danger", "❌ Erro ao agendar aula: " + data.statusText);
-    console.log(e);
-  });
+
+  } catch (error) {
+    exibirMensagem("danger", "❌ Erro ao agendar aula!");
+    console.error("Erro ao agendar aula:", error);
+  }
 }
 
 btn.addEventListener('click', agendarAula);

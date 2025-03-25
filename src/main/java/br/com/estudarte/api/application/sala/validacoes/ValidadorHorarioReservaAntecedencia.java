@@ -19,7 +19,7 @@ public class ValidadorHorarioReservaAntecedencia implements ValidadorReservaSala
         var diferencaEmMin = Duration.between(agora, dataReserva).toMinutes();
 
         if(diferencaEmMin < 60) {
-            throw new ValidacaoException("Sala deve ser reservada com no mínimo 1 hora de antecedência");
+            throw new ValidacaoException("Sala deve ser reservada com no mínimo 1 hora de antecedência!");
         }
     }
 }

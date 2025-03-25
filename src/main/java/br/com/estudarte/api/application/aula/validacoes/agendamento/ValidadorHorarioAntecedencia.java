@@ -18,7 +18,7 @@ public class ValidadorHorarioAntecedencia implements ValidadorAgendamentoAula {
         var diferencaEmMin = Duration.between(agora, dataAula).toMinutes();
 
         if(diferencaEmMin < 60) {
-            throw new ValidacaoException("Aula deve ser agendada com no mínimo 1 hora de antecedência");
+            throw new ValidacaoException("Aula deve ser agendada com no mínimo 1 hora de antecedência!");
         }
     }
 }

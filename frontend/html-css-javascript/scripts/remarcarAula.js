@@ -19,7 +19,7 @@ function validarCampos(idAula, novaData, novoHorario) {
     return true;
 }
 
-document.getElementById("btnRemarcar").addEventListener("click", function () {
+document.getElementById("btnRemarcar").addEventListener("click", async function () {
     const idAula = document.getElementById("idAula").value;
     const novaData = document.getElementById("novaData").value;
     const novoHorario = document.getElementById("novoHorario").value;
@@ -29,22 +29,35 @@ document.getElementById("btnRemarcar").addEventListener("click", function () {
         return;
     }
 
-    fetch(`${CONFIG.API_URL}/aula`, {
+    const options = {
         method: "PUT",
         headers: { 
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({ aulaId: idAula, data: dataAtualizada})
-    })
-    .then(response => {
-        if (response.ok) {
-            exibirMensagem("success", "✅ Aula reagendada com sucesso!");
-        } else {
-            exibirMensagem("danger", "❌ Erro ao reagendar aula!");
+    }
+
+    try {
+        const response = await fetch(`${CONFIG.API_URL}/aula`, options);
+    
+        let mensagemErro = "❌ Erro ao reagendar aula!";
+        
+        let data = await response.text();
+    
+        mensagemErro = data || mensagemErro;
+        
+        if (!response.ok) {
+            exibirMensagem("danger", `❌ ${mensagemErro}`);
+            return;
         }
-    })
-    .catch(error => {
-        exibirMensagem("danger", "⚠️ Erro na requisição: " + error);
-    });
+    
+        exibirMensagem("success", "✅ Aula reagendada com sucesso!");
+    
+    } catch (error) {
+        exibirMensagem("danger", "❌ Erro ao reagendar aula!");
+        console.error("Erro ao reagendar aula:", error);
+    }
 });
+
+

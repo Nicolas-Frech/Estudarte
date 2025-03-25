@@ -27,15 +27,15 @@ public class ValidadorAulaNoMesmoHorario implements ValidadorAgendamentoAula {
         var aulaNaMesmaSala = salaRepository.existePorHorarioReservaENome(dto.data(), dto.salaNome());
 
         if(professorComAulaNoMesmoHorario) {
-            throw new ValidacaoException("Esse professor já tem uma aula agendada neste horário");
+            throw new ValidacaoException("Esse professor já tem uma aula agendada neste horário!");
         }
 
         if(alunoComAulaNoMesmoHorario) {
-            throw new ValidacaoException("Esse aluno já tem uma aula agendada neste horário");
+            throw new ValidacaoException("Esse aluno já tem uma aula agendada neste horário!");
         }
 
         if(aulaNaMesmaSala) {
-            throw new ValidacaoException("Essa sala está reservada para esse horário");
+            throw new ValidacaoException("Essa sala está reservada para esse horário!");
         }
     }
 }

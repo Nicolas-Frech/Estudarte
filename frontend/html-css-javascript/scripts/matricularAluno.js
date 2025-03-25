@@ -35,7 +35,7 @@ function validarCampos(nome, cpf, telefone, email, modalidade) {
   return true;
 }
 
-function matricularAluno() {
+async function matricularAluno() {
   const nome = document.getElementById("nome").value;
   const cpf = document.getElementById("cpf").value;
   const telefone = document.getElementById("telefone").value;
@@ -65,20 +65,27 @@ function matricularAluno() {
 
   console.log(JSON.stringify(aluno))
 
-  fetch(`${CONFIG.API_URL}/aluno`, options)
-  .then(data => {
-      if (!data.ok) {
-        throw Error(data.statusText);
-      }
-      return data.json();
-    })
-    .then(() => {
-      exibirMensagem("success", "✅ Aluno matriculado com sucesso!");
-    })
-    .catch((e) => {
-      exibirMensagem("danger", "❌ Erro ao matricular aluno!");
-      console.log(e);
-    });
+  try {
+    const response = await fetch(`${CONFIG.API_URL}/aluno`, options);
+
+    let mensagemErro = "❌ Erro ao cadastrar aluno!";
+    
+    let data = await response.text();
+
+    mensagemErro = data || mensagemErro;
+    
+    if (!response.ok) {
+        exibirMensagem("danger", `❌ ${mensagemErro}`);
+        return;
+    }
+
+    exibirMensagem("success", "✅ Aluno cadastrado com sucesso!");
+
+  } catch (error) {
+    exibirMensagem("danger", "❌ Erro ao cadastrar aluno!");
+    console.error("Erro ao cadastrar aluno:", error);
+  }
 }
+
 
 btn.addEventListener('click', matricularAluno);

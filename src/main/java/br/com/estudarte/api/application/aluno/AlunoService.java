@@ -37,13 +37,21 @@ public class AlunoService {
     }
 
     public void cancelarMatricula(Long id) {
-        AlunoEntity aluno = alunoRepository.buscarPorId(id);
+        AlunoEntity aluno = alunoRepository.buscarPorIdEAtivoTrue(id);
+        if(aluno == null) {
+            throw new ValidacaoException("Não existe aluno com esse ID!");
+        }
+
         aluno.cancelarMatricula();
         alunoRepository.salvar(aluno);
     }
 
     public AlunoEntity atualizarInformacoes(AlunoAtualizacaoDTO dto) {
-        AlunoEntity aluno = alunoRepository.buscarPorId(dto.alunoId());
+        AlunoEntity aluno = alunoRepository.buscarPorIdEAtivoTrue(dto.alunoId());
+
+        if(aluno == null) {
+            throw new ValidacaoException("Não existe aluno com esse ID!");
+        }
 
         if(dto.modalidade() != null) {
             aluno.atualizarDados(dto);
@@ -57,7 +65,7 @@ public class AlunoService {
             ProfessorEntity professor = professorRepository.buscarPorId(dto.professorId());
 
             if(professor.getModalidade() != aluno.getModalidade()) {
-                throw new ValidacaoException("Professor não ministra aula desse tipo de modalidade!");
+                throw new ValidacaoException("Professor não ministra aula dessa modalidade!");
             } else {
                 aluno.adicionarProfessor(professor);
                 professor.setSalario(alunoRepository.buscarTodosPorProfessor(professor));

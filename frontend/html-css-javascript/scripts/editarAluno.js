@@ -28,7 +28,7 @@ function validarCampos(idAluno, idProfessor, modalidade, telefone, email) {
 }
 
 
-document.getElementById("btn").addEventListener("click", function () {
+document.getElementById("btn").addEventListener("click", async function () {
     const idAluno = document.getElementById("idAluno").value;
     const idProfessor = document.getElementById("idProfessor").value;
     const modalidade = document.getElementById("modalidade").value;
@@ -39,22 +39,37 @@ document.getElementById("btn").addEventListener("click", function () {
         return;
     }
 
-    fetch(`${CONFIG.API_URL}/aluno`, {
+    const options = {
         method: "PUT",
         headers: { 
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({alunoId: idAluno, professorId: idProfessor, modalidade: modalidade, telefone: telefone, email: email })
-    })
-    .then(response => {
-        if (response.ok) {
-            exibirMensagem("success", "✅ Dados atualizados com sucesso!");
-        } else {
-            exibirMensagem("danger", "❌ Erro ao atualizar os dados.");
+    }
+    
+    try {
+        const response = await fetch(`${CONFIG.API_URL}/aluno`, options);
+    
+        let mensagemErro = "❌ Erro ao atualizar dados!";
+        
+        let data = await response.text();
+    
+        mensagemErro = data || mensagemErro;
+        
+        if (!response.ok) {
+            exibirMensagem("danger", `❌ ${mensagemErro}`);
+            return;
         }
-    })
-    .catch(error => {
-        exibirMensagem("danger", "⚠️ Erro na requisição: " + error);    
-    });
+    
+        exibirMensagem("success", "✅ Dados atualizados com sucesso!");
+    
+      } catch (error) {
+        exibirMensagem("danger", "❌ Erro ao atualizar dados!");
+        console.error("Erro ao atualizar dados:", error);
+      }
 });
+
+
+
+

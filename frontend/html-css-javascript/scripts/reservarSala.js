@@ -25,7 +25,7 @@ function validarCampos(salaId, horario, data) {
     return true;
 }
 
-function reservarSala() {
+async function reservarSala() {
     const salaId = document.getElementById("salaId").value;
     const horario = document.getElementById("horario").value;
     const data = document.getElementById("data").value;
@@ -48,17 +48,26 @@ function reservarSala() {
         body: JSON.stringify(reserva)
     };
 
-    fetch(`${CONFIG.API_URL}/sala`, options)
-        .then(response => {
-            if (response.ok) {
-                exibirMensagem("success", "✅ Sala reservada com sucesso!");
-            } else {
-                exibirMensagem("danger", "❌ Erro ao reservar sala.");
-            }
-        })
-        .catch(error => {
-            exibirMensagem("danger", "⚠️ Erro na requisição: " + error);    
-        });
+    try {
+        const response = await fetch(`${CONFIG.API_URL}/sala`, options);
+    
+        let mensagemErro = "❌ Erro ao reservar sala!";
+        
+        let data = await response.text();
+    
+        mensagemErro = data || mensagemErro;
+        
+        if (!response.ok) {
+            exibirMensagem("danger", `❌ ${mensagemErro}`);
+            return;
+        }
+    
+        exibirMensagem("success", "✅ Sala reservada com sucesso!");
+    
+    } catch (error) {
+        exibirMensagem("danger", "❌ Erro ao reservar sala!");
+        console.error("Erro ao reservar sala:", error);
+    }
 }
 
 btnReserva.addEventListener("click", reservarSala);

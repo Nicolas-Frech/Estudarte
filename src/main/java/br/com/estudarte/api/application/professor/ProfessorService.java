@@ -38,11 +38,17 @@ public class ProfessorService {
 
     public void desligarProfessor(Long id) {
        ProfessorEntity professor = professorRepository.buscarPorId(id);
+       if(professor == null) {
+           throw new ValidacaoException("Não existe professor com esse ID!");
+       }
        professor.desligarProfessor();
        professorRepository.salvar(professor);
     }
 
     public ProfessorEntity atualizarProfessor(ProfessorDTOAtualizacao dto) {
+        if(!professorRepository.existePorId(dto.idProfessor())) {
+            throw new ValidacaoException("Não existe professor com esse ID!");
+        }
         ProfessorEntity professorAtualizado = professorRepository.buscarPorId(dto.idProfessor());
         professorAtualizado.atualizarDados(dto);
         professorRepository.salvar(professorAtualizado);

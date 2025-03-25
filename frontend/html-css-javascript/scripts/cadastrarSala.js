@@ -20,7 +20,7 @@ function validarCampos(nome, modalidade) {
     return true;
   }
 
-function cadastrarSala() {
+async function cadastrarSala() {
     const nome = document.getElementById("nome").value;
     const modalidade = document.getElementById("modalidade").value;
 
@@ -42,14 +42,26 @@ function cadastrarSala() {
         body: JSON.stringify(sala)
     };
 
-    fetch(`${CONFIG.API_URL}/sala`, options)
-      .then(() => {
-        exibirMensagem("success", "✅ Sala cadastrada com sucesso!");
-      })
-      .catch((e) => {
-        exibirMensagem("danger", "❌ Erro ao cadastrar sala!");
-        console.log(e);
-      });
+    try {
+      const response = await fetch(`${CONFIG.API_URL}/sala`, options);
+  
+      let mensagemErro = "❌ Erro ao cadastrar sala!";
+      
+      let data = await response.text();
+  
+      mensagemErro = data || mensagemErro;
+      
+      if (!response.ok) {
+          exibirMensagem("danger", `❌ ${mensagemErro}`);
+          return;
+      }
+  
+      exibirMensagem("success", "✅ Sala cadastrada com sucesso!");
+  
+    } catch (error) {
+      exibirMensagem("danger", "❌ Erro ao cadastrar sala!");
+      console.error("Erro ao cadastrar sala:", error);
+    }
 }
 
 btn.addEventListener("click", cadastrarSala);

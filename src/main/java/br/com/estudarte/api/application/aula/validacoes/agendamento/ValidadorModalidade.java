@@ -27,11 +27,11 @@ public class ValidadorModalidade implements ValidadorAgendamentoAula {
         ProfessorEntity professor = professorRepository.buscarPorNome(dto.professorNome());
 
         if(!aluno.getModalidade().equals(dto.modalidade())) {
-            throw new ValidacaoException("Esse aluno não está matriculado para essa modalidade");
+            throw new ValidacaoException("Esse aluno não está matriculado para essa modalidade!");
         }
 
         if(!professor.getModalidade().equals(dto.modalidade())) {
-            throw new ValidacaoException("Esse professor não ministra aulas dessa modalidade");
+            throw new ValidacaoException("Esse professor não ministra aulas dessa modalidade!");
         }
     }
 }
