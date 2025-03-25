@@ -33,7 +33,8 @@ function buscarAulas() {
     const nomeProfessor = document.getElementById("searchProfessor").value.trim();
     
     if (nomeProfessor === "") {
-        document.getElementById("listaAulas").innerHTML = "<p>Digite o nome de um professor para buscar aulas.</p>";
+        document.getElementById("listaAulas").innerHTML = "<div id='mensagemErro' class='alert alert-danger d-none' role='alert'></div>";
+        exibirMensagem("danger", `❌ Digite o nome de um professor!`);
         document.getElementById("loading").style.display = "none";
         return;
     }
@@ -59,7 +60,8 @@ function buscarAulas() {
             lista.innerHTML = "";
 
             if (aulas.length === 0) {
-                lista.innerHTML = "<p>Nenhuma aula encontrada para esse professor.</p>";
+                lista.innerHTML = "<div id='mensagemErro' class='alert alert-danger d-none' role='alert'></div>";
+                exibirMensagem("danger", `❌ Nenhuma aula encontrada para esse professor!`);
                 return;
             }
 

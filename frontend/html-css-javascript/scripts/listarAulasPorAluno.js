@@ -32,7 +32,8 @@ function buscarAulas() {
     const nomeAluno = document.getElementById("searchAluno").value.trim();
     
     if (nomeAluno === "") {
-        document.getElementById("listaAulas").innerHTML = "<p>Digite o nome de um aluno para buscar aulas.</p>";
+        document.getElementById("listaAulas").innerHTML = "<div id='mensagemErro' class='alert alert-danger d-none' role='alert'></div>";
+        exibirMensagem("danger", `❌ Digite o nome de um aluno!`);
         document.getElementById("loading").style.display = "none";
         return;
     }
@@ -58,7 +59,8 @@ function buscarAulas() {
             lista.innerHTML = "";
 
             if (aulas.length === 0) {
-                lista.innerHTML = "<p>Nenhuma aula encontrada para esse aluno.</p>";
+                lista.innerHTML = "<div id='mensagemErro' class='alert alert-danger d-none' role='alert'></div>";
+                exibirMensagem("danger", `❌ Nenhuma aula encontrada para esse aluno!`);
                 return;
             }
 
@@ -107,6 +109,6 @@ document.getElementById("btnAnterior").addEventListener("click", paginaAnterior)
 document.getElementById("btnProximo").addEventListener("click", proximaPagina);
 
 
-document.getElementById("searchProfessor").addEventListener("input", () => {
+document.getElementById("searchAluno").addEventListener("input", () => {
     paginaAtual = 0;
 });
