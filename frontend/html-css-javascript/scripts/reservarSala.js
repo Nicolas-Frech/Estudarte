@@ -51,7 +51,7 @@ async function reservarSala() {
     try {
         const response = await fetch(`${CONFIG.API_URL}/sala`, options);
     
-        let mensagemErro = "❌ Erro ao reservar sala!";
+        let mensagemErro = "Erro ao reservar sala!";
         
         let data = await response.text();
     

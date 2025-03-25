@@ -11,7 +11,7 @@ if(!token) {
     },  2000);
 }
 
-function trancarMatricula() {
+async function trancarMatricula() {
     const id = document.getElementById("alunoId").value;
     const mensagem = document.getElementById("mensagem");
 
@@ -20,23 +20,34 @@ function trancarMatricula() {
         return;
     }
 
-    fetch(`${CONFIG.API_URL}/aluno/${id}`, {
+    const options = {
         method: "DELETE",
         headers: { 
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
         }
-    })
-    .then(response => {
-        if (response.ok) {
-            exibirMensagem("success", "✅ Matrícula trancada com sucesso!");
-        } else {
-            exibirMensagem("danger", "❌ Erro ao trancar matrícula.");
+    }
+
+    try {
+        const response = await fetch(`${CONFIG.API_URL}/aluno/${id}`, options);
+    
+        let mensagemErro = "Erro ao trancar matrícula!";
+        
+        let data = await response.text();
+    
+        mensagemErro = data || mensagemErro;
+        
+        if (!response.ok) {
+            exibirMensagem("danger", `❌ ${mensagemErro}`);
+            return;
         }
-    })
-    .catch(error => {
-        exibirMensagem("danger", "⚠️ Erro na requisição: " + error);
-    });
+    
+        exibirMensagem("success", "✅ Matricula trancada com sucesso!");
+    
+    } catch (error) {
+        exibirMensagem("danger", "❌ Erro ao trancar matrícula!");
+        console.error("Erro ao trancar matrícula:", error);
+    }
 }
 
 const btn = document.getElementById("btn")

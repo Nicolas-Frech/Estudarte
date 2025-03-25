@@ -55,7 +55,7 @@ async function agendarAula() {
   try {
     const response = await fetch(`${CONFIG.API_URL}/aula`, options);
 
-    let mensagemErro = "❌ Erro ao agendar aula!";
+    let mensagemErro = "Erro ao agendar aula!";
     
     let data = await response.text();
 

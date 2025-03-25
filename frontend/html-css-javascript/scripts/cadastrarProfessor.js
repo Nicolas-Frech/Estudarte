@@ -62,7 +62,7 @@ async function cadastrarProfessor() {
   try {
     const response = await fetch(`${CONFIG.API_URL}/professor`, options);
 
-    let mensagemErro = "❌ Erro ao cadastrar professor!";
+    let mensagemErro = "Erro ao cadastrar professor!";
     
     let data = await response.text();
 

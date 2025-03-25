@@ -11,7 +11,7 @@ if(!token) {
     },  2000);
 }
 
-function desmarcarAula() {
+async function desmarcarAula() {
     const id = document.getElementById("aulaId").value;
     const motivo = document.getElementById("motivo").value;
 
@@ -25,24 +25,35 @@ function desmarcarAula() {
         motivoCancelamento: motivo
     }
 
-    fetch(`${CONFIG.API_URL}/aula`, {
+    const options = {
         method: "DELETE",
         headers: { 
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(cancelamento)
-    })
-    .then(response => {
-        if (response.ok) {
-            exibirMensagem("success", "✅ Aula cancelada com sucesso!");
-        } else {
-            exibirMensagem("danger", "❌ Erro ao cancelar Aula!");
+    }
+
+    try {
+        const response = await fetch(`${CONFIG.API_URL}/aula`, options);
+    
+        let mensagemErro = "Erro ao cancelar aula!";
+        
+        let data = await response.text();
+    
+        mensagemErro = data || mensagemErro;
+        
+        if (!response.ok) {
+            exibirMensagem("danger", `❌ ${mensagemErro}`);
+            return;
         }
-    })
-    .catch(error => {
-        exibirMensagem("danger", "⚠️ Erro na requisição: " + error);
-    });
+    
+        exibirMensagem("success", "✅ Aula cancelada com sucesso!");
+    
+    } catch (error) {
+        exibirMensagem("danger", "❌ Erro ao cancelar aula!");
+        console.error("Erro ao cancelar aula:", error);
+    }
 }
 
 const btn = document.getElementById("btn")

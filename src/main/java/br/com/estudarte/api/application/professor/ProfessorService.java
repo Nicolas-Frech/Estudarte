@@ -37,7 +37,7 @@ public class ProfessorService {
     }
 
     public void desligarProfessor(Long id) {
-       ProfessorEntity professor = professorRepository.buscarPorId(id);
+       ProfessorEntity professor = professorRepository.buscarPorIdEAtivoTrue(id);
        if(professor == null) {
            throw new ValidacaoException("Não existe professor com esse ID!");
        }
@@ -46,10 +46,11 @@ public class ProfessorService {
     }
 
     public ProfessorEntity atualizarProfessor(ProfessorDTOAtualizacao dto) {
-        if(!professorRepository.existePorId(dto.idProfessor())) {
+        ProfessorEntity professorAtualizado = professorRepository.buscarPorIdEAtivoTrue(dto.idProfessor());
+
+        if(professorAtualizado == null) {
             throw new ValidacaoException("Não existe professor com esse ID!");
         }
-        ProfessorEntity professorAtualizado = professorRepository.buscarPorId(dto.idProfessor());
         professorAtualizado.atualizarDados(dto);
         professorRepository.salvar(professorAtualizado);
 

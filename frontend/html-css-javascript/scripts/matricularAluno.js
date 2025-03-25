@@ -68,7 +68,7 @@ async function matricularAluno() {
   try {
     const response = await fetch(`${CONFIG.API_URL}/aluno`, options);
 
-    let mensagemErro = "❌ Erro ao cadastrar aluno!";
+    let mensagemErro = "Erro ao cadastrar aluno!";
     
     let data = await response.text();
 

@@ -41,7 +41,7 @@ document.getElementById("btnRemarcar").addEventListener("click", async function 
     try {
         const response = await fetch(`${CONFIG.API_URL}/aula`, options);
     
-        let mensagemErro = "❌ Erro ao reagendar aula!";
+        let mensagemErro = "Erro ao reagendar aula!";
         
         let data = await response.text();
     

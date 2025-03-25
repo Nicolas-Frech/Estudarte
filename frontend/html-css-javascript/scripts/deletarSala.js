@@ -11,7 +11,7 @@ if(!token) {
     },  2000);
 }
 
-function deletarSala() {
+async function deletarSala() {
     const id = document.getElementById("salaId").value;
     const mensagem = document.getElementById("mensagem");
 
@@ -20,23 +20,34 @@ function deletarSala() {
         return;
     }
 
-    fetch(`${CONFIG.API_URL}/sala/${id}`, {
+    const options = {
         method: "DELETE",
         headers: { 
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
         }
-    })
-    .then(response => {
-        if (response.ok) {
-            exibirMensagem("success", "✅ Sala deletada com sucesso!");
-        } else {
-            exibirMensagem("danger", "❌ Erro ao deletar a sala.");
+    }
+
+    try {
+        const response = await fetch(`${CONFIG.API_URL}/sala/${id}`, options);
+    
+        let mensagemErro = "Erro ao deletar sala!";
+        
+        let data = await response.text();
+    
+        mensagemErro = data || mensagemErro;
+        
+        if (!response.ok) {
+            exibirMensagem("danger", `❌ ${mensagemErro}`);
+            return;
         }
-    })
-    .catch(error => {
-        exibirMensagem("danger", "⚠️ Erro na requisição: " + error);
-    });
+    
+        exibirMensagem("success", "✅ Sala deletada com sucesso!");
+    
+    } catch (error) {
+        exibirMensagem("danger", "❌ Erro ao deletar sala!");
+        console.error("Erro ao deletar sala:", error);
+    }
 }
 
 const btn = document.getElementById("btn")

@@ -51,7 +51,7 @@ document.getElementById("btn").addEventListener("click", async function () {
     try {
         const response = await fetch(`${CONFIG.API_URL}/aluno`, options);
     
-        let mensagemErro = "❌ Erro ao atualizar dados!";
+        let mensagemErro = "Erro ao atualizar dados!";
         
         let data = await response.text();
     
