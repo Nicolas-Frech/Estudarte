@@ -35,7 +35,7 @@ function validarCampos(nome, cnpj, telefone, email, modalidade) {
   return true;
 }
 
-function cadastrarProfessor() {
+async function cadastrarProfessor() {
   const nome = document.getElementById("nome").value;
   const cnpj = document.getElementById("cnpj").value;
   const telefone = document.getElementById("telefone").value;
@@ -58,21 +58,27 @@ function cadastrarProfessor() {
   };
 
   console.log(JSON.stringify(professor));
+  
+  try {
+    const response = await fetch(`${CONFIG.API_URL}/professor`, options);
 
-  fetch(`${CONFIG.API_URL}/professor`, options)
-    .then((data) => {
-      if (!data.ok) {
-        throw Error(data.statusText);
-      }
-      return data.json();
-    })
-    .then(() => {
-      exibirMensagem("success", "✅ Professor cadastrado com sucesso!");
-    })
-    .catch((e) => {
-      exibirMensagem("danger", "❌ Erro ao cadastrar professor!");
-      console.log(e);
-    });
+    let mensagemErro = "❌ Erro ao cadastrar professor!";
+    
+    let data = await response.text();
+
+    mensagemErro = data || mensagemErro;
+    
+    if (!response.ok) {
+        exibirMensagem("danger", `❌ ${mensagemErro}`);
+        return;
+    }
+
+    exibirMensagem("success", "✅ Professor cadastrado com sucesso!");
+
+  } catch (error) {
+    exibirMensagem("danger", "❌ Erro ao cadastrar professor!");
+    console.error("Erro ao cadastrar professor:", error);
+  }
 }
 
 btn.addEventListener("click", cadastrarProfessor);
