@@ -31,7 +31,7 @@ class ProfessorRepositoryTest {
     @Test
     @DisplayName("Deveria retornar professor do banco a partir do nome")
     void buscarProfessor_cenario1() {
-        ProfessorDTO professorTeste = new ProfessorDTO("Prof", "12.343.123/0001-39", "12345678", "email@email.com",
+        ProfessorDTO professorTeste = new ProfessorDTO("A", "12.343.123/0001-39", "12345678", "email@email.com",
                 Modalidade.SAXOFONE);
 
         ProfessorEntity professor = helper.cadastrarProfessor(professorTeste);
@@ -44,7 +44,7 @@ class ProfessorRepositoryTest {
     @Test
     @DisplayName("Não deveria retornar professor do banco a partir do nome")
     void buscarProfessor_cenario2() {
-        ProfessorDTO professorTeste = new ProfessorDTO("Prof", "12.343.123/0001-39", "12345678", "email@email.com",
+        ProfessorDTO professorTeste = new ProfessorDTO("A", "12.343.123/0001-39", "12345678", "email@email.com",
                 Modalidade.SAXOFONE);
 
         var professorDoBanco = repository.findByNome(professorTeste.nome());
@@ -55,7 +55,7 @@ class ProfessorRepositoryTest {
     @Test
     @DisplayName("Deveria retornar ativo do banco a partir do nome")
     void buscarProfessor_cenario3() {
-        ProfessorDTO professorTeste = new ProfessorDTO("Prof", "12.343.123/0001-39", "12345678", "email@email.com",
+        ProfessorDTO professorTeste = new ProfessorDTO("A", "12.343.123/0001-39", "12345678", "email@email.com",
                 Modalidade.SAXOFONE);
 
         ProfessorEntity professor = helper.cadastrarProfessor(professorTeste);
@@ -68,7 +68,7 @@ class ProfessorRepositoryTest {
     @Test
     @DisplayName("Não deveria retornar ativo do banco a partir do nome")
     void buscarProfessor_cenario4() {
-        ProfessorDTO professorTeste = new ProfessorDTO("Prof", "12.343.123/0001-39", "12345678", "email@email.com",
+        ProfessorDTO professorTeste = new ProfessorDTO("A", "12.343.123/0001-39", "12345678", "email@email.com",
                 Modalidade.SAXOFONE);
 
         var ativo = repository.findAtivoByNome(professorTeste.nome());

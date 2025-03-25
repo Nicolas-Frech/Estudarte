@@ -34,7 +34,7 @@ class AlunoRepositoryTest {
     @Test
     @DisplayName("Deveria retornar aluno do banco pelo nome")
     void buscarAluno_cenario1() {
-        AlunoDTO alunoTeste = new AlunoDTO("Aluno", "123.456.789-00", "123456789", "email@email.com",
+        AlunoDTO alunoTeste = new AlunoDTO("A", "123.456.789-00", "123456789", "email@email.com",
                 Modalidade.SAXOFONE);
 
         AlunoEntity aluno = helper.matricularAluno(alunoTeste);
@@ -47,7 +47,7 @@ class AlunoRepositoryTest {
     @Test
     @DisplayName("Não deveria retornar aluno do banco pelo nome")
     void buscarAluno_cenario2() {
-        AlunoDTO alunoTeste = new AlunoDTO("Aluno", "123.456.789-00", "123456789", "email@email.com",
+        AlunoDTO alunoTeste = new AlunoDTO("A", "123.456.789-00", "123456789", "email@email.com",
                 Modalidade.SAXOFONE);
 
         var alunoDoBanco = alunoRepository.findByNome(alunoTeste.nome());
@@ -58,7 +58,7 @@ class AlunoRepositoryTest {
     @Test
     @DisplayName("Deveria retornar aluno do banco pelo professor")
     void buscarAluno_cenario3() {
-        AlunoDTO alunoTeste = new AlunoDTO("Aluno", "123.456.789-00", "123456789", "email@email.com",
+        AlunoDTO alunoTeste = new AlunoDTO("A", "123.456.789-00", "123456789", "email@email.com",
                 Modalidade.SAXOFONE);
 
         AlunoEntity aluno = helper.matricularAluno(alunoTeste);
@@ -77,7 +77,7 @@ class AlunoRepositoryTest {
     @Test
     @DisplayName("Não deveria retornar aluno do banco pelo professor")
     void buscarAluno_cenario4() {
-        AlunoDTO alunoTeste = new AlunoDTO("Aluno", "123.456.789-00", "123456789", "email@email.com",
+        AlunoDTO alunoTeste = new AlunoDTO("A", "123.456.789-00", "123456789", "email@email.com",
                 Modalidade.SAXOFONE);
 
         AlunoEntity aluno = helper.matricularAluno(alunoTeste);
