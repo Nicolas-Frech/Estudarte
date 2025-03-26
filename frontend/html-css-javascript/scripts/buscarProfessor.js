@@ -35,13 +35,17 @@ document.getElementById("btnBuscar").addEventListener("click", () => {
             return response.json();
         })
         .then(professor => {
+            var salario = professor.salario;
+            if(salario === null) {
+                salario = ""
+            }
             resultado.innerHTML = `
                 <p><strong>👤 Nome:</strong> ${professor.nome}</p>
                 <p><strong>🏢 CNPJ:</strong> ${professor.cnpj}</p>
                 <p><strong>📞 Telefone:</strong> ${professor.telefone}</p>
                 <p><strong>📧 E-mail:</strong> ${professor.email}</p>
                 <p><strong>🎵 Modalidade:</strong> ${professor.modalidade}</p>
-                <p><strong>💰 Salário:</strong> R$${professor.salario}</p>
+                <p><strong>💰 Salário:</strong> R$${salario}</p>
                 <p><strong>🎓 Alunos:</strong> ${professor.alunos}</p>
             `;
         })

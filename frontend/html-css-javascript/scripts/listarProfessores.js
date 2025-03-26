@@ -32,7 +32,12 @@ function buscarProfessores() {
             const lista = document.getElementById("listaProfessores");
             lista.innerHTML = "";
 
+
             professores.forEach(professor => {
+                var salario = professor.salario;
+                if(salario === null) {
+                    salario = "";
+                }
                 const item = document.createElement("li");
                 item.style.textAlign = "left";
                 item.style.listStyle = "none";
@@ -40,7 +45,7 @@ function buscarProfessores() {
                     <strong>🔢 ID:</strong> ${professor.id} <br>
                     <strong>👤 Nome:</strong> ${professor.nome} <br>
                     <strong>🎵 Modalidade:</strong> ${professor.modalidade} <br>
-                    <strong>💰 Salário:</strong> R$${professor.salario}
+                    <strong>💰 Salário:</strong> R$${salario}
                     <hr>
                 `;
                 lista.appendChild(item);
@@ -54,7 +59,7 @@ function buscarProfessores() {
         })
         .catch(error => {
             console.error("Erro:", error);
-            document.getElementById("loading").style.display = "none"; // Oculta "Carregando..."
+            document.getElementById("loading").style.display = "none";
             alert("Erro ao carregar professores. Verifique o console.");
         });
 }
