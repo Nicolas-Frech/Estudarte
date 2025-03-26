@@ -6,7 +6,7 @@ import br.com.estudarte.api.application.sala.dto.SalaReservaDTO;
 import br.com.estudarte.api.application.sala.validacoes.ValidadorReservaSala;
 import br.com.estudarte.api.infra.exception.ValidacaoException;
 import br.com.estudarte.api.infra.sala.SalaEntity;
-import br.com.estudarte.api.infra.sala.repository.SalaRepository;
+import br.com.estudarte.api.application.sala.gateway.SalaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

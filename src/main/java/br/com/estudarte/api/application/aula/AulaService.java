@@ -9,13 +9,13 @@ import br.com.estudarte.api.application.aula.validacoes.agendamento.ValidadorAge
 import br.com.estudarte.api.application.aula.validacoes.cancelamento.ValidadorCancelamentoAula;
 import br.com.estudarte.api.application.aula.validacoes.reagendamento.ValidadorReagendarAula;
 import br.com.estudarte.api.infra.aluno.AlunoEntity;
-import br.com.estudarte.api.infra.aluno.repository.AlunoRepository;
+import br.com.estudarte.api.application.aluno.gateway.AlunoRepository;
 import br.com.estudarte.api.infra.aula.AulaEntity;
-import br.com.estudarte.api.infra.aula.repository.AulaRepository;
+import br.com.estudarte.api.application.aula.gateway.AulaRepository;
 import br.com.estudarte.api.infra.exception.ValidacaoException;
 import br.com.estudarte.api.infra.professor.ProfessorEntity;
-import br.com.estudarte.api.infra.professor.repository.ProfessorRepository;
-import br.com.estudarte.api.infra.sala.repository.SalaRepository;
+import br.com.estudarte.api.application.professor.gateway.ProfessorRepository;
+import br.com.estudarte.api.application.sala.gateway.SalaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

@@ -2,10 +2,10 @@ package br.com.estudarte.api.application.aula.validacoes.reagendamento;
 
 import br.com.estudarte.api.application.aula.dto.AulaAtualizacaoDTO;
 import br.com.estudarte.api.infra.aula.AulaEntity;
-import br.com.estudarte.api.infra.aula.repository.AulaRepository;
+import br.com.estudarte.api.application.aula.gateway.AulaRepository;
 import br.com.estudarte.api.infra.exception.ValidacaoException;
 import br.com.estudarte.api.infra.sala.SalaEntity;
-import br.com.estudarte.api.infra.sala.repository.SalaRepository;
+import br.com.estudarte.api.application.sala.gateway.SalaRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

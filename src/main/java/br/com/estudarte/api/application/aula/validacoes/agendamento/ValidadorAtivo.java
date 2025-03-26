@@ -1,12 +1,9 @@
 package br.com.estudarte.api.application.aula.validacoes.agendamento;
 
 import br.com.estudarte.api.application.aula.dto.AulaDTO;
-import br.com.estudarte.api.infra.aluno.repository.AlunoRepository;
-import br.com.estudarte.api.infra.aluno.repository.AlunoRepositoryJpa;
+import br.com.estudarte.api.application.aluno.gateway.AlunoRepository;
 import br.com.estudarte.api.infra.exception.ValidacaoException;
-import br.com.estudarte.api.infra.professor.repository.ProfessorRepository;
-import br.com.estudarte.api.infra.professor.repository.ProfessorRepositoryJpa;
-import org.springframework.beans.factory.annotation.Autowired;
+import br.com.estudarte.api.application.professor.gateway.ProfessorRepository;
 import org.springframework.stereotype.Component;
 
 @Component

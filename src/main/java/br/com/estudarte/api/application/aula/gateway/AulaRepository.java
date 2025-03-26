@@ -1,4 +1,4 @@
-package br.com.estudarte.api.infra.aula.repository;
+package br.com.estudarte.api.application.aula.gateway;
 
 import br.com.estudarte.api.infra.aula.AulaEntity;
 import org.springframework.data.domain.Page;

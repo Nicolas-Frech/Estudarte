@@ -1,4 +1,4 @@
-package br.com.estudarte.api.infra.usuario.repository;
+package br.com.estudarte.api.application.usuario.gateway;
 
 import br.com.estudarte.api.infra.usuario.UsuarioEntity;
 

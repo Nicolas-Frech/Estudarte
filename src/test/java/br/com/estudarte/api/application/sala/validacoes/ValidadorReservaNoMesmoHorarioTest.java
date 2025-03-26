@@ -1,9 +1,9 @@
 package br.com.estudarte.api.application.sala.validacoes;
 
 import br.com.estudarte.api.application.sala.dto.SalaReservaDTO;
-import br.com.estudarte.api.infra.aula.repository.AulaRepository;
+import br.com.estudarte.api.application.aula.gateway.AulaRepository;
 import br.com.estudarte.api.infra.exception.ValidacaoException;
-import br.com.estudarte.api.infra.sala.repository.SalaRepository;
+import br.com.estudarte.api.application.sala.gateway.SalaRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

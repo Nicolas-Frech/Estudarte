@@ -1,4 +1,4 @@
-package br.com.estudarte.api.infra.aluno.repository;
+package br.com.estudarte.api.application.aluno.gateway;
 
 import br.com.estudarte.api.infra.aluno.AlunoEntity;
 import br.com.estudarte.api.infra.professor.ProfessorEntity;

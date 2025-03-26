@@ -1,9 +1,9 @@
 package br.com.estudarte.api.application.aula.validacoes.agendamento;
 
 import br.com.estudarte.api.application.aula.dto.AulaDTO;
-import br.com.estudarte.api.infra.aula.repository.AulaRepository;
+import br.com.estudarte.api.application.aula.gateway.AulaRepository;
 import br.com.estudarte.api.infra.exception.ValidacaoException;
-import br.com.estudarte.api.infra.sala.repository.SalaRepository;
+import br.com.estudarte.api.application.sala.gateway.SalaRepository;
 import org.springframework.stereotype.Component;
 
 @Component

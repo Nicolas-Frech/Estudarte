@@ -1,6 +1,8 @@
-package br.com.estudarte.api.infra.usuario.repository;
+package br.com.estudarte.api.infra.usuario.repository.impl;
 
 import br.com.estudarte.api.infra.usuario.UsuarioEntity;
+import br.com.estudarte.api.application.usuario.gateway.UsuarioRepository;
+import br.com.estudarte.api.infra.usuario.repository.UsuarioRepositoryJpa;
 import org.springframework.stereotype.Repository;
 
 @Repository

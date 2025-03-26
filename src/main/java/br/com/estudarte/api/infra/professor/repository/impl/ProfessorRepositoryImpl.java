@@ -1,6 +1,8 @@
-package br.com.estudarte.api.infra.professor.repository;
+package br.com.estudarte.api.infra.professor.repository.impl;
 
 import br.com.estudarte.api.infra.professor.ProfessorEntity;
+import br.com.estudarte.api.application.professor.gateway.ProfessorRepository;
+import br.com.estudarte.api.infra.professor.repository.ProfessorRepositoryJpa;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.data.domain.Page;

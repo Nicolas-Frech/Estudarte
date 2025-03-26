@@ -1,7 +1,7 @@
 package br.com.estudarte.api.infra.security;
 
 import br.com.estudarte.api.infra.security.token.TokenService;
-import br.com.estudarte.api.infra.usuario.repository.UsuarioRepository;
+import br.com.estudarte.api.application.usuario.gateway.UsuarioRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

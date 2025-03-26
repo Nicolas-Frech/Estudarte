@@ -3,7 +3,7 @@ package br.com.estudarte.api.application.usuario;
 import br.com.estudarte.api.application.usuario.dto.UsuarioDTO;
 import br.com.estudarte.api.infra.exception.ValidacaoException;
 import br.com.estudarte.api.infra.usuario.UsuarioEntity;
-import br.com.estudarte.api.infra.usuario.repository.UsuarioRepository;
+import br.com.estudarte.api.application.usuario.gateway.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

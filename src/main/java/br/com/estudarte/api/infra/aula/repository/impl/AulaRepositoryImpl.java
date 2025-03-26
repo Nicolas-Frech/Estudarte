@@ -1,6 +1,8 @@
-package br.com.estudarte.api.infra.aula.repository;
+package br.com.estudarte.api.infra.aula.repository.impl;
 
 import br.com.estudarte.api.infra.aula.AulaEntity;
+import br.com.estudarte.api.application.aula.gateway.AulaRepository;
+import br.com.estudarte.api.infra.aula.repository.AulaRepositoryJpa;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.data.domain.Page;

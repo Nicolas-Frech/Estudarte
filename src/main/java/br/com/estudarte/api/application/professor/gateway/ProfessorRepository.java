@@ -1,4 +1,4 @@
-package br.com.estudarte.api.infra.professor.repository;
+package br.com.estudarte.api.application.professor.gateway;
 
 import br.com.estudarte.api.infra.professor.ProfessorEntity;
 import org.springframework.data.domain.Page;
