@@ -9,9 +9,9 @@ import java.time.LocalDateTime;
 
 public interface AulaRepositoryJpa extends JpaRepository<AulaEntity, Long> {
 
-    Boolean existsByProfessorNomeAndDataAndMotivoCancelamentoIsNull(String professorNome, LocalDateTime data);
+    boolean existsByProfessorNomeAndDataAndMotivoCancelamentoIsNull(String professorNome, LocalDateTime data);
 
-    Boolean existsByAlunoNomeAndDataAndMotivoCancelamentoIsNull(String alunoNome, LocalDateTime data);
+    boolean existsByAlunoNomeAndDataAndMotivoCancelamentoIsNull(String alunoNome, LocalDateTime data);
 
     Page<AulaEntity> findAllByMotivoCancelamentoIsNull(Pageable paginacao);
 
@@ -19,9 +19,8 @@ public interface AulaRepositoryJpa extends JpaRepository<AulaEntity, Long> {
 
     Page<AulaEntity> findAllByProfessorNomeAndMotivoCancelamentoIsNull(Pageable paginacao, String professorNome);
 
-    Boolean existsByDataAndMotivoCancelamentoIsNull(LocalDateTime localDateTime);
+    boolean existsByDataAndIdAndMotivoCancelamentoIsNull(LocalDateTime localDateTime, Long id);
 
-    AulaEntity findByIdAndMotivoCancelamentoIsNull(Long id);
+    boolean existsByIdAndMotivoCancelamentoIsNull(Long id);
 
-    Boolean existsByDataAndIdAndMotivoCancelamentoIsNull(LocalDateTime localDateTime, Long id);
 }

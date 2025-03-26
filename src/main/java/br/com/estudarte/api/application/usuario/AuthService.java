@@ -1,7 +1,7 @@
 package br.com.estudarte.api.application.usuario;
 
 import br.com.estudarte.api.application.usuario.dto.UsuarioDTO;
-import br.com.estudarte.api.infra.exception.ValidacaoException;
+import br.com.estudarte.api.application.usuario.validacoes.ValidadorUsuarioLogin;
 import br.com.estudarte.api.infra.usuario.UsuarioEntity;
 import br.com.estudarte.api.application.usuario.gateway.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,20 +19,21 @@ public class AuthService implements UserDetailsService {
 
     private final UsuarioRepository usuarioRepository;
 
+    @Autowired
+    private ValidadorUsuarioLogin validadorUsuarioLogin;
+
     public AuthService(UsuarioRepository usuarioRepository) {
         this.usuarioRepository = usuarioRepository;
     }
 
     public UsuarioEntity cadastrarUsuario(UsuarioDTO dto) {
-        if(usuarioRepository.existePorLogin(dto.login())) {
-            throw new ValidacaoException("Já existe um usuário com esse login!");
-        } else {
-            var encodedPwd = passwordEncoder.encode(dto.senha());
+        validadorUsuarioLogin.validar(dto.login());
 
-            UsuarioEntity usuario = new UsuarioEntity(dto.login(), encodedPwd);
-            usuarioRepository.salvar(usuario);
-            return usuario;
-        }
+        var encodedPwd = passwordEncoder.encode(dto.senha());
+        UsuarioEntity usuario = new UsuarioEntity(dto.login(), encodedPwd);
+
+        usuarioRepository.salvar(usuario);
+        return usuario;
     }
 
     @Override

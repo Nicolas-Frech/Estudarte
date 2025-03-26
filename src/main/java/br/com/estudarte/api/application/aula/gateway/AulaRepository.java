@@ -9,8 +9,6 @@ import java.time.LocalDateTime;
 public interface AulaRepository {
     AulaEntity salvar(AulaEntity aula);
 
-    boolean existePorId(Long id);
-
     AulaEntity buscarPorId(Long id);
 
     Page<AulaEntity> buscarTodosPorMotivoCancelamentoNull(Pageable paginacao);
@@ -19,11 +17,11 @@ public interface AulaRepository {
 
     Page<AulaEntity> buscarTodosPorProfessorNomeEMotivoCancelamentoNull(Pageable paginacao, String professorNome);
 
-    AulaEntity buscarPorIdEMotivoCancelamentoNull(Long id);
-
     boolean existePorProfessorNomeEDataEMotivoCancelamentoNull(String nome, LocalDateTime data);
 
     boolean existePorAlunoNomeEDataEMotivoCancelamentoNull(String nome, LocalDateTime data);
 
     boolean existePorDataEIdEMotivoCancelamentoNull(LocalDateTime data, Long id);
+
+    boolean existePorIdEMotivoCancelamentoNull(Long id);
 }

@@ -17,8 +17,6 @@ public interface AlunoRepository {
 
     AlunoEntity buscarPorId(Long id);
 
-    List<String> buscarTodosPorProfessor(ProfessorEntity professor);
-
     Page<AlunoEntity> buscarTodosPorAtivoTrue(Pageable paginacao);
 
     AlunoEntity buscarPorIdEAtivoTrue(Long id);

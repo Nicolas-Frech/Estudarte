@@ -1,4 +1,4 @@
-package br.com.estudarte.api.application.sala.validacoes;
+package br.com.estudarte.api.application.sala.validacoes.reserva;
 
 import br.com.estudarte.api.application.sala.dto.SalaReservaDTO;
 import br.com.estudarte.api.application.aula.gateway.AulaRepository;

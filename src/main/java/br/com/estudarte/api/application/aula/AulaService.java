@@ -1,5 +1,6 @@
 package br.com.estudarte.api.application.aula;
 
+import br.com.estudarte.api.application.aula.validacoes.ValidadorAulaAtiva;
 import br.com.estudarte.api.application.email.EmailSender;
 import br.com.estudarte.api.application.aula.dto.AulaAtualizacaoDTO;
 import br.com.estudarte.api.application.aula.dto.AulaCancelamentoDTO;
@@ -12,7 +13,6 @@ import br.com.estudarte.api.infra.aluno.AlunoEntity;
 import br.com.estudarte.api.application.aluno.gateway.AlunoRepository;
 import br.com.estudarte.api.infra.aula.AulaEntity;
 import br.com.estudarte.api.application.aula.gateway.AulaRepository;
-import br.com.estudarte.api.infra.exception.ValidacaoException;
 import br.com.estudarte.api.infra.professor.ProfessorEntity;
 import br.com.estudarte.api.application.professor.gateway.ProfessorRepository;
 import br.com.estudarte.api.application.sala.gateway.SalaRepository;
@@ -34,6 +34,9 @@ public class AulaService {
     private final EmailSender emailService;
 
     @Autowired
+    private ValidadorAulaAtiva validadorAulaAtiva;
+
+    @Autowired
     List<ValidadorAgendamentoAula> validadores;
 
     @Autowired
@@ -51,18 +54,6 @@ public class AulaService {
     }
 
     public AulaEntity agendarAula(AulaDTO dto) {
-        if(!alunoRepository.existePorNome(dto.alunoNome())) {
-            throw new ValidacaoException("Não existe aluno com esse nome!");
-        }
-
-        if(!professorRepository.existePorNome(dto.professorNome())) {
-            throw new ValidacaoException("Não existe professor com esse nome!");
-        }
-
-        if(!salaRepository.existePorNome(dto.salaNome())) {
-            throw new ValidacaoException("Não existe sala com esse nome!");
-        }
-
         validadores.forEach(v -> v.validar(dto));
 
         AulaEntity aula = new AulaEntity(dto);
@@ -81,10 +72,7 @@ public class AulaService {
     }
 
     public void cancelarAula(AulaCancelamentoDTO dto) {
-        if(!aulaRepository.existePorId(dto.id())) {
-            throw new ValidacaoException("Não existe aula marcada com esse ID!");
-        }
-
+        validadorAulaAtiva.validar(dto.id());
         validadoresCancelamento.forEach(v -> v.validar(dto));
         
         AulaEntity aulaCancelada = aulaRepository.buscarPorId(dto.id());
@@ -100,10 +88,7 @@ public class AulaService {
     }
 
     public AulaEntity reagendarAula(AulaAtualizacaoDTO dto) {
-        if(!aulaRepository.existePorId(dto.aulaId())) {
-            throw new ValidacaoException("Não existe aula marcada com esse ID!");
-        }
-
+        validadorAulaAtiva.validar(dto.aulaId());
         validadoresReagendamento.forEach(v -> v.validar(dto));
 
         AulaEntity aulaReagendada = aulaRepository.buscarPorId(dto.aulaId());
@@ -140,12 +125,8 @@ public class AulaService {
     }
 
     public AulaEntity buscarAulaPorId(Long id) {
-        AulaEntity aula = aulaRepository.buscarPorIdEMotivoCancelamentoNull(id);
-
-        if(aula == null) {
-            throw new ValidacaoException("Não existe aula marcada com esse ID!");
-        }
-
+        validadorAulaAtiva.validar(id);
+        AulaEntity aula = aulaRepository.buscarPorId(id);
         return aula;
     }
 }

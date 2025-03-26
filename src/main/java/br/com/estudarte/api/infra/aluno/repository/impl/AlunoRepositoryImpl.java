@@ -45,11 +45,6 @@ public class AlunoRepositoryImpl implements AlunoRepository {
     }
 
     @Override
-    public List<String> buscarTodosPorProfessor(ProfessorEntity professor) {
-        return jpaRepository.findAllByProfessor(professor);
-    }
-
-    @Override
     public Page<AlunoEntity> buscarTodosPorAtivoTrue(Pageable paginacao) {
         return jpaRepository.findAllByAtivoTrue(paginacao);
     }

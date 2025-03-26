@@ -3,7 +3,9 @@ package br.com.estudarte.api.application.aluno.validacoes;
 import br.com.estudarte.api.application.aluno.gateway.AlunoRepository;
 import br.com.estudarte.api.infra.aluno.AlunoEntity;
 import br.com.estudarte.api.infra.exception.ValidacaoException;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ValidadorAlunoAtivo {
 
     private final AlunoRepository alunoRepository;

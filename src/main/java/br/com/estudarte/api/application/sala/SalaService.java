@@ -3,8 +3,9 @@ package br.com.estudarte.api.application.sala;
 import br.com.estudarte.api.application.sala.dto.SalaDTO;
 import br.com.estudarte.api.application.sala.dto.SalaDetalhadamentoDTO;
 import br.com.estudarte.api.application.sala.dto.SalaReservaDTO;
-import br.com.estudarte.api.application.sala.validacoes.ValidadorReservaSala;
-import br.com.estudarte.api.infra.exception.ValidacaoException;
+import br.com.estudarte.api.application.sala.validacoes.ValidadorSalaId;
+import br.com.estudarte.api.application.sala.validacoes.ValidadorSalaNome;
+import br.com.estudarte.api.application.sala.validacoes.reserva.ValidadorReservaSala;
 import br.com.estudarte.api.infra.sala.SalaEntity;
 import br.com.estudarte.api.application.sala.gateway.SalaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,12 @@ public class SalaService {
     private final List<ValidadorReservaSala> validadores;
 
     @Autowired
+    private ValidadorSalaNome validadorSalaNome;
+
+    @Autowired
+    private ValidadorSalaId validadorSalaId;
+
+    @Autowired
     public SalaService(SalaRepository salaRepository, List<ValidadorReservaSala> validadores) {
         this.salaRepository = salaRepository;
         this.validadores = validadores;
@@ -28,21 +35,14 @@ public class SalaService {
 
 
     public SalaEntity registrarSala(SalaDTO dto) {
+        validadorSalaNome.validar(dto.nome());
         SalaEntity sala = new SalaEntity(dto);
-
-        if(salaRepository.existePorNome(dto.nome())) {
-            throw new ValidacaoException("Já existe uma sala com esse nome!");
-        } else {
-            salaRepository.salvar(sala);
-            return sala;
-        }
+        salaRepository.salvar(sala);
+        return sala;
     }
 
     public SalaEntity reservarSala(SalaReservaDTO dto) {
-        if (!salaRepository.existePorIdEAtivoTrue(dto.idSala())) {
-            throw new ValidacaoException("Não existe sala com esse ID!");
-        }
-
+        validadorSalaId.validar(dto.idSala());
         validadores.forEach(v -> v.validar(dto));
 
         SalaEntity sala = salaRepository.buscarPorId(dto.idSala());
@@ -51,10 +51,7 @@ public class SalaService {
     }
 
     public void deletarSala(Long id) {
-        if (!salaRepository.existePorIdEAtivoTrue(id)) {
-            throw new ValidacaoException("Não existe sala com esse ID!");
-        }
-
+        validadorSalaId.validar(id);
         SalaEntity sala = salaRepository.buscarPorId(id);
         sala.deletar();
         salaRepository.salvar(sala);

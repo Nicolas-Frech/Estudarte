@@ -29,11 +29,6 @@ public class AulaRepositoryImpl implements AulaRepository {
     }
 
     @Override
-    public boolean existePorId(Long id) {
-        return jpaRepository.existsById(id);
-    }
-
-    @Override
     public AulaEntity buscarPorId(Long id) {
         return entityManager.getReference(AulaEntity.class, id);
     }
@@ -54,11 +49,6 @@ public class AulaRepositoryImpl implements AulaRepository {
     }
 
     @Override
-    public AulaEntity buscarPorIdEMotivoCancelamentoNull(Long id) {
-        return jpaRepository.findByIdAndMotivoCancelamentoIsNull(id);
-    }
-
-    @Override
     public boolean existePorProfessorNomeEDataEMotivoCancelamentoNull(String nome, LocalDateTime data) {
         return jpaRepository.existsByProfessorNomeAndDataAndMotivoCancelamentoIsNull(nome, data);
     }
@@ -71,5 +61,10 @@ public class AulaRepositoryImpl implements AulaRepository {
     @Override
     public boolean existePorDataEIdEMotivoCancelamentoNull(LocalDateTime data, Long id) {
         return jpaRepository.existsByDataAndIdAndMotivoCancelamentoIsNull(data, id);
+    }
+
+    @Override
+    public boolean existePorIdEMotivoCancelamentoNull(Long id) {
+        return jpaRepository.existsByIdAndMotivoCancelamentoIsNull(id);
     }
 }
